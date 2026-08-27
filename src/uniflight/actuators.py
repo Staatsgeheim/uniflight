@@ -119,3 +119,54 @@ class CommandedBodyTorque:
         cmd = np.asarray(self.bus.torque_b, dtype=float)
         torque = np.clip(cmd, -self.max_torque_b, self.max_torque_b)
         return Wrench(np.zeros(3), torque, self.source)
+
+@dataclass(frozen=True, slots=True)
+class SecondOrderLimitedStateActuator:
+    """Second-order servo with position, velocity and acceleration limits."""
+    position_key: str
+    rate_key: str
+    command: float | CommandProvider
+    natural_frequency_hz: float
+    damping_ratio: float
+    lower: float
+    upper: float
+    rate_limit: float = np.inf
+    acceleration_limit: float = np.inf
+
+    def __post_init__(self) -> None:
+        if not np.isfinite(self.natural_frequency_hz) or self.natural_frequency_hz <= 0:
+            raise ValueError("natural_frequency_hz must be finite and positive")
+        if not np.isfinite(self.damping_ratio) or self.damping_ratio < 0:
+            raise ValueError("damping_ratio must be finite and non-negative")
+        if not (np.isfinite(self.lower) and np.isfinite(self.upper) and self.upper > self.lower):
+            raise ValueError("actuator bounds must be finite and increasing")
+        for name in ("rate_limit", "acceleration_limit"):
+            v = float(getattr(self, name))
+            if not (np.isfinite(v) or np.isinf(v)) or v <= 0:
+                raise ValueError(f"{name} must be positive")
+
+    def command_value(self, state: StateView) -> float:
+        u = float(self.command(state) if callable(self.command) else self.command)
+        if not np.isfinite(u):
+            raise ValueError("actuator command is non-finite")
+        return float(np.clip(u, self.lower, self.upper))
+
+    def __call__(self, state: StateView) -> float:
+        """Return the physically bounded actuator position for plant closures."""
+        return float(np.clip(state.get(self.position_key), self.lower, self.upper))
+
+    def derivatives(self, state: StateView) -> dict[str, float]:
+        x = float(state.get(self.position_key))
+        v = float(state.get(self.rate_key))
+        u = self.command_value(state)
+        wn = 2.0*np.pi*self.natural_frequency_hz
+        a = wn*wn*(u-x) - 2.0*self.damping_ratio*wn*v
+        a = float(np.clip(a, -self.acceleration_limit, self.acceleration_limit))
+        dx = float(np.clip(v, -self.rate_limit, self.rate_limit))
+        if x <= self.lower and dx < 0:
+            dx = 0.0
+            if v < 0 and a < 0: a = 0.0
+        if x >= self.upper and dx > 0:
+            dx = 0.0
+            if v > 0 and a > 0: a = 0.0
+        return {self.position_key: dx, self.rate_key: a}

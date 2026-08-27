@@ -1,93 +1,28 @@
-# UniFlight — Milestone I Multi-Vehicle / Multi-DOF Runtime
+# UniFlight — Milestone J Engineering Subsystem Dynamics
 
-UniFlight **0.9.0** adds a global event-synchronized multi-vehicle universe on top of the complete A–H simulation, GNC, Monte Carlo, and trajectory-optimization stack.
+UniFlight **0.10.0** adds flexible-body modes, propellant slosh, second-order engine/actuator dynamics, control-structure-interaction hooks, stateful landing gear, deterministic fault injection, and explicit subsystem-coupling adapters on top of the complete A–I celestial-body-agnostic flight stack.
 
-Milestone I is the POST2-parity step that removes the assumption that a mission contains one fixed state vector. Vehicle count, state dimension, DOF, dynamics, events, environment/GNC closure, and integrator may now differ by vehicle and change during flight.
+Milestone J is the POST2-parity step that moves the vehicle model beyond a perfectly rigid vehicle with ideal subsystem response.
 
-## New in I
+## New in J
 
-- `MultiVehicleUniverseEngine` with one global hybrid-event timeline
-- arbitrary simultaneous active vehicle count
-- per-vehicle state schema, RHS, events, integrator, mode, DOF, and model context
-- dynamic vehicle spawn/remove/replace mutations
-- schema-tagged piecewise vehicle trajectory histories
-- global synchronization at the earliest event across all vehicles
-- deterministic simultaneous-event priority semantics
-- 3-DOF -> 6-DOF promotion and 6-DOF -> 3-DOF projection
-- runtime `DOFSwitchHandler`
-- rigid two-body 6-DOF separation with COM offsets and inherited `omega x r` velocity
-- linear- and angular-momentum-conserving separation correction
-- `RigidSeparationHandler` for direct topology-changing staging events
-- adaptive dense-output and fixed-step resynchronization paths
-- 11 new Milestone-I tests; **88/88 total tests pass in bounded groups**
+- composable `augment_engineering_schema()` for core/entry/EDL/GNC states
+- `ModalFlexibleBody` linear structural modes
+- torque-to-modal-force participation matrices
+- flexible point/station translation and rotation maps
+- flexible attitude/rate sensor for low-order control-structure interaction
+- `LinearSloshSubsystem` with reaction force/moment feedback
+- explicit selected-wrench -> body-specific-force slosh excitation
+- second-order normalized `EngineTransient`
+- second-order position/rate/acceleration-limited servo actuator
+- stateful `DynamicLandingGear` strut compression/rebound
+- deterministic gain, bias, stuck, and dropout fault windows
+- wrench-level fault injection
+- `SubsystemBundle` composition helper
+- coupled Nereid-J engineering-subsystem reference simulation
+- **98/98 total verification tests pass in bounded groups**
 
-Package version: **0.9.0**.
-
-## Install
-
-```bash
-python -m pip install -e . --no-build-isolation
-```
-
-## Run the I reference mission
-
-```bash
-PYTHONPATH=src python examples/multivehicle_mission.py \
-  --output reports/i_reference.json
-```
-
-The fictional Nereid-I reference mission begins with one 6-DOF stack, separates at 5 s into concurrently propagated upper and booster vehicles, and switches the upper vehicle from 6-DOF to 3-DOF at 8 s while the booster remains 6-DOF.
-
-## Minimal universe pattern
-
-```python
-engine = MultiVehicleUniverseEngine()
-result = engine.run((0.0, 600.0), (vehicle_a, vehicle_b))
-
-for vehicle_id, snapshot in result.final_vehicles.items():
-    print(vehicle_id, snapshot.mode, snapshot.dof)
-```
-
-Topology changes are returned by vehicle event handlers as `UniverseMutation(remove=..., upsert=...)`. A new `VehicleSpec` can therefore be a spawned vehicle or a replacement configuration for an existing vehicle ID.
-
-## Documents
-
-- `MILESTONE_I.md` — multi-vehicle/multi-DOF runtime semantics
-- `MILESTONE_H.md` — trajectory targeting and optimization
-- `VERIFICATION.md` — complete regression/acceptance record
-- `reports/i_reference.json` — deterministic multi-vehicle reference output
-
-## Project scope
-
-The project goal remains functional/architectural proximity to NASA POST2 while explicitly **not claiming** real-mission validation, flight heritage, or certification/independent-IV&V pedigree.
-
----
-
-## Previous Milestone H overview
-
-
-UniFlight **0.8.0** adds a general trajectory-design layer to the complete A–G/F.1 celestial-body-agnostic simulation stack.
-
-Milestone H is the first major step from “simulate a mission” toward the POST2-style workflow of **target, constrain, and optimize a mission**.
-
-## New in H
-
-- bounded/scaled design-variable system
-- black-box `TrajectoryProblem` evaluator interface
-- named scalar/vector objectives and nonlinear constraints
-- equality and inequality constraints
-- nonlinear least-squares trajectory targeting
-- event-state/event-time targeting through ordinary evaluator metrics
-- constrained SLSQP optimization
-- derivative-free COBYLA fallback
-- bound-aware finite-difference Jacobians
-- exact-value LRU evaluation cache
-- multiple-shooting continuity-defect transcription
-- process-parallel independent candidate evaluation
-- deterministic Nereid-H simulation-based targeting/optimization reference case
-- 10 new H verification tests
-
-Package version: **0.8.0**.
+Package version: **0.10.0**.
 
 ## Install
 
@@ -102,65 +37,53 @@ Dependencies:
 - SciPy >= 1.13
 - pytest >= 8 for development
 
-## Run the H reference trajectory design
+## Run the J reference cases
 
 ```bash
-PYTHONPATH=src python examples/trajectory_optimization.py \
-  --output reports/h_reference.json
+PYTHONPATH=src python examples/engineering_subsystems.py \
+  --output reports/j_reference.json
 ```
 
-The example performs two independent tasks on fictional body Nereid-H:
+The example contains a coupled engine/TVC/flex/slosh/fault case and a separate dynamic landing-gear drop/rebound case on fictional body Nereid-J.
 
-1. target burn duration at fixed mass flow to a 20 km apogee;
-2. minimize propellant with mass flow + burn time as design variables while constraining apogee to exactly 20 km.
-
-Typical optimized solution is approximately:
-
-- `mdot`: 8 kg/s (upper design bound)
-- burn time: 3.69 s
-- propellant: 29.5 kg
-- apogee: 20,000 m
-
-The result is physically sensible: higher thrust reduces gravity loss in this constrained radial-burn problem.
-
-## Public optimization pattern
+## Minimal engineering-subsystem pattern
 
 ```python
-space = DesignSpace([
-    DesignVariable("burn_time", 10.0, 1.0, 100.0, scale=10.0),
-    DesignVariable("throttle", 0.8, 0.0, 1.0),
-])
-
-problem = TrajectoryProblem(
-    space,
-    evaluator=my_mission_simulation,
-    objective=MetricObjective("propellant_used", "minimize"),
-    constraints=(
-        MetricConstraint("final_altitude", lower=100_000.0),
-        MetricConstraint("final_flight_path_angle", lower=0.0, upper=0.0),
-        MetricConstraint("max_q", upper=50_000.0),
-    ),
+schema = augment_engineering_schema(
+    core_6dof_schema(),
+    flex_modes=2,
+    slosh_modes=1,
 )
 
-result = TrajectoryOptimizer().solve(problem)
+engine_transient = EngineTransient(command=1.0)
+engine = GimballedRocketEngine(
+    environment,
+    mass_properties,
+    exhaust_velocity=2400.0,
+    mdot_exhaust=1.2,
+    throttle=engine_transient,
+)
+
+flex = ModalFlexibleBody([3.0, 7.5], [0.02, 0.03])
+slosh = LinearSloshSubsystem(...)
+
+rigid = RigidBody6DOFDynamics(
+    mass_properties,
+    gravity=body.gravity,
+    wrench_models=(engine, slosh),
+)
 ```
-
-The evaluator can run any UniFlight mission model and simply returns named metrics.
-
-## Verification
-
-Milestone H defines **77 tests** total: the prior 67 A–G tests plus 10 new H targeting/optimization tests.
-
-In constrained environments, run them in bounded groups; see `VERIFICATION.md`.
 
 ## Documents
 
-- `MILESTONE_H.md` — design rationale and boundaries
-- `VERIFICATION.md` — regression and H acceptance record
-- `MILESTONE_G.md` — preceding robust-terminal-GNC work
-- `PERFORMANCE.md` — F.1 Monte Carlo performance architecture
-- `FULL_SCALE_VALIDATION_G.md` — workstation G robustness campaign
+- `MILESTONE_J.md` — subsystem mathematics, coupling semantics, and boundaries
+- `MILESTONE_I.md` — multi-vehicle/multi-DOF runtime
+- `MILESTONE_H.md` — trajectory targeting and optimization
+- `VERIFICATION.md` — complete J regression/acceptance record
+- `reports/j_reference.json` — deterministic J reference output
 
 ## Project scope
 
-The project goal is functional/architectural proximity to NASA POST2 while explicitly **not claiming** real-mission validation, flight heritage, or certification/independent-IV&V pedigree.
+The project target remains functional/architectural proximity to NASA POST2 while explicitly **not claiming** real-mission validation, flight heritage, or certification/independent-IV&V pedigree.
+
+The next roadmap item is **Milestone K — General Engineering Data System**: arbitrary N-dimensional engineering tables, interpolation/extrapolation policies, validity envelopes, uncertainty metadata, aero/aerothermal/propulsion/material datasets, gravity/terrain datasets, and provenance-aware model lookup.

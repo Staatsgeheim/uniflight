@@ -1,6 +1,6 @@
 """UniFlight Milestone I: celestial-body-agnostic multi-vehicle, multi-DOF flight dynamics."""
 
-__version__ = "0.9.0"
+__version__ = "0.10.0"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -179,4 +179,30 @@ __all__ += [
     "UniverseResult", "MultiVehicleUniverseEngine",
     "VehicleConfiguration", "DOFSwitchHandler", "RigidChildTemplate", "RigidSeparationHandler",
     "RigidSeparatedBodyState", "RigidTwoBodySeparationResult", "separate_two_rigid_bodies",
+]
+
+# Milestone J: engineering subsystem dynamics
+from .state import augment_engineering_schema, engineering_6dof_schema
+from .actuators import SecondOrderLimitedStateActuator
+from .engine_dynamics import EngineTransient
+from .flexibility import (
+    ModalFlexibleBody, TorqueToModalForce, FlexiblePointKinematics,
+    FlexibleAttitudeRateSensor,
+)
+from .slosh import LinearSloshSubsystem
+from .gear_dynamics import DynamicGearLeg, DynamicLandingGear
+from .faults import (
+    FaultMode, FaultWindow, ScalarFaultSchedule, FaultedScalarProvider,
+    FaultedWrenchModel,
+)
+from .subsystems import SubsystemBundle, WrenchSpecificForceBodyProvider
+
+__all__ += [
+    "augment_engineering_schema", "engineering_6dof_schema",
+    "SecondOrderLimitedStateActuator", "EngineTransient",
+    "ModalFlexibleBody", "TorqueToModalForce", "FlexiblePointKinematics",
+    "FlexibleAttitudeRateSensor", "LinearSloshSubsystem",
+    "DynamicGearLeg", "DynamicLandingGear",
+    "FaultMode", "FaultWindow", "ScalarFaultSchedule", "FaultedScalarProvider",
+    "FaultedWrenchModel", "SubsystemBundle", "WrenchSpecificForceBodyProvider",
 ]

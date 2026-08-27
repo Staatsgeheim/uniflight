@@ -6,7 +6,7 @@ from typing import Mapping
 import json
 import numpy as np
 
-from .units import DIMENSIONLESS, LENGTH, VELOCITY, MASS, ANGLE, ANGULAR_RATE, TEMPERATURE, AREAL_ENERGY, UnitDimension
+from .units import DIMENSIONLESS, LENGTH, VELOCITY, MASS, ANGLE, ANGULAR_RATE, RATE, TEMPERATURE, AREAL_ENERGY, UnitDimension
 
 @dataclass(frozen=True, slots=True)
 class StateField:
@@ -157,3 +157,53 @@ def gnc_edl_6dof_schema() -> StateSchema:
         StateField("pitch_gimbal_actuator", (), ANGLE, None, owner="pitch-actuator"),
         StateField("yaw_gimbal_actuator", (), ANGLE, None, owner="yaw-actuator"),
     ])
+
+
+
+def augment_engineering_schema(base_schema: StateSchema, *, flex_modes: int = 0,
+                               slosh_modes: int = 0, gear_legs: int = 0,
+                               engine_dynamics: bool = True,
+                               second_order_gimbals: bool = True) -> StateSchema:
+    """Append Milestone-J subsystem states to any existing vehicle schema.
+
+    This preserves the project's compositional state philosophy: engineering
+    subsystem states can augment a core, entry, EDL, or GNC schema instead of
+    forcing every vehicle into one monolithic state layout.
+    """
+    for name, n in (("flex_modes", flex_modes), ("slosh_modes", slosh_modes), ("gear_legs", gear_legs)):
+        if int(n) != n or n < 0:
+            raise ValueError(f"{name} must be a non-negative integer")
+    fields = list(base_schema.fields)
+    keys = {f.key for f in fields}
+    def add(field: StateField) -> None:
+        if field.key in keys:
+            return
+        fields.append(field); keys.add(field.key)
+    if flex_modes:
+        add(StateField("flex_displacement", (int(flex_modes),), LENGTH, "modal", owner="flexibility"))
+        add(StateField("flex_velocity", (int(flex_modes),), VELOCITY, "modal", owner="flexibility"))
+    if slosh_modes:
+        add(StateField("slosh_displacement", (int(slosh_modes),), LENGTH, "B-modal", owner="slosh"))
+        add(StateField("slosh_velocity", (int(slosh_modes),), VELOCITY, "B-modal", owner="slosh"))
+    if engine_dynamics:
+        add(StateField("engine_power", (), DIMENSIONLESS, None, owner="engine-transient"))
+        add(StateField("engine_power_rate", (), RATE, None, owner="engine-transient"))
+    if second_order_gimbals:
+        add(StateField("pitch_gimbal_actuator", (), ANGLE, None, owner="pitch-actuator"))
+        add(StateField("yaw_gimbal_actuator", (), ANGLE, None, owner="yaw-actuator"))
+        add(StateField("pitch_gimbal_rate", (), ANGULAR_RATE, None, owner="pitch-actuator"))
+        add(StateField("yaw_gimbal_rate", (), ANGULAR_RATE, None, owner="yaw-actuator"))
+    if gear_legs:
+        add(StateField("gear_deployment", (), DIMENSIONLESS, None, owner="gear"))
+        add(StateField("gear_compression", (int(gear_legs),), LENGTH, "gear", owner="dynamic-gear"))
+        add(StateField("gear_compression_rate", (int(gear_legs),), VELOCITY, "gear", owner="dynamic-gear"))
+    return StateSchema(fields)
+
+
+def engineering_6dof_schema(*, flex_modes: int = 2, slosh_modes: int = 2,
+                             gear_legs: int = 3) -> StateSchema:
+    """Convenience Milestone-J engineering schema built on the 6-DOF core."""
+    return augment_engineering_schema(
+        core_6dof_schema(), flex_modes=flex_modes, slosh_modes=slosh_modes,
+        gear_legs=gear_legs, engine_dynamics=True, second_order_gimbals=True,
+    )

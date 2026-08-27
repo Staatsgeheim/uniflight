@@ -1,0 +1,23 @@
+{
+  "uniflight_version": "0.10.0",
+  "powered_subsystems": {
+    "body": "Nereid-J",
+    "duration_s": 6.0,
+    "final_altitude_m": 118.15815206198022,
+    "final_speed_mps": 4.315218246489927,
+    "final_mass_kg": 493.6023212131138,
+    "final_engine_power": 0.9999999996739143,
+    "max_abs_pitch_gimbal_rad": 0.040218947124796296,
+    "max_flex_displacement_m": 0.015429607289473164,
+    "max_slosh_displacement_m": 0.008929765900958585,
+    "max_body_rate_rad_s": 8.372955444117576,
+    "minimum_engine_power_during_fault": 0.700001494399357
+  },
+  "dynamic_gear_drop": {
+    "duration_s": 1.0,
+    "max_strut_compression_m": 0.09247553509392716,
+    "final_strut_compression_m": 2.7004162563059954e-06,
+    "final_radial_velocity_mps": 1.2448860946842002,
+    "final_cg_agl_m": 1.934886828996241
+  }
+}
