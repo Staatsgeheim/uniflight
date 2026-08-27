@@ -1,6 +1,6 @@
-"""UniFlight Milestone H: celestial-body-agnostic flight dynamics with targeting and optimization."""
+"""UniFlight Milestone I: celestial-body-agnostic multi-vehicle, multi-DOF flight dynamics."""
 
-__version__ = "0.8.0"
+__version__ = "0.9.0"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -156,4 +156,27 @@ __all__ += [
     "BODY_H", "MASS0_H", "VE_H", "TARGET_APOGEE_H",
     "evaluate_radial_ascent", "evaluate_radial_ascent_event",
     "build_radial_ascent_targeter", "build_radial_ascent_optimizer",
+]
+
+# Milestone I: true multi-vehicle / multi-DOF runtime
+from .dof import map_state_fields, demote_6dof_to_3dof, promote_3dof_to_6dof, DOFTransition
+from .universe import (
+    VehicleEvent, VehicleSpec, VehicleSnapshot, UniverseEventContext,
+    UniverseMutation, VehicleTrajectorySegment, UniverseEventOccurrence,
+    UniverseResult, MultiVehicleUniverseEngine,
+)
+from .multibody import (
+    VehicleConfiguration, DOFSwitchHandler, RigidChildTemplate, RigidSeparationHandler,
+)
+from .separation import (
+    RigidSeparatedBodyState, RigidTwoBodySeparationResult, separate_two_rigid_bodies,
+)
+
+__all__ += [
+    "map_state_fields", "demote_6dof_to_3dof", "promote_3dof_to_6dof", "DOFTransition",
+    "VehicleEvent", "VehicleSpec", "VehicleSnapshot", "UniverseEventContext",
+    "UniverseMutation", "VehicleTrajectorySegment", "UniverseEventOccurrence",
+    "UniverseResult", "MultiVehicleUniverseEngine",
+    "VehicleConfiguration", "DOFSwitchHandler", "RigidChildTemplate", "RigidSeparationHandler",
+    "RigidSeparatedBodyState", "RigidTwoBodySeparationResult", "separate_two_rigid_bodies",
 ]

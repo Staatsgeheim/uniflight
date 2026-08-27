@@ -1,0 +1,43 @@
+{
+  "body": "Nereid-I",
+  "events": [
+    {
+      "time_s": 5.0,
+      "vehicle": "stack",
+      "event": "stage_separation",
+      "note": "stage separation",
+      "active_after": [
+        "booster",
+        "upper"
+      ]
+    },
+    {
+      "time_s": 8.0,
+      "vehicle": "upper",
+      "event": "upper_demote",
+      "note": "upper 6DOF -> 3DOF coast",
+      "active_after": [
+        "booster",
+        "upper"
+      ]
+    }
+  ],
+  "final": {
+    "upper": {
+      "mode": "upper-coast-3dof",
+      "dof": 3,
+      "altitude_m": 5775.844176936196,
+      "speed_mps": 637.8933729808211,
+      "mass_kg": 4000.0,
+      "segments": 2
+    },
+    "booster": {
+      "mode": "booster-6dof",
+      "dof": 6,
+      "altitude_m": 5771.351679728483,
+      "speed_mps": 639.6804612807294,
+      "mass_kg": 6000.0,
+      "segments": 2
+    }
+  }
+}

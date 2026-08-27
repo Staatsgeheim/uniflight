@@ -87,3 +87,75 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
 - derivative-free fallback does not silently relax declared constraints beyond the explicit tolerance
 - multiple-shooting defects follow `Phi_i(x_i,p)-x_(i+1)`
 - parallel candidate results preserve deterministic input ordering
+
+---
+
+# Milestone I Addendum — UniFlight 0.9.0
+
+Milestone I preserves all 77 A–H cases and adds 11 multi-vehicle/multi-DOF runtime cases.
+
+## New I cases (78–88)
+
+78. 3-DOF -> 6-DOF promotion and exact translational round-trip projection
+79. zero-velocity promotion requires explicit attitude
+80. concurrent propagation of two vehicles with distinct dynamics/model contexts
+81. earliest global event synchronizes a non-triggering vehicle and propagation continues
+82. dynamic parent removal + child spawn changes active topology
+83. 3-DOF -> 6-DOF runtime schema/configuration switch with stable vehicle ID
+84. rigid two-body separation conserves linear and angular momentum
+85. rigid-separation universe handler replaces parent with two active 6-DOF daughters
+86. simultaneous-event priority suppresses lower-priority guards from a replaced generation
+87. 6-DOF -> 3-DOF runtime switch
+88. fixed-step RK4 vehicle resynchronization fallback at a global event
+
+## Bounded regression execution
+
+```bash
+# A–E physics
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \\
+  tests/test_state_and_frames.py tests/test_gravity.py tests/test_rocket.py \\
+  tests/test_events.py tests/test_attitude.py tests/test_atmosphere.py \\
+  tests/test_flow_aero_propulsion.py tests/test_atmospheric_ascent.py \\
+  tests/test_6dof_flow_and_aero.py tests/test_6dof_dynamics_and_tvc.py \\
+  tests/test_6dof_atmospheric_flight.py tests/test_entry_reentry.py tests/test_edl.py
+# 47/47 passed
+
+# F/F.1/G GNC and robustness
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \\
+  tests/test_gnc_robustness.py tests/test_f1_performance.py tests/test_g_terminal_robustness.py
+# 20/20 passed
+
+# H + I
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \\
+  tests/test_h_optimization.py tests/test_i_multivehicle.py
+# 21/21 passed
+```
+
+Total: **88/88 passed in bounded groups**.
+
+## I reference output
+
+The Nereid-I reference mission produced:
+
+- `stage_separation` at exactly 5.0 s;
+- active set after separation: `booster`, `upper`;
+- `upper_demote` at exactly 8.0 s;
+- upper final mode: `upper-coast-3dof`;
+- booster final mode: `booster-6dof`;
+- upper final altitude: ~5775.84 m;
+- booster final altitude: ~5771.35 m;
+- both propagated through one universe to 20 s.
+
+## Acceptance invariants
+
+- active vehicle IDs are unique;
+- every universe event has one global timestamp;
+- all vehicles are synchronized to that time before topology mutation;
+- trajectory segments retain their own schema and DOF metadata;
+- vehicle-local RHS/model closures are never merged into a universal fixed state vector;
+- upsert replacement begins a new configuration generation;
+- old-generation simultaneous guards do not execute against a replacement generation;
+- daughter masses sum to parent mass;
+- rigid separation enforces daughter COM consistency;
+- reference rigid separation conserves linear and angular momentum to numerical precision;
+- both adaptive dense-output and fixed-step no-dense-output vehicles can participate in the same event-synchronization semantics.

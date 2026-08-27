@@ -1,4 +1,70 @@
-# UniFlight — Milestone H Targeting & Trajectory Optimization
+# UniFlight — Milestone I Multi-Vehicle / Multi-DOF Runtime
+
+UniFlight **0.9.0** adds a global event-synchronized multi-vehicle universe on top of the complete A–H simulation, GNC, Monte Carlo, and trajectory-optimization stack.
+
+Milestone I is the POST2-parity step that removes the assumption that a mission contains one fixed state vector. Vehicle count, state dimension, DOF, dynamics, events, environment/GNC closure, and integrator may now differ by vehicle and change during flight.
+
+## New in I
+
+- `MultiVehicleUniverseEngine` with one global hybrid-event timeline
+- arbitrary simultaneous active vehicle count
+- per-vehicle state schema, RHS, events, integrator, mode, DOF, and model context
+- dynamic vehicle spawn/remove/replace mutations
+- schema-tagged piecewise vehicle trajectory histories
+- global synchronization at the earliest event across all vehicles
+- deterministic simultaneous-event priority semantics
+- 3-DOF -> 6-DOF promotion and 6-DOF -> 3-DOF projection
+- runtime `DOFSwitchHandler`
+- rigid two-body 6-DOF separation with COM offsets and inherited `omega x r` velocity
+- linear- and angular-momentum-conserving separation correction
+- `RigidSeparationHandler` for direct topology-changing staging events
+- adaptive dense-output and fixed-step resynchronization paths
+- 11 new Milestone-I tests; **88/88 total tests pass in bounded groups**
+
+Package version: **0.9.0**.
+
+## Install
+
+```bash
+python -m pip install -e . --no-build-isolation
+```
+
+## Run the I reference mission
+
+```bash
+PYTHONPATH=src python examples/multivehicle_mission.py \
+  --output reports/i_reference.json
+```
+
+The fictional Nereid-I reference mission begins with one 6-DOF stack, separates at 5 s into concurrently propagated upper and booster vehicles, and switches the upper vehicle from 6-DOF to 3-DOF at 8 s while the booster remains 6-DOF.
+
+## Minimal universe pattern
+
+```python
+engine = MultiVehicleUniverseEngine()
+result = engine.run((0.0, 600.0), (vehicle_a, vehicle_b))
+
+for vehicle_id, snapshot in result.final_vehicles.items():
+    print(vehicle_id, snapshot.mode, snapshot.dof)
+```
+
+Topology changes are returned by vehicle event handlers as `UniverseMutation(remove=..., upsert=...)`. A new `VehicleSpec` can therefore be a spawned vehicle or a replacement configuration for an existing vehicle ID.
+
+## Documents
+
+- `MILESTONE_I.md` — multi-vehicle/multi-DOF runtime semantics
+- `MILESTONE_H.md` — trajectory targeting and optimization
+- `VERIFICATION.md` — complete regression/acceptance record
+- `reports/i_reference.json` — deterministic multi-vehicle reference output
+
+## Project scope
+
+The project goal remains functional/architectural proximity to NASA POST2 while explicitly **not claiming** real-mission validation, flight heritage, or certification/independent-IV&V pedigree.
+
+---
+
+## Previous Milestone H overview
+
 
 UniFlight **0.8.0** adds a general trajectory-design layer to the complete A–G/F.1 celestial-body-agnostic simulation stack.
 
