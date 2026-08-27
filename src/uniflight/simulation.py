@@ -15,7 +15,7 @@ class SimulationResult:
     message: str
 
 class SimulationEngine:
-    def __init__(self, rhs, integrator: ScipyIVPIntegrator | None = None):
+    def __init__(self, rhs, integrator=None):
         self.rhs = rhs
         self.integrator = integrator or ScipyIVPIntegrator()
 

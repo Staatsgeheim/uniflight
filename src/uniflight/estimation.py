@@ -127,7 +127,16 @@ class TranslationalNavigationEKF:
             [0.25*dt**4*I3, 0.5*dt**3*I3],
             [0.5*dt**3*I3, dt**2*I3],
         ])
-        self.filter.predict(fn, Q)
+        # Use an analytical discrete Jacobian when the gravity model exposes
+        # its gradient. This avoids 12+ gravity evaluations at every GNC tick.
+        F = None
+        if hasattr(self.gravity, "jacobian"):
+            G = np.asarray(self.gravity.jacobian(self.filter.x[:3], 0.0), dtype=float)
+            F = np.block([
+                [I3 + 0.5*dt*dt*G, dt*I3],
+                [dt*G, I3],
+            ])
+        self.filter.predict(fn, Q, jacobian=F)
 
     def update_position_velocity(self, measurement: SensorMeasurement) -> EKFUpdate:
         H = np.eye(6)

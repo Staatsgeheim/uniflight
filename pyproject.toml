@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
-version = "0.6.0"
-description = "Milestone F sampled-data GNC and robustness layer for a celestial-body-agnostic hybrid flight dynamics engine"
+version = "0.6.1"
+description = "Milestone F.1 performance and parallel Monte Carlo layer for a celestial-body-agnostic hybrid flight dynamics engine"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13"]
 readme = "README.md"

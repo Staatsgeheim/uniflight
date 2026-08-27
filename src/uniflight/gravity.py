@@ -23,3 +23,11 @@ class PointMassGravity:
         if rnorm <= 0:
             raise ValueError("Point-mass potential undefined at r=0")
         return -self.mu / rnorm
+
+    def jacobian(self, position_i: np.ndarray, time: float = 0.0) -> np.ndarray:
+        """Analytical gravity-gradient matrix da/dr for point-mass gravity."""
+        r = np.asarray(position_i, dtype=float)
+        rnorm = np.linalg.norm(r)
+        if r.shape != (3,) or rnorm <= 0:
+            raise ValueError("Point-mass gravity Jacobian undefined at invalid position")
+        return self.mu * (3.0*np.outer(r, r)/rnorm**5 - np.eye(3)/rnorm**3)

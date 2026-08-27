@@ -1,60 +1,74 @@
-# Verification Record — UniFlight Milestone F
+# Verification Record — UniFlight Milestone F.1
 
-Milestone F preserves all Milestone A-E regression tests and adds sampled-data GNC, estimation, actuators, aborts, and robustness verification.
+Milestone F.1 preserves the Milestone A–F verification basis and adds deterministic campaign-integration and multiprocessing tests.
 
-## Total suite
+## Defined suite
 
-**59 tests** are defined in `tests/`.
+**63 tests** are defined in `tests/`.
 
-## Milestone F cases
+### Original Milestone F cases (48–59)
 
-48. position/velocity sensor deterministic replay for a fixed seed
-49. noisy attitude sensor preserves unit-quaternion norm
-50. navigation EKF measurement update reduces covariance trace
-51. first-order actuator obeys position and slew-rate limits
-52. quaternion PD controller has zero command at zero error and respects torque saturation
-53. vector landing guidance includes arbitrary-body gravity feedforward and lateral correction
-54. commanded body torque respects componentwise saturation
-55. state-limit abort rule creates a terminal event at the configured threshold
-56. Monte Carlo sampled parameters and stochastic case metrics reproduce exactly for the same base seed
-57. Monte Carlo aggregate statistics and success rate are reported
-58. sampled-data 6-DOF closed-loop landing succeeds with noisy navigation
-59. abort event terminates the closed-loop trajectory before touchdown
+48. position/velocity sensor deterministic replay
+49. noisy attitude sensor preserves quaternion norm
+50. navigation EKF update reduces covariance trace
+51. actuator position/rate limits
+52. quaternion PD zero error and torque saturation
+53. arbitrary-body gravity feedforward/lateral guidance
+54. body torque saturation
+55. abort rule terminal event
+56. deterministic Monte Carlo replay
+57. Monte Carlo statistics
+58. noisy sampled-data 6-DOF landing
+59. abort pre-empts touchdown
 
-## Key invariants / acceptance checks
+### New F.1 cases (60–63)
 
-- GNC execution occurs at explicit monotonically increasing sample times.
-- Commands are held constant between GNC updates.
-- Sensor noise and Monte Carlo dispersions are deterministic for a fixed seed.
-- EKF covariance uses the Joseph update form.
-- Attitude measurements remain normalized.
-- Actuator position and rate constraints are enforced in the continuous plant state.
-- Reference noisy landing terminates on the touchdown event with lateral error < 5 m and radial speed magnitude < 5 m/s in the unit test.
-- Abort threshold events can pre-empt touchdown.
-- All prior A-E verification cases remain regression tests.
+60. fixed-step RK4 detects/refines a terminal hybrid root
+61. analytical point-mass gravity Jacobian matches finite differences
+62. multiprocessing Monte Carlo is exactly identical to serial for the same seed
+63. automatic worker count remains within available-case bounds
 
-## Sandbox acceptance profile
+## Sandbox execution
 
-The bounded run used for the final Milestone F handoff is:
+The sandbox has 5 visible logical CPUs and a strict command wall-clock limit. Verification was therefore split into bounded runs:
 
 ```bash
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_gnc_robustness.py
-PYTHONPATH=src python examples/gnc_monte_carlo.py --nominal-only --sample-period 0.5
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q --ignore=tests/test_gnc_robustness.py
+# 51/51 passed
+
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_f1_performance.py tests/test_gnc_robustness.py
+# 16/16 passed (12 F + 4 F.1)
 ```
 
-Observed sandbox result:
+The complete one-shot `pytest -q` command reached the sandbox timeout after **56 passing tests and zero failures**; the remaining affected tests were then exercised in the bounded groups above.
 
-- Milestone F-specific tests: 12/12 passed
-- nominal trajectory terminated at `touchdown`
-- touchdown time: ~125.046 s
-- lateral error: ~0.0379 m
-- total touchdown speed: ~0.0398 m/s
-- radial touchdown speed: ~-0.0128 m/s
-- final mass: ~370.755 kg
-- GNC updates: 251
+## Numerical backend comparison
 
-A coarse 0.75 s control cadence was also explored during development and materially degraded touchdown performance, so the acceptance profile retains 0.5 s rather than weakening the success criteria. Statistical acceptance is intentionally left to the larger local campaign.
+Nominal Nereid-F landing, 0.5 s GNC cadence:
 
-## Full-scale handoff
+- SciPy DOP853: touchdown ~125.04603 s; final mass ~370.75509 kg
+- fixed RK4 dt=0.1 s: touchdown ~125.04194 s; final mass ~370.75864 kg
+- touchdown-time difference ~4.1 ms
+- final-mass difference ~3.6 g
+- both satisfy the same nominal success criteria
 
-Run the entire test suite and then a larger campaign locally as described in `FULL_SCALE_VALIDATION.md`. The JSON campaign report is sufficient for deterministic replay because it records every case seed, sampled dispersion, and outcome metric.
+## Parallel smoke benchmark
+
+Four identical-seed campaign cases were run once serially and once with four worker processes using RK4 dt=0.1 s:
+
+- serial elapsed: ~9.51 s
+- 4-worker elapsed: ~6.14 s
+- sandbox speedup: ~1.55x
+- per-case JSON records: **exactly identical**
+
+The limited speedup is expected in this constrained environment because only 5 logical CPUs are visible and the effective CPU quota is lower than a normal workstation. Process startup is also a large fraction of a four-case run. Larger campaigns on a 32-core machine should amortize that overhead much better.
+
+## Acceptance invariants
+
+- parallel worker count does not alter stochastic results
+- RK4 event guards are evaluated at every internal step
+- event roots are refined before jump/termination handling
+- quaternion state is projected back to unit norm in the F reference campaign
+- adaptive DOP853 remains available as the reference path
+- sampled-data GNC remains chronological and external to the ODE RHS
+- process workers use portable `spawn` semantics

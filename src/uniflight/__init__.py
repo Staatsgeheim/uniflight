@@ -1,6 +1,6 @@
-"""UniFlight Milestone F: planet-agnostic GNC and robustness flight dynamics kernel."""
+"""UniFlight Milestone F.1: performance and parallel Monte Carlo flight dynamics kernel."""
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -47,7 +47,7 @@ from .dynamics import (
     RigidBody6DOFDynamics,
 )
 from .events import Event, EventOccurrence, EventAction
-from .integrators import ScipyIVPIntegrator, SolverConfig
+from .integrators import ScipyIVPIntegrator, SolverConfig, FixedStepRK4Config, FixedStepRK4Integrator
 from .simulation import SimulationEngine, SimulationResult
 
 from .deployables import FirstOrderDeployable, ParachuteEvaluation, InflatingParachute
@@ -80,7 +80,7 @@ __all__ = [
     "STEFAN_BOLTZMANN", "TPSEvaluation", "LumpedAblatingTPS", "MassFlowSource", "MassFlowAggregator",
     "RocketEvaluation", "RocketEngine", "Rocket6DOFEvaluation", "GimballedRocketEngine",
     "DynamicsAssembler", "TranslationalKinematics", "QuaternionKinematics", "IdealRocket", "RigidBody6DOFDynamics",
-    "Event", "EventOccurrence", "EventAction", "ScipyIVPIntegrator", "SolverConfig",
+    "Event", "EventOccurrence", "EventAction", "ScipyIVPIntegrator", "SolverConfig", "FixedStepRK4Config", "FixedStepRK4Integrator",
     "SimulationEngine", "SimulationResult",
     "FirstOrderDeployable", "ParachuteEvaluation", "InflatingParachute",
     "TerrainSample", "TerrainModel", "RadialTerrain",
@@ -111,7 +111,7 @@ from .control import (
 from .aborts import LimitAbortRule, AbortManager
 from .montecarlo import (
     Dispersion, NormalDispersion, UniformDispersion, MonteCarloCaseResult,
-    MetricStatistics, MonteCarloSummary, MonteCarloRunner,
+    MetricStatistics, MonteCarloSummary, MonteCarloRunner, automatic_worker_count,
 )
 from .closed_loop import GNCRecord, ClosedLoopResult, SampledDataClosedLoopEngine
 
@@ -127,6 +127,6 @@ __all__ += [
     "QuaternionPDController", "GNCDecision", "LandingGNCController",
     "LimitAbortRule", "AbortManager",
     "Dispersion", "NormalDispersion", "UniformDispersion", "MonteCarloCaseResult",
-    "MetricStatistics", "MonteCarloSummary", "MonteCarloRunner",
+    "MetricStatistics", "MonteCarloSummary", "MonteCarloRunner", "automatic_worker_count",
     "GNCRecord", "ClosedLoopResult", "SampledDataClosedLoopEngine",
 ]
