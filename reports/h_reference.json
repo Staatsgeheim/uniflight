@@ -1,0 +1,43 @@
+{
+  "target_apogee_m": 20000.0,
+  "single_variable_targeting": {
+    "success": true,
+    "design": {
+      "burn_time": 5.918915635496526
+    },
+    "residual_norm": 8.73114913702011e-15,
+    "metrics": {
+      "apogee_altitude": 20000.00000000006,
+      "propellant_used": 29.594578177482674,
+      "final_mass": 470.4054218225173,
+      "burnout_altitude": 317.11080795983435,
+      "burnout_speed": 107.93126535138428
+    }
+  },
+  "constrained_optimization": {
+    "success": true,
+    "method": "SLSQP",
+    "message": "Optimization terminated successfully",
+    "design": {
+      "mdot": 7.997611909769338,
+      "burn_time": 3.688569792175956
+    },
+    "objective": 0.5899949939984401,
+    "max_constraint_violation": 4.8294923615799235e-11,
+    "metrics": {
+      "apogee_altitude": 20000.000000965898,
+      "propellant_used": 29.499749699922006,
+      "final_mass": 470.500250300078,
+      "burnout_altitude": 198.65481879853178,
+      "burnout_speed": 108.28117895231452
+    },
+    "actual_simulation_evaluations": 336,
+    "initial_metrics": {
+      "apogee_altitude": 23721.36778108211,
+      "propellant_used": 31.999999999998238,
+      "final_mass": 468.00000000000176,
+      "burnout_altitude": 461.723901508376,
+      "burnout_speed": 116.49478729406212
+    }
+  }
+}

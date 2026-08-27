@@ -1,6 +1,6 @@
-"""UniFlight Milestone G: robust terminal GNC and parallel Monte Carlo flight dynamics kernel."""
+"""UniFlight Milestone H: celestial-body-agnostic flight dynamics with targeting and optimization."""
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -129,4 +129,31 @@ __all__ += [
     "Dispersion", "NormalDispersion", "UniformDispersion", "MonteCarloCaseResult",
     "MetricStatistics", "MonteCarloSummary", "MonteCarloRunner", "automatic_worker_count",
     "GNCRecord", "ClosedLoopResult", "SampledDataClosedLoopEngine",
+]
+
+# Milestone H: trajectory targeting and optimization
+from .optimization import (
+    DesignVariable, DesignSpace, MetricObjective, MetricConstraint,
+    TrajectoryProblem, ProblemEvaluation, FiniteDifferenceConfig,
+    finite_difference_jacobian, TargetingSettings, TargetingResult,
+    TrajectoryTargeter, OptimizationSettings, OptimizationResult,
+    TrajectoryOptimizer, MultipleShootingTranscription,
+    BatchEvaluationResult, parallel_batch_evaluate,
+)
+from .validation_h import (
+    BODY_H, MASS0_H, VE_H, TARGET_APOGEE_H,
+    evaluate_radial_ascent, evaluate_radial_ascent_event, build_radial_ascent_targeter,
+    build_radial_ascent_optimizer,
+)
+
+__all__ += [
+    "DesignVariable", "DesignSpace", "MetricObjective", "MetricConstraint",
+    "TrajectoryProblem", "ProblemEvaluation", "FiniteDifferenceConfig",
+    "finite_difference_jacobian", "TargetingSettings", "TargetingResult",
+    "TrajectoryTargeter", "OptimizationSettings", "OptimizationResult",
+    "TrajectoryOptimizer", "MultipleShootingTranscription",
+    "BatchEvaluationResult", "parallel_batch_evaluate",
+    "BODY_H", "MASS0_H", "VE_H", "TARGET_APOGEE_H",
+    "evaluate_radial_ascent", "evaluate_radial_ascent_event",
+    "build_radial_ascent_targeter", "build_radial_ascent_optimizer",
 ]
