@@ -1,0 +1,74 @@
+{
+  "capabilities": [
+    {
+      "category": "atmosphere",
+      "description": "",
+      "owner": "core",
+      "owner_version": "0.13.0",
+      "type": "isothermal_hydrostatic"
+    },
+    {
+      "category": "atmosphere",
+      "description": "",
+      "owner": "core",
+      "owner_version": "0.13.0",
+      "type": "vacuum"
+    },
+    {
+      "category": "body",
+      "description": "",
+      "owner": "core",
+      "owner_version": "0.13.0",
+      "type": "spherical"
+    },
+    {
+      "category": "dynamics",
+      "description": "3-DOF point-mass dynamics consuming a declared propulsion model",
+      "owner": "demo.nereid",
+      "owner_version": "1.0.0",
+      "type": "demo.nereid:point-mass-propulsion"
+    },
+    {
+      "category": "event_action",
+      "description": "Plugin-defined topology mutation",
+      "owner": "demo.nereid",
+      "owner_version": "1.0.0",
+      "type": "demo.nereid:remove-vehicle"
+    },
+    {
+      "category": "guard",
+      "description": "Plugin-defined time guard",
+      "owner": "demo.nereid",
+      "owner_version": "1.0.0",
+      "type": "demo.nereid:time"
+    },
+    {
+      "category": "optimizer",
+      "description": "Deterministic one-variable grid-search optimizer",
+      "owner": "demo.nereid",
+      "owner_version": "1.0.0",
+      "type": "demo.nereid:grid-search"
+    },
+    {
+      "category": "output",
+      "description": "Specific orbital energy output",
+      "owner": "demo.nereid",
+      "owner_version": "1.0.0",
+      "type": "demo.nereid:specific-energy"
+    },
+    {
+      "category": "propulsion",
+      "description": "Constant inertial acceleration + mass flow reference propulsion model",
+      "owner": "demo.nereid",
+      "owner_version": "1.0.0",
+      "type": "demo.nereid:constant-acceleration"
+    }
+  ],
+  "plugins": [
+    [
+      "demo.nereid",
+      "1.0.0",
+      "1.0"
+    ]
+  ]
+}

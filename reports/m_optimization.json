@@ -1,0 +1,19 @@
+{
+  "design": {
+    "acceleration": 8.0
+  },
+  "evaluations": 31,
+  "iterations": 1,
+  "max_constraint_violation": 0.0,
+  "message": "demo deterministic grid search",
+  "method": "demo.nereid:grid-search",
+  "metrics": {
+    "active_vehicles": 1.0,
+    "final_altitude": 1187.209960778826,
+    "final_mass": 99.20000000000016,
+    "mission_success": 1.0,
+    "specific_energy": -149347.73047855307
+  },
+  "objective": -1.187209960778826,
+  "success": true
+}

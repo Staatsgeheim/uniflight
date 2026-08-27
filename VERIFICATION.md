@@ -1,118 +1,134 @@
-# Verification Record — UniFlight Milestone L
+# Verification Record — UniFlight Milestone M
 
-UniFlight **0.12.0** preserves all 113 A–K verification cases and adds 17 Mission Definition Language cases.
+UniFlight **0.13.0** preserves all 130 A–L verification cases and adds **12 Plugin/API cases**, for **142/142 total tests passed in bounded groups**.
 
-## New L cases (114–130)
+## New M cases (131–142)
 
-114. deterministic YAML load and canonical mission SHA-256;
-115. TOML load, compile, and propagation;
-116. RFC-6901 pointer get/set and immutable mission override semantics;
-117. rejection of unknown core mission keys;
-118. cross-reference rejection for undefined celestial bodies;
-119. exact-version/checksummed K engineering-data catalog resolution;
-120. dataset declaration/file-provenance mismatch rejection;
-121. end-to-end YAML phase execution with 3→6→3 DOF transitions;
-122. runtime-derived requested output metrics;
-123. H trajectory optimization compiled directly from YAML design variables/objective/constraint;
-124. deterministic seeded Monte Carlo dispersion sampling;
-125. invalid Monte Carlo pointer rejection;
-126. strict/extensible `MissionRegistry` semantics;
-127. editor-facing MDL schema contract;
-128. CLI validate/inspect/run/schema workflow;
-129. declarative 6-DOF rigid two-body staging and daughter propagation;
-130. JSON mission load/compile/run.
+131. plugin descriptor and registrar produce namespaced capability IDs and ownership metadata;
+132. cross-owner registry replacement is rejected;
+133. plugin discovery is lazy and does not import code merely to list entry points;
+134. exact-version plugin requirement successfully loads and registers capabilities;
+135. plugin package-version mismatch is rejected;
+136. Plugin API major/version mismatch is rejected;
+137. optional missing plugin requirement is permitted;
+138. a namespaced MDL capability without an explicit plugin requirement is rejected;
+139. compiler executes plugin-declared model + dynamics + output and records plugin provenance;
+140. plugin guard and event action mutate the multi-vehicle topology through `UniverseMutation`;
+141. plugin compatibility failures are surfaced as mission compilation failures;
+142. registry capability inventory ordering is deterministic.
 
 ## Bounded regression execution
 
 ```bash
-# A–E physics
+# A–C core / atmospheric / 6-DOF
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
-  tests/test_gravity.py tests/test_state_and_frames.py tests/test_rocket.py \
-  tests/test_attitude.py tests/test_events.py tests/test_atmosphere.py \
+  tests/test_state_and_frames.py tests/test_gravity.py tests/test_rocket.py \
+  tests/test_events.py tests/test_attitude.py tests/test_atmosphere.py \
   tests/test_flow_aero_propulsion.py tests/test_atmospheric_ascent.py \
   tests/test_6dof_flow_and_aero.py tests/test_6dof_dynamics_and_tvc.py \
-  tests/test_6dof_atmospheric_flight.py tests/test_entry_reentry.py tests/test_edl.py
-# 47/47 passed
+  tests/test_6dof_atmospheric_flight.py
+# 26/26 passed
 
-# F/F.1/G GNC + robustness
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
-  tests/test_gnc_robustness.py tests/test_f1_performance.py tests/test_g_terminal_robustness.py
-# 20/20 passed
+# D entry/re-entry
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_entry_reentry.py
+# 11/11 passed
 
-# H + I + J + K + L
+# E EDL
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_edl.py
+# 10/10 passed
+
+# F GNC
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_gnc_robustness.py
+# 12/12 passed
+
+# F.1 performance
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_f1_performance.py
+# 4/4 passed
+
+# G terminal robustness
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_g_terminal_robustness.py
+# 4/4 passed
+
+# H + I
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
-  tests/test_h_optimization.py tests/test_i_multivehicle.py tests/test_j_subsystems.py \
-  tests/test_k_engineering_data.py tests/test_l_mission_language.py
-# 63/63 passed
+  tests/test_h_optimization.py tests/test_i_multivehicle.py
+# 21/21 passed
+
+# J + K
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
+  tests/test_j_subsystems.py tests/test_k_engineering_data.py
+# 25/25 passed
+
+# L + M
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
+  tests/test_l_mission_language.py tests/test_m_plugins.py
+# 29/29 passed
 ```
 
-Total: **130/130 passed in bounded groups**.
+Total: **142/142 passed**.
 
 The H process-parallel test may emit Python's standard Linux `fork()` deprecation warning in a multi-threaded parent process; the test itself passes.
 
-## Nereid-L nominal reference
+## Installed-package plugin acceptance
 
-`missions/nereid_l.yaml` is compiled without mission-specific Python and executes:
+Core and the reference plugin were installed as separate editable distributions with no source-path override:
 
 ```text
-0 s     powered 3-DOF
-5 s     -> coast 6-DOF
-8 s     -> coast 3-DOF
-12 s    mission end
+uniflight 0.13.0
+uniflight-demo-plugin 1.0.0
+Plugin API 1.0
 ```
+
+`uniflight-mission plugins` discovered `demo.nereid` through `importlib.metadata`.
+
+`uniflight-mission validate missions/nereid_m_plugin.yaml` succeeded with mission SHA-256:
+
+```text
+2b5ecae9bb0e893e96ffebe752bc454e2fe80ec67415a6effc257e084bad7090
+```
+
+The installed mission exercised six plugin-owned capabilities spanning propulsion, dynamics, guard, event action, output, and optimizer.
+
+## Nereid-M nominal reference
+
+`missions/nereid_m_plugin.yaml` uses a plugin propulsion model and plugin dynamics for the first four seconds, transitions using a plugin guard, then coasts under the core point-mass model. A separate marker vehicle is removed by a plugin event action at 2 s.
 
 Reference outputs:
 
-- final altitude: **961.584818023 m**;
-- final speed: **100.787989078 m/s**;
-- final mass: **95.000000000 kg**;
-- active vehicles: 1.
+- final altitude: **1115.209817241 m**;
+- final mass: **99.200000000 kg**;
+- specific energy: **-149656.137790755 J/kg**;
+- final active vehicles: **1**.
 
-The report records dataset `nereid-k.atmosphere` version `1.0` and its exact content SHA-256.
-
-## Declarative H optimization
-
-The YAML design variable points at:
+The run report records:
 
 ```text
-/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow
+plugin_id = demo.nereid
+plugin_version = 1.0.0
+plugin_api_version = 1.0
 ```
 
-SLSQP maximizes final mass subject to final altitude >= 600 m.
+## Plugin optimizer reference
 
-Reference result:
+The YAML selects `demo.nereid:grid-search` as its optimizer. The separate plugin evaluates 31 candidates and returns:
 
 - success: true;
-- mass flow: **0.6336000390 kg/s**;
-- final altitude: **600.000001126 m**;
-- final mass: **96.831999805 kg**;
-- max normalized constraint violation: **0.0**;
-- trajectory evaluations: **5**.
+- acceleration: **8.0 m/s²**;
+- final altitude: **1187.209960779 m**;
+- max constraint violation: **0.0**;
+- evaluations: **31**.
 
-## Declarative staging reference
+## M acceptance invariants
 
-`missions/nereid_l_staging.yaml` starts one 6-DOF 100 kg stack. At exactly 2 s a mission-file `rigid_separation` event invokes the verified I separation law and produces:
-
-- retained `upper`: 60 kg;
-- detached `booster`: 40 kg;
-- explicit daughter COM offsets satisfying the parent COM relation;
-- specified relative separation velocity;
-- angular-momentum conservation enabled.
-
-Both daughters propagate independently to 4 s. Final active vehicle count is **2**.
-
-## L acceptance invariants
-
-- YAML uses safe parsing only; mission files cannot execute Python;
-- unknown core keys are errors;
-- mission format version is explicit and mandatory;
-- body/environment/solver/template/output references are checked before propagation;
-- design-variable and dispersion JSON pointers must resolve against the original mission document;
-- mission SHA-256 is deterministic for normalized equivalent input content;
-- declared K dataset ID/version must match native file provenance;
-- phase changes use the existing I universe event scheduler;
-- 3↔6-DOF transitions use the existing schema mapping layer;
-- rigid staging uses the existing I conservation-checked separation model;
-- optimization wraps the trusted simulator rather than changing dynamics equations;
-- Monte Carlo sampling is deterministic for a fixed seed;
-- all A–K regression behavior remains unchanged.
+- plugin discovery is through the standard Python distribution entry-point mechanism;
+- installed plugins are not imported merely by the `plugins` listing command;
+- mission files must exact-version-pin every namespaced plugin they reference;
+- Plugin API incompatibility aborts compilation before propagation;
+- plugin capability names are automatically namespaced by plugin ID;
+- plugins cannot overwrite core/other-owner capability IDs;
+- model factories are separated from compiler-facing dynamics/event/output factories;
+- plugin event actions use the existing I atomic topology-mutation interface;
+- plugin optimizers wrap H `TrajectoryProblem` rather than bypassing the simulator;
+- run provenance records the exact plugin inventory;
+- engineering-data provenance/checksums and canonical mission SHA remain unchanged;
+- all A–L regression behavior remains intact.

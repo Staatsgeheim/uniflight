@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uniflight-demo-plugin"
+version = "1.0.0"
+description = "Third-party reference plugin for UniFlight Milestone M"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.entry-points."uniflight.plugins"]
+"demo.nereid" = "uniflight_demo_plugin:plugin_descriptor"
+
+[tool.setuptools.packages.find]
+where = ["src"]

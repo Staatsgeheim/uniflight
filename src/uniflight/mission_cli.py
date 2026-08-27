@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 
 from .mission import load_mission, MissionCompiler, mission_json_schema, save_report
+from .plugins import PluginManager, installed_plugin_summary
 
 
 def _summary(compiled):
@@ -16,6 +17,8 @@ def _summary(compiled):
         "bodies": list(compiled.bodies),
         "environments": list(compiled.environments),
         "datasets": [list(x) for x in compiled.data_catalog.inventory()],
+        "plugins": [list(x) for x in compiled.plugin_inventory],
+        "models": list(compiled.models),
         "optimization": compiled.optimization is not None,
         "dispersions": len(compiled.dispersions),
     }
@@ -36,7 +39,13 @@ def main(argv=None) -> int:
     pmc.add_argument("mission"); pmc.add_argument("--cases",type=int); pmc.add_argument("--seed",type=int); pmc.add_argument("--output")
     psch=sub.add_parser("schema",help="emit the Mission Definition Language 1.0 editor schema")
     psch.add_argument("--output")
+    ppl=sub.add_parser("plugins",help="list installed UniFlight plugin entry points without importing them")
+    pcap=sub.add_parser("capabilities",help="compile a mission and list core/plugin capability ownership")
+    pcap.add_argument("mission")
     args=parser.parse_args(argv)
+
+    if args.command=="plugins":
+        print(json.dumps([dict(x) for x in installed_plugin_summary()],indent=2,sort_keys=True)); return 0
 
     if args.command=="schema":
         text=json.dumps(mission_json_schema(),indent=2,sort_keys=True)
@@ -45,6 +54,10 @@ def main(argv=None) -> int:
         return 0
 
     doc=load_mission(args.mission); compiler=MissionCompiler(); compiled=compiler.compile(doc)
+    if args.command=="capabilities":
+        payload={"plugins":[list(x) for x in compiled.plugin_inventory],
+                 "capabilities":[dict(x) for x in compiler.registry.inventory()]}
+        print(json.dumps(payload,indent=2,sort_keys=True)); return 0
     if args.command=="validate":
         print(f"VALID {doc.mission_id} {doc.digest_sha256}")
         return 0

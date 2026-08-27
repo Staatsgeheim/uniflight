@@ -1,123 +1,154 @@
-# UniFlight — Milestone L Mission Definition Language
+# UniFlight — Milestone M Plugin/API Architecture
 
-UniFlight **0.12.0** adds a declarative Mission Definition Language (MDL) on top of the complete A–K celestial-body-agnostic flight-dynamics stack.
+UniFlight **0.13.0** adds a stable public plugin system on top of the complete A–L celestial-body-agnostic flight-dynamics stack.
 
-Mission authors can now describe bodies, exact-version engineering datasets, solver profiles, vehicles, flight phases, 3↔6-DOF transitions, hybrid staging, requested outputs, trajectory-optimization variables/constraints, and Monte Carlo dispersions in **YAML, TOML, or JSON** instead of assembling every mission procedurally in Python.
+Mission-specific or proprietary models can now live in separately installed Python distributions and be referenced from MDL YAML/TOML/JSON without modifying UniFlight core code.
 
-## New in L
+## New in M
 
-- strict MDL format version **1.0**
-- YAML / TOML / JSON loading
-- deterministic normalized mission SHA-256
-- semantic validation and cross-reference checking
-- exact dataset ID/version/provenance verification
-- adaptive SciPy and fixed-step RK4 solver profiles
-- declarative vehicles and ordered phases
-- time / altitude / state-field phase guards
-- per-phase solver and dynamics selection
-- declarative **3→6 and 6→3 DOF transitions**
-- global hybrid events
-- declarative momentum-consistent **rigid two-body staging** via vehicle templates
-- final state / altitude / speed / time / vehicle-count metrics
-- RFC-6901 JSON-pointer mission overrides
-- H trajectory optimization directly from mission-file variables/objectives/constraints
-- deterministic normal/uniform Monte Carlo dispersion declarations
-- strict `MissionRegistry` factory seam for Milestone M plugins
-- `uniflight-mission` CLI
-- editor-facing mission schema export
-- **130/130 total verification tests pass in bounded groups**
+- Plugin API version **1.0**
+- `importlib.metadata` discovery via the `uniflight.plugins` entry-point group
+- lazy discovery: installed plugin metadata can be listed without importing plugin code
+- explicit mission-level plugin requirements
+- exact plugin-version pinning
+- Plugin API compatibility checks
+- namespaced capability IDs: `<plugin-id>:<capability>`
+- protected capability ownership; plugins cannot silently replace core or other vendors
+- capability provenance/inventory
+- stable compiler-facing extension categories:
+  - body, atmosphere, environment, solver, dynamics, guard, event action, output, optimizer, dataset loader
+- stable reusable model categories:
+  - gravity, aero, aerothermal, propulsion, GNC, sensor, actuator, subsystem, terrain, material, chemistry
+- mission-level named `models:` declarations
+- plugin dynamics can compose declared model objects
+- namespaced plugin guards and topology-changing event actions
+- plugin scalar output metrics
+- plugin optimizers
+- plugin dataset-loader hook
+- plugin inventory in every mission run report
+- new `uniflight-mission plugins` and `capabilities` CLI commands
+- separate installable third-party reference distribution in `demo_plugin/`
+- **142/142 total verification tests pass in bounded groups**
 
-Package version: **0.12.0**.
+Package version: **0.13.0**.
 
-## Install
-
-```bash
-python -m pip install -e . --no-build-isolation
-```
-
-Dependencies:
-
-- Python >= 3.11
-- NumPy >= 2.0
-- SciPy >= 1.13
-- PyYAML >= 6.0
-- pytest >= 8 for development
-
-## Run the YAML reference mission
+## Install core
 
 ```bash
-uniflight-mission validate missions/nereid_l.yaml
-uniflight-mission inspect missions/nereid_l.yaml
-uniflight-mission run missions/nereid_l.yaml \
-  --output reports/l_reference.json
+python -m pip install -e . --no-build-isolation --no-deps
 ```
 
-The reference mission starts with a powered 3-DOF phase, switches to 6-DOF coast at 5 s, switches back to 3-DOF at 8 s, and terminates at 12 s.
+## Install the separate demo plugin
+
+```bash
+python -m pip install -e demo_plugin --no-build-isolation --no-deps
+```
+
+The plugin is deliberately a separate Python distribution named `uniflight-demo-plugin`.
+
+## Discover installed plugins
+
+```bash
+uniflight-mission plugins
+```
+
+Reference discovery:
+
+```json
+[
+  {
+    "distribution": "uniflight-demo-plugin",
+    "entry_point": "uniflight_demo_plugin:plugin_descriptor",
+    "plugin_id": "demo.nereid"
+  }
+]
+```
+
+## Run the installed-plugin mission
+
+```bash
+uniflight-mission validate missions/nereid_m_plugin.yaml
+uniflight-mission capabilities missions/nereid_m_plugin.yaml
+uniflight-mission run missions/nereid_m_plugin.yaml \
+  --output reports/m_reference.json
+```
+
+The YAML explicitly requires:
+
+```yaml
+plugins:
+  - id: demo.nereid
+    version: "1.0.0"
+```
+
+It then uses six plugin capabilities without mission-specific Python:
+
+- `demo.nereid:constant-acceleration` propulsion model
+- `demo.nereid:point-mass-propulsion` dynamics
+- `demo.nereid:time` phase guard
+- `demo.nereid:remove-vehicle` event action
+- `demo.nereid:specific-energy` output
+- `demo.nereid:grid-search` optimizer
 
 Reference nominal result:
 
-- altitude: ~961.584818 m
-- speed: ~100.787989 m/s
-- mass: 95.0 kg
+- final altitude: ~1115.209817 m
+- final mass: ~99.200000 kg
+- specific energy: ~-149656.137791 J/kg
+- active vehicles: 1
 
-## Optimize directly from YAML
-
-```bash
-uniflight-mission optimize missions/nereid_l.yaml \
-  --output reports/l_optimization.json
-```
-
-The YAML declares the rocket mass-flow design variable, final-mass objective, and final-altitude constraint. No optimization-specific Python evaluator is needed.
-
-Reference optimum:
-
-- mass flow: ~0.633600 kg/s
-- final altitude: ~600.000001 m
-- final mass: ~96.832000 kg
-
-## Declarative staging
+## Optimize with a plugin optimizer
 
 ```bash
-uniflight-mission run missions/nereid_l_staging.yaml
+uniflight-mission optimize missions/nereid_m_plugin.yaml \
+  --output reports/m_optimization.json
 ```
 
-At 2 s the 6-DOF parent stack is replaced by two independently propagated daughters through the same momentum-consistent Milestone-I separation model used by the Python API.
+The external grid-search optimizer performs 31 trajectory evaluations and selects acceleration = **8.0 m/s²** for the declared maximum-altitude objective.
 
-## Monte Carlo declarations
+## Generic model declarations
+
+Reusable plugin models are mission-level objects:
+
+```yaml
+models:
+  main_propulsion:
+    category: propulsion
+    type: demo.nereid:constant-acceleration
+    config:
+      acceleration_mps2: 5.0
+      mass_flow_kgps: 0.2
+```
+
+A plugin dynamics factory receives the compiled model map and can compose proprietary aero, propulsion, GNC, sensor, terrain, subsystem, or other models behind its own verified state equations.
+
+## Capability ownership
 
 ```bash
-uniflight-mission sample missions/nereid_l.yaml \
-  --cases 100 --seed 20260827 \
-  --output reports/l_mc_samples.json
+uniflight-mission capabilities missions/nereid_m_plugin.yaml
 ```
 
-L validates and samples the declared dispersions. Existing F.1/N campaign infrastructure remains responsible for large-scale parallel execution.
+The output records category, fully-qualified type, owner, owner version, and description. Core capabilities remain owned by `core`.
 
-## Mission schema
+## Security
 
-```bash
-uniflight-mission schema --output missions/mission-1.0.schema.json
-```
-
-Runtime semantic validation remains authoritative because it also checks cross references, JSON pointers, dataset provenance, and compilation.
+Plugins are **trusted in-process Python code**. Installing/running a plugin is equivalent to running arbitrary Python code with the current process permissions. MDL documents themselves remain data-only; plugin code executes only after a matching installed package is explicitly required.
 
 ## Documents
 
-- `MILESTONE_L.md` — MDL semantics, hybrid-event model, optimization/MC integration, boundaries
-- `MILESTONE_K.md` — engineering data system
-- `MILESTONE_J.md` — engineering subsystem dynamics
-- `MILESTONE_I.md` — multi-vehicle / multi-DOF runtime
-- `MILESTONE_H.md` — targeting and optimization
-- `VERIFICATION.md` — full L verification record
-- `missions/nereid_l.yaml` — full YAML reference mission
-- `missions/nereid_l_staging.yaml` — declarative staging mission
-- `missions/nereid_l_minimal.toml` — minimal TOML mission
-- `missions/mission-1.0.schema.json` — editor-facing schema
-- `reports/l_reference.json` — deterministic nominal run
-- `reports/l_optimization.json` — deterministic optimization result
+- `MILESTONE_M.md` — architecture, reproducibility rules, reference acceptance
+- `PLUGIN_API.md` — Plugin API 1.0 author contract
+- `MILESTONE_L.md` — declarative mission language
+- `MILESTONE_K.md` — engineering-data system
+- `VERIFICATION.md` — A–M verification record
+- `missions/nereid_m_plugin.yaml` — installed-plugin reference mission
+- `demo_plugin/` — separate reference third-party distribution
+- `reports/m_reference.json` — nominal plugin mission result
+- `reports/m_optimization.json` — plugin optimizer result
+- `reports/m_capabilities.json` — capability ownership inventory
 
 ## Project scope
 
 The project target remains functional/architectural proximity to NASA POST2 while explicitly **not claiming** real-mission validation, flight heritage, or certification/independent-IV&V pedigree.
 
-The next roadmap item is **Milestone M — Plugin/API Architecture**: stable public plugin contracts and discovery for mission-specific or proprietary atmosphere, gravity, aero, aerothermal, propulsion, GNC, terrain, sensor, actuator, subsystem, event-action, and optimization models without editing the UniFlight core package.
+The next roadmap item is **Milestone N — Integrated Analysis/HPC**: generalized parameter sweeps, optimization campaigns, Monte Carlo/uncertainty propagation, global sensitivity analysis, checkpoint/restart, structured result stores, and local/distributed execution backends.

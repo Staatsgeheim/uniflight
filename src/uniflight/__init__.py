@@ -1,4 +1,4 @@
-"""UniFlight 0.12.0 Milestone L: POST2-class research flight dynamics with engineering-data infrastructure."""
+"""UniFlight 0.13.0 Milestone M: POST2-class research flight dynamics with engineering-data infrastructure."""
 
 from ._version import __version__
 
@@ -252,4 +252,19 @@ __all__ += [
     "MissionRunReport", "CompiledMission", "MissionRegistry", "MissionCompiler",
     "load_mission", "validate_mission_dict", "mission_json_schema", "mission_sha256",
     "pointer_get", "pointer_set", "save_report",
+]
+
+# Milestone M: stable public plugin/API architecture
+from .plugins import (
+    PLUGIN_API_VERSION, PLUGIN_ENTRY_POINT_GROUP, PLUGIN_CAPABILITY_CATEGORIES,
+    PluginError, PluginDiscoveryError, PluginCompatibilityError, PluginRequirementError,
+    PluginDescriptor, CapabilityRegistration, PluginRegistrar, PluginRequirement,
+    LoadedPlugin, PluginManager, installed_plugin_summary,
+)
+
+__all__ += [
+    "PLUGIN_API_VERSION", "PLUGIN_ENTRY_POINT_GROUP", "PLUGIN_CAPABILITY_CATEGORIES",
+    "PluginError", "PluginDiscoveryError", "PluginCompatibilityError", "PluginRequirementError",
+    "PluginDescriptor", "CapabilityRegistration", "PluginRegistrar", "PluginRequirement",
+    "LoadedPlugin", "PluginManager", "installed_plugin_summary",
 ]

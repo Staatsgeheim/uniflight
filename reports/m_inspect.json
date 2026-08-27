@@ -1,0 +1,29 @@
+{
+  "bodies": [
+    "nereid"
+  ],
+  "datasets": [],
+  "dispersions": 0,
+  "environments": [],
+  "mission_id": "nereid-m-plugin",
+  "mission_sha256": "2b5ecae9bb0e893e96ffebe752bc454e2fe80ec67415a6effc257e084bad7090",
+  "models": [
+    "main_propulsion"
+  ],
+  "optimization": true,
+  "plugins": [
+    [
+      "demo.nereid",
+      "1.0.0",
+      "1.0"
+    ]
+  ],
+  "t_span": [
+    0.0,
+    8.0
+  ],
+  "vehicles": [
+    "lander",
+    "discard"
+  ]
+}

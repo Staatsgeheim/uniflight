@@ -1,0 +1,123 @@
+format_version: "1.0"
+mission:
+  id: nereid-m-plugin
+  title: Nereid-M installed plugin demonstration
+  t_span: [0.0, 8.0]
+  default_solver: reference
+
+plugins:
+  - id: demo.nereid
+    version: "1.0.0"
+    required: true
+
+models:
+  main_propulsion:
+    category: propulsion
+    type: demo.nereid:constant-acceleration
+    config:
+      acceleration_mps2: 5.0
+      mass_flow_kgps: 0.2
+      direction_i: [1.0, 0.0, 0.0]
+
+bodies:
+  nereid:
+    type: spherical
+    mu: 1.5e11
+    radius: 1000000.0
+    name: Nereid-M
+
+solvers:
+  reference:
+    type: scipy
+    method: DOP853
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    max_step: 0.1
+
+vehicles:
+  lander:
+    body: nereid
+    solver: reference
+    initial:
+      dof: 3
+      state:
+        position: [1001000.0, 0.0, 0.0]
+        velocity: [0.0, 0.0, 0.0]
+        mass: 100.0
+    phases:
+      - name: plugin-powered
+        dof: 3
+        until:
+          type: demo.nereid:time
+          config:
+            time_s: 4.0
+          direction: 1
+        dynamics:
+          type: demo.nereid:point-mass-propulsion
+          config:
+            propulsion_model: main_propulsion
+            gravity: true
+      - name: core-coast
+        dof: 3
+        dynamics:
+          gravity: true
+
+  discard:
+    body: nereid
+    solver: reference
+    initial:
+      dof: 3
+      state:
+        position: [1001000.0, 10.0, 0.0]
+        velocity: [0.0, 0.0, 0.0]
+        mass: 1.0
+    phases:
+      - name: marker
+        dof: 3
+        dynamics:
+          gravity: true
+
+events:
+  - name: plugin-discard
+    vehicle: discard
+    guard:
+      type: time
+      value: 2.0
+      direction: 1
+    action:
+      type: demo.nereid:remove-vehicle
+      config:
+        note: removed by installed third-party plugin
+
+outputs:
+  - name: final_altitude
+    type: altitude
+    vehicle: lander
+    body: nereid
+  - name: final_mass
+    type: state
+    vehicle: lander
+    field: mass
+  - name: specific_energy
+    type: demo.nereid:specific-energy
+    vehicle: lander
+    body: nereid
+    config:
+      body: nereid
+  - name: active_vehicles
+    type: vehicle_count
+
+optimization:
+  method: demo.nereid:grid-search
+  max_iterations: 31
+  design_variables:
+    - name: acceleration
+      pointer: /models/main_propulsion/config/acceleration_mps2
+      lower: 2.0
+      upper: 8.0
+      initial: 5.0
+      scale: 5.0
+  objective:
+    metric: final_altitude
+    sense: maximize
+    scale: 1000.0

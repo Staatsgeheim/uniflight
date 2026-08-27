@@ -46,6 +46,10 @@ from .integrators import ScipyIVPIntegrator, SolverConfig, FixedStepRK4Integrato
 from .engineering_data import EngineeringDataCatalog
 from .universe import VehicleEvent, VehicleSpec, UniverseMutation, MultiVehicleUniverseEngine, UniverseResult
 from .separation import separate_two_rigid_bodies
+from .plugins import (
+    PLUGIN_API_VERSION, PluginManager, PluginRequirement, PluginError,
+    CapabilityRegistration,
+)
 from .optimization import (
     DesignVariable, DesignSpace, MetricObjective, MetricConstraint,
     TrajectoryProblem, TrajectoryOptimizer, OptimizationSettings,
@@ -244,6 +248,7 @@ class MissionRunReport:
     end_time: float
     mission_sha256: str
     dataset_inventory: tuple[tuple[str, str, str], ...]
+    plugin_inventory: tuple[tuple[str, str, str], ...]
     outputs: Mapping[str, float]
     final_vehicles: Mapping[str, Mapping[str, Any]]
     events: tuple[Mapping[str, Any], ...]
@@ -257,6 +262,10 @@ class MissionRunReport:
                 "dataset_inventory": [
                     {"dataset_id": d, "version": v, "sha256": s}
                     for d, v, s in self.dataset_inventory
+                ],
+                "plugin_inventory": [
+                    {"plugin_id": p, "version": v, "api_version": a}
+                    for p, v, a in self.plugin_inventory
                 ],
             },
             "success": self.success,
@@ -279,12 +288,15 @@ class CompiledMission:
     environments: Mapping[str, PlanetaryEnvironment]
     data_catalog: EngineeringDataCatalog
     output_specs: tuple[Mapping[str, Any], ...]
+    registry: MissionRegistry | None = None
+    models: Mapping[str, Any] = field(default_factory=dict)
+    plugin_inventory: tuple[tuple[str, str, str], ...] = ()
     optimization: MissionOptimizationDeclaration | None = None
     dispersions: tuple[MissionDispersionDeclaration, ...] = ()
 
     def run(self) -> MissionRunReport:
         result = self.engine.run(self.t_span, self.vehicles)
-        outputs = _extract_outputs(result, self.output_specs, self.bodies)
+        outputs = _extract_outputs(result, self.output_specs, self.bodies, self.registry, self.models)
         finals: dict[str, dict[str, Any]] = {}
         for vid, snap in result.final_vehicles.items():
             unpacked = snap.schema.unpack(snap.state)
@@ -305,36 +317,59 @@ class CompiledMission:
         return MissionRunReport(
             self.document.mission_id, result.success, result.message,
             result.start_time, result.end_time, self.document.digest_sha256,
-            self.data_catalog.inventory(), MappingProxyType(outputs),
+            self.data_catalog.inventory(), self.plugin_inventory, MappingProxyType(outputs),
             MappingProxyType(finals), events,
         )
 
 
 class MissionRegistry:
-    """Strict factory registry used by the declarative compiler.
+    """Version-aware capability registry used by MDL and third-party plugins.
 
-    Milestone L provides built-ins.  Milestone M can expose public plugin entry
-    points that register additional factories without changing MissionCompiler.
+    Core factories are owned by ``core``. Third-party registrations are
+    namespaced by :class:`~uniflight.plugins.PluginRegistrar`, which prevents
+    silent replacement of core or another vendor's capability. The historical
+    three-argument ``register`` call remains source-compatible for Python users.
     """
 
     def __init__(self) -> None:
-        self._factories: dict[tuple[str, str], Callable[..., Any]] = {}
+        self._registrations: dict[tuple[str, str], CapabilityRegistration] = {}
 
-    def register(self, category: str, type_name: str, factory: Callable[..., Any], *, replace: bool = False) -> None:
+    def register(self, category: str, type_name: str, factory: Callable[..., Any], *,
+                 replace: bool = False, owner: str = "core", owner_version: str = _uniflight_version,
+                 description: str = "", validator: Callable[[Mapping[str, Any]], None] | None = None) -> None:
         key = (str(category), str(type_name))
-        if key in self._factories and not replace:
+        if key in self._registrations and not replace:
             raise KeyError(f"mission factory {key} already registered")
-        self._factories[key] = factory
+        if key in self._registrations and replace and self._registrations[key].owner != owner:
+            raise KeyError(f"capability {key} is owned by {self._registrations[key].owner!r}; cross-owner replacement is forbidden")
+        self._registrations[key] = CapabilityRegistration(
+            key[0], key[1], factory, str(owner), str(owner_version), str(description), validator
+        )
 
     def build(self, category: str, type_name: str, spec: Mapping[str, Any], context: Mapping[str, Any]) -> Any:
-        key = (category, type_name)
-        if key not in self._factories:
-            available = sorted(t for c, t in self._factories if c == category)
+        key = (str(category), str(type_name))
+        if key not in self._registrations:
+            available = sorted(t for c, t in self._registrations if c == key[0])
             raise MissionCompilationError(f"unknown {category} type {type_name!r}; available={available}")
-        return self._factories[key](spec, context)
+        reg = self._registrations[key]
+        if reg.validator is not None:
+            reg.validator(spec)
+        return reg.factory(spec, context)
 
     def available(self, category: str) -> tuple[str, ...]:
-        return tuple(sorted(t for c, t in self._factories if c == category))
+        return tuple(sorted(t for c, t in self._registrations if c == str(category)))
+
+    def registration(self, category: str, type_name: str) -> CapabilityRegistration:
+        key=(str(category),str(type_name))
+        if key not in self._registrations:
+            raise KeyError(key)
+        return self._registrations[key]
+
+    def inventory(self) -> tuple[Mapping[str, str], ...]:
+        return tuple(MappingProxyType({
+            "category": reg.category, "type": reg.type_name, "owner": reg.owner,
+            "owner_version": reg.owner_version, "description": reg.description,
+        }) for _, reg in sorted(self._registrations.items()))
 
 
 def load_mission(path: str | Path) -> MissionDocument:
@@ -345,7 +380,7 @@ def load_mission(path: str | Path) -> MissionDocument:
 def validate_mission_dict(raw: Mapping[str, Any]) -> None:
     _strict_keys(raw, {
         "format_version", "mission", "datasets", "bodies", "atmospheres", "environments",
-        "solvers", "vehicles", "vehicle_templates", "events", "outputs", "optimization", "monte_carlo", "metadata",
+        "plugins", "models", "solvers", "vehicles", "vehicle_templates", "events", "outputs", "optimization", "monte_carlo", "metadata",
     }, "root")
     version = _require(raw, "format_version", "root")
     if str(version) != MISSION_FORMAT_VERSION:
@@ -362,6 +397,30 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
     t0, tf = (_finite_float(tspan[0], "mission.t_span[0]"), _finite_float(tspan[1], "mission.t_span[1]"))
     if not tf > t0:
         raise MissionValidationError("mission.t_span must increase")
+
+    plugins = raw.get("plugins", [])
+    if not isinstance(plugins, list):
+        raise MissionValidationError("plugins must be a list")
+    plugin_ids: set[str] = set()
+    for i, entry in enumerate(plugins):
+        e = _as_mapping(entry, f"plugins[{i}]")
+        _strict_keys(e, {"id", "version", "required"}, f"plugins[{i}]")
+        pid = str(_require(e, "id", f"plugins[{i}]"))
+        ver = str(_require(e, "version", f"plugins[{i}]"))
+        if not pid or not ver or pid in plugin_ids:
+            raise MissionValidationError("plugin id/version must be non-empty and plugin ids unique")
+        plugin_ids.add(pid)
+
+    models = raw.get("models", {})
+    if not isinstance(models, Mapping):
+        raise MissionValidationError("models must be a mapping")
+    for name, spec in models.items():
+        m = _as_mapping(spec, f"models.{name}")
+        _strict_keys(m, {"category", "type", "config"}, f"models.{name}")
+        _require(m, "category", f"models.{name}")
+        _require(m, "type", f"models.{name}")
+        if "config" in m:
+            _as_mapping(m["config"], f"models.{name}.config")
 
     datasets = raw.get("datasets", [])
     if not isinstance(datasets, list):
@@ -384,13 +443,15 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
         raise MissionValidationError("at least one body is required")
     for name, spec in bodies.items():
         s = _as_mapping(spec, f"bodies.{name}")
-        _strict_keys(s, {"type", "mu", "mass", "radius", "rotation_vector_i", "name"}, f"bodies.{name}")
-        if str(s.get("type", "spherical")) != "spherical":
-            # Registry may eventually support more, but the built-in schema remains explicit.
-            pass
-        if "mu" not in s and "mass" not in s:
-            raise MissionValidationError(f"bodies.{name} requires mu or mass")
-        _require(s, "radius", f"bodies.{name}")
+        typ = str(s.get("type", "spherical"))
+        if ":" in typ:
+            _strict_keys(s, {"type", "config", "name"}, f"bodies.{name}")
+            if "config" in s: _as_mapping(s["config"], f"bodies.{name}.config")
+        else:
+            _strict_keys(s, {"type", "mu", "mass", "radius", "rotation_vector_i", "name"}, f"bodies.{name}")
+            if "mu" not in s and "mass" not in s:
+                raise MissionValidationError(f"bodies.{name} requires mu or mass")
+            _require(s, "radius", f"bodies.{name}")
 
     solvers = raw.get("solvers", {})
     if not isinstance(solvers, Mapping):
@@ -442,13 +503,16 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
                 raise MissionValidationError(f"non-final phase {vid}.{name} requires an until guard")
             if "until" in p:
                 guard = _as_mapping(p["until"], f"vehicles.{vid}.phases[{j}].until")
-                _strict_keys(guard, {"type", "value", "direction", "field", "index", "priority"}, f"vehicles.{vid}.phases[{j}].until")
                 gtype = str(_require(guard, "type", f"vehicles.{vid}.phases[{j}].until"))
-                if gtype not in ("time", "altitude", "state"):
-                    raise MissionValidationError(f"unsupported phase guard type {gtype!r}")
-                _require(guard, "value", f"vehicles.{vid}.phases[{j}].until")
-                if gtype == "state":
-                    _require(guard, "field", f"vehicles.{vid}.phases[{j}].until")
+                if ":" in gtype:
+                    _strict_keys(guard, {"type", "config", "direction", "priority"}, f"vehicles.{vid}.phases[{j}].until")
+                    if "config" in guard: _as_mapping(guard["config"], f"vehicles.{vid}.phases[{j}].until.config")
+                else:
+                    _strict_keys(guard, {"type", "value", "direction", "field", "index", "priority"}, f"vehicles.{vid}.phases[{j}].until")
+                    if gtype not in ("time", "altitude", "state"):
+                        raise MissionValidationError(f"unsupported phase guard type {gtype!r}")
+                    _require(guard, "value", f"vehicles.{vid}.phases[{j}].until")
+                    if gtype == "state": _require(guard, "field", f"vehicles.{vid}.phases[{j}].until")
 
     templates = raw.get("vehicle_templates", {})
     if not isinstance(templates, Mapping):
@@ -484,12 +548,16 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
         if str(_require(e,"vehicle",f"events[{i}]")) not in vehicles:
             raise MissionValidationError(f"events[{i}] source vehicle must be initially declared")
         guard=_as_mapping(_require(e,"guard",f"events[{i}]"),f"events[{i}].guard")
-        _strict_keys(guard,{"type","value","direction","field","index"},f"events[{i}].guard")
         gtype=str(_require(guard,"type",f"events[{i}].guard"))
-        if gtype not in ("time","altitude","state"):
-            raise MissionValidationError(f"unsupported event guard type {gtype!r}")
-        _require(guard,"value",f"events[{i}].guard")
-        if gtype=="state": _require(guard,"field",f"events[{i}].guard")
+        if ":" in gtype:
+            _strict_keys(guard,{"type","config","direction"},f"events[{i}].guard")
+            if "config" in guard: _as_mapping(guard["config"],f"events[{i}].guard.config")
+        else:
+            _strict_keys(guard,{"type","value","direction","field","index"},f"events[{i}].guard")
+            if gtype not in ("time","altitude","state"):
+                raise MissionValidationError(f"unsupported event guard type {gtype!r}")
+            _require(guard,"value",f"events[{i}].guard")
+            if gtype=="state": _require(guard,"field",f"events[{i}].guard")
         action=_as_mapping(_require(e,"action",f"events[{i}]"),f"events[{i}].action")
         atype=str(_require(action,"type",f"events[{i}].action"))
         if atype=="remove_vehicle":
@@ -505,6 +573,9 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
                     raise MissionValidationError(f"event child references unknown vehicle template {template!r}")
                 for key in ("vehicle_id","mass","offset_b","inertia_b"):
                     _require(c,key,f"events[{i}].action.{child_name}")
+        elif ":" in atype:
+            _strict_keys(action,{"type","config","note"},f"events[{i}].action")
+            if "config" in action: _as_mapping(action["config"],f"events[{i}].action.config")
         else:
             raise MissionValidationError(f"unsupported global event action type {atype!r}")
 
@@ -514,15 +585,15 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
     output_names: set[str] = set()
     for i, spec in enumerate(outputs):
         o = _as_mapping(spec, f"outputs[{i}]")
-        _strict_keys(o, {"name", "type", "vehicle", "field", "index", "body"}, f"outputs[{i}]")
+        _strict_keys(o, {"name", "type", "vehicle", "field", "index", "body", "config"}, f"outputs[{i}]")
         name = str(_require(o, "name", f"outputs[{i}]"))
         if not name or name in output_names:
             raise MissionValidationError("output names must be unique and non-empty")
         output_names.add(name)
         otype = str(_require(o, "type", f"outputs[{i}]"))
-        if otype not in ("state", "altitude", "speed", "time", "vehicle_count"):
+        if otype not in ("state", "altitude", "speed", "time", "vehicle_count") and ":" not in otype:
             raise MissionValidationError(f"unsupported output type {otype!r}")
-        if otype not in ("time", "vehicle_count"):
+        if otype not in ("time", "vehicle_count") and ":" not in otype:
             vid = str(_require(o, "vehicle", f"outputs[{i}]"))
             if vid not in vehicles:
                 # spawned vehicles may not exist initially; permit explicit IDs.
@@ -565,6 +636,31 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
             if dist not in ("normal", "uniform"):
                 raise MissionValidationError("Monte Carlo distribution must be normal or uniform")
 
+    # Every namespaced capability used by a declarative mission must be backed
+    # by an explicit exact-version plugin requirement. Programmatic Python
+    # registries remain free to register arbitrary factories without this rule.
+    referenced_plugins: set[str] = set()
+    def note_type(value: Any) -> None:
+        if isinstance(value, str) and ":" in value:
+            referenced_plugins.add(value.split(":",1)[0])
+    for e in datasets: note_type(str(e.get("format","")))
+    for spec in bodies.values(): note_type(str(spec.get("type","")))
+    for spec in atmospheres.values(): note_type(str(spec.get("type","")))
+    for spec in environments.values(): note_type(str(spec.get("type","")))
+    for spec in solvers.values(): note_type(str(spec.get("type","")))
+    for spec in models.values(): note_type(str(spec.get("type","")))
+    for vspec in list(vehicles.values()) + list(templates.values()):
+        for phase in vspec.get("phases",[]):
+            dyn=phase.get("dynamics",{}); note_type(str(dyn.get("type","")))
+            if "until" in phase: note_type(str(phase["until"].get("type","")))
+    for e in raw.get("events",[]):
+        note_type(str(e.get("guard",{}).get("type",""))); note_type(str(e.get("action",{}).get("type","")))
+    for o in outputs: note_type(str(o.get("type","")))
+    if optimization is not None: note_type(str(optimization.get("method","")))
+    missing = referenced_plugins - plugin_ids
+    if missing:
+        raise MissionValidationError(f"namespaced capabilities require explicit plugins entries; missing {sorted(missing)}")
+
 
 def mission_json_schema() -> Mapping[str, Any]:
     """Return a compact JSON-Schema-like contract for external editors.
@@ -588,6 +684,8 @@ def mission_json_schema() -> Mapping[str, Any]:
                     "default_solver": {"type": "string"},
                 },
             },
+            "plugins": {"type": "array"},
+            "models": {"type": "object"},
             "datasets": {"type": "array"},
             "bodies": {"type": "object", "minProperties": 1},
             "vehicles": {"type": "object", "minProperties": 1},
@@ -679,56 +777,115 @@ def _default_registry() -> MissionRegistry:
 
 
 class MissionCompiler:
-    def __init__(self, registry: MissionRegistry | None = None) -> None:
+    """Compile MDL documents into the trusted UniFlight runtime.
+
+    Milestone M loads only plugins explicitly required by the mission. Plugin
+    factories receive immutable-ish context mappings and never require edits to
+    this compiler for new namespaced capabilities.
+    """
+
+    def __init__(self, registry: MissionRegistry | None = None, plugin_manager: PluginManager | None = None) -> None:
         self.registry = registry or _default_registry()
+        self.plugin_manager = plugin_manager or PluginManager()
+
+    @staticmethod
+    def _plugin_spec(type_name: str, spec: Mapping[str, Any]) -> Mapping[str, Any]:
+        if ":" in str(type_name):
+            return _as_mapping(spec.get("config", {}), f"plugin:{type_name}.config")
+        return spec
+
+    def _load_required_plugins(self, raw: Mapping[str, Any]) -> tuple[tuple[str, str, str], ...]:
+        reqs = tuple(PluginRequirement(str(e["id"]), str(e["version"]), bool(e.get("required", True)))
+                     for e in raw.get("plugins", []))
+        try:
+            loaded = self.plugin_manager.load_requirements(reqs, self.registry)
+        except PluginError as exc:
+            raise MissionCompilationError(str(exc)) from exc
+        return tuple(p.inventory_tuple() for p in loaded)
 
     def compile(self, document: MissionDocument) -> CompiledMission:
         raw = document.raw
         mission = raw["mission"]
         t_span = tuple(float(x) for x in mission["t_span"])
+        plugin_inventory = self._load_required_plugins(raw)
 
         catalog = EngineeringDataCatalog()
         for entry in raw.get("datasets", []):
-            fmt = str(entry.get("format", "npz")).lower()
-            if fmt != "npz":
-                raise MissionCompilationError("Milestone L dataset declarations currently require native NPZ tables")
+            fmt = str(entry.get("format", "npz"))
             p = (document.base_directory / str(entry["path"])).resolve()
-            table = catalog.load_npz(p, verify_checksum=bool(entry.get("verify_checksum", True)))
-            prov = table.provenance
-            assert prov is not None
-            if prov.dataset_id != str(entry["id"]) or prov.version != str(entry["version"]):
-                raise MissionCompilationError(
-                    f"dataset declaration {(entry['id'],entry['version'])} does not match file provenance {(prov.dataset_id,prov.version)}"
-                )
+            if fmt.lower() == "npz":
+                table = catalog.load_npz(p, verify_checksum=bool(entry.get("verify_checksum", True)))
+            elif ":" in fmt:
+                table = self.registry.build("dataset_loader", fmt, entry, {
+                    "path": p, "catalog": catalog, "document": document,
+                })
+                # A loader may register directly and return None, or return a table.
+                if table is not None and getattr(table, "provenance", None) is not None:
+                    catalog.register(table)
+            else:
+                raise MissionCompilationError("dataset format must be 'npz' or a namespaced plugin dataset_loader")
+            if table is not None and getattr(table, "provenance", None) is not None:
+                prov = table.provenance
+                if prov.dataset_id != str(entry["id"]) or prov.version != str(entry["version"]):
+                    raise MissionCompilationError(
+                        f"dataset declaration {(entry['id'],entry['version'])} does not match file provenance {(prov.dataset_id,prov.version)}"
+                    )
+            try:
+                loaded = catalog.resolve(str(entry["id"]), str(entry["version"]))
+            except Exception as exc:
+                raise MissionCompilationError(f"dataset loader did not provide {(entry['id'], entry['version'])}") from exc
 
-        bodies: dict[str, SphericalBody] = {}
+        bodies: dict[str, Any] = {}
         for name, spec in raw["bodies"].items():
-            bodies[name] = self.registry.build("body", str(spec.get("type","spherical")), spec, {"name":name})
+            typ = str(spec.get("type", "spherical"))
+            bodies[name] = self.registry.build("body", typ, self._plugin_spec(typ, spec), {
+                "name": name, "document": document, "catalog": catalog,
+            })
 
         atmospheres: dict[str, Any] = {"vacuum": VacuumAtmosphere()}
         for name, spec in raw.get("atmospheres", {}).items():
+            typ = str(spec.get("type", "vacuum"))
             body_ref = spec.get("body") if isinstance(spec, Mapping) else None
-            # Isothermal atmosphere body is normally inferred from environment;
-            # if only one body exists this is unambiguous.
             if body_ref is None:
-                if len(bodies) != 1 and str(spec.get("type")) != "vacuum":
+                if len(bodies) != 1 and typ != "vacuum" and ":" not in typ:
                     raise MissionCompilationError(f"atmosphere {name!r} must specify body when mission has multiple bodies")
                 body = next(iter(bodies.values()))
             else:
                 body = bodies[str(body_ref)]
-            atmospheres[name] = self.registry.build("atmosphere", str(spec.get("type","vacuum")), spec, {"body":body,"name":name})
+            atmospheres[name] = self.registry.build("atmosphere", typ, self._plugin_spec(typ, spec), {
+                "body": body, "name": name, "document": document, "catalog": catalog,
+            })
 
-        environments: dict[str, PlanetaryEnvironment] = {}
+        environments: dict[str, Any] = {}
         for name, spec in raw.get("environments", {}).items():
             s = _as_mapping(spec, f"environments.{name}")
-            _strict_keys(s, {"body", "atmosphere"}, f"environments.{name}")
-            body = bodies[str(_require(s,"body",f"environments.{name}"))]
-            atm_name = str(s.get("atmosphere","vacuum"))
-            if atm_name not in atmospheres:
-                raise MissionCompilationError(f"environment {name!r} references unknown atmosphere {atm_name!r}")
-            environments[name] = PlanetaryEnvironment(body, atmospheres[atm_name])
+            typ = str(s.get("type", "planetary"))
+            if ":" in typ:
+                environments[name] = self.registry.build("environment", typ, self._plugin_spec(typ, s), {
+                    "name": name, "bodies": MappingProxyType(bodies), "atmospheres": MappingProxyType(atmospheres),
+                    "document": document, "catalog": catalog,
+                })
+            else:
+                _strict_keys(s, {"body", "atmosphere", "type"}, f"environments.{name}")
+                body = bodies[str(_require(s,"body",f"environments.{name}"))]
+                atm_name = str(s.get("atmosphere","vacuum"))
+                if atm_name not in atmospheres:
+                    raise MissionCompilationError(f"environment {name!r} references unknown atmosphere {atm_name!r}")
+                environments[name] = PlanetaryEnvironment(body, atmospheres[atm_name])
 
-        solvers = self._compile_solvers(raw.get("solvers", {}))
+        # Generic mission-level plugin models. Their category determines the
+        # stable capability namespace (aero, propulsion, gnc, terrain, ...).
+        models: dict[str, Any] = {}
+        for name, spec in raw.get("models", {}).items():
+            category = str(spec["category"])
+            typ = str(spec["type"])
+            models[name] = self.registry.build(category, typ, _as_mapping(spec.get("config", {}), f"models.{name}.config"), {
+                "name": name, "document": document, "catalog": catalog,
+                "bodies": MappingProxyType(bodies), "atmospheres": MappingProxyType(atmospheres),
+                "environments": MappingProxyType(environments), "models": MappingProxyType(dict(models)),
+            })
+
+        solvers = self._compile_solvers(raw.get("solvers", {}), document, models)
         default_solver = mission.get("default_solver")
         default_integrator = solvers.get(default_solver) if default_solver else ScipyIVPIntegrator()
         engine = MultiVehicleUniverseEngine(default_integrator=default_integrator)
@@ -736,7 +893,7 @@ class MissionCompiler:
         vehicles: list[VehicleSpec] = []
         for vid, vspec in raw["vehicles"].items():
             vehicles.append(self._compile_initial_vehicle(
-                document, vid, vspec, bodies, environments, solvers, default_integrator
+                document, vid, vspec, bodies, environments, solvers, default_integrator, models
             ))
 
         opt = self._parse_optimization(document)
@@ -745,31 +902,34 @@ class MissionCompiler:
             document, tuple(vehicles), engine, t_span,
             MappingProxyType(bodies), MappingProxyType(environments), catalog,
             tuple(MappingProxyType(dict(o)) for o in raw.get("outputs", [])),
-            opt, dispersions,
+            self.registry, MappingProxyType(models), plugin_inventory, opt, dispersions,
         )
 
-    def _compile_solvers(self, specs: Mapping[str, Any]) -> dict[str, Any]:
+    def _compile_solvers(self, specs: Mapping[str, Any], document: MissionDocument,
+                         models: Mapping[str, Any]) -> dict[str, Any]:
         out: dict[str, Any] = {}
         for name, spec in specs.items():
             s = _as_mapping(spec, f"solvers.{name}")
-            typ = str(s.get("type", "scipy")).lower()
-            if typ == "scipy":
+            typ = str(s.get("type", "scipy"))
+            low = typ.lower()
+            if low == "scipy":
                 _strict_keys(s, {"type","method","rtol","atol","max_step","dense_output"}, f"solvers.{name}")
                 cfg = SolverConfig(
-                    method=str(s.get("method","DOP853")),
-                    rtol=float(s.get("rtol",1e-10)),
-                    atol=float(s.get("atol",1e-12)),
-                    max_step=float(s.get("max_step",np.inf)),
+                    method=str(s.get("method","DOP853")), rtol=float(s.get("rtol",1e-10)),
+                    atol=float(s.get("atol",1e-12)), max_step=float(s.get("max_step",np.inf)),
                     dense_output=bool(s.get("dense_output",True)),
                 )
                 out[name] = ScipyIVPIntegrator(cfg)
-            elif typ == "rk4":
+            elif low == "rk4":
                 _strict_keys(s, {"type","step","event_time_tolerance","save_every_step"}, f"solvers.{name}")
                 out[name] = FixedStepRK4Integrator(FixedStepRK4Config(
-                    step=float(s.get("step",0.1)),
-                    event_time_tolerance=float(s.get("event_time_tolerance",1e-8)),
+                    step=float(s.get("step",0.1)), event_time_tolerance=float(s.get("event_time_tolerance",1e-8)),
                     save_every_step=bool(s.get("save_every_step",False)),
                 ))
+            elif ":" in typ:
+                out[name] = self.registry.build("solver", typ, self._plugin_spec(typ, s), {
+                    "name": name, "document": document, "models": models,
+                })
             else:
                 raise MissionCompilationError(f"unknown solver type {typ!r}")
         return out
@@ -778,18 +938,20 @@ class MissionCompiler:
         return core_3dof_schema() if int(dof)==3 else core_6dof_schema()
 
     def _compile_initial_vehicle(self, document: MissionDocument, vid: str, vspec: Mapping[str, Any],
-                                 bodies: Mapping[str,SphericalBody], environments: Mapping[str,PlanetaryEnvironment],
-                                 solvers: Mapping[str,Any], default_integrator: Any) -> VehicleSpec:
+                                 bodies: Mapping[str,Any], environments: Mapping[str,Any],
+                                 solvers: Mapping[str,Any], default_integrator: Any,
+                                 models: Mapping[str, Any]) -> VehicleSpec:
         initial = vspec["initial"]
         dof = int(initial["dof"])
         schema = self._schema(dof)
         state = schema.pack(initial["state"])
-        return self._phase_spec(document, vid, vspec, 0, schema, state, bodies, environments, solvers, default_integrator)
+        return self._phase_spec(document, vid, vspec, 0, schema, state, bodies, environments, solvers, default_integrator, models)
 
     def _phase_spec(self, document: MissionDocument, vid: str, vspec: Mapping[str, Any], phase_index: int,
                     source_schema: StateSchema, source_state: np.ndarray,
-                    bodies: Mapping[str,SphericalBody], environments: Mapping[str,PlanetaryEnvironment],
-                    solvers: Mapping[str,Any], default_integrator: Any) -> VehicleSpec:
+                    bodies: Mapping[str,Any], environments: Mapping[str,Any],
+                    solvers: Mapping[str,Any], default_integrator: Any,
+                    models: Mapping[str, Any]) -> VehicleSpec:
         phases = list(vspec["phases"])
         phase = phases[phase_index]
         target_dof = int(phase.get("dof", 3 if source_schema.total_size==7 else 6))
@@ -799,48 +961,47 @@ class MissionCompiler:
         env = environments.get(str(vspec.get("environment","")))
         if env is None:
             env = PlanetaryEnvironment(body, VacuumAtmosphere())
-        rhs = self._build_rhs(schema, phase.get("dynamics", {}), body, env)
+        rhs = self._build_rhs(schema, phase.get("dynamics", {}), body, env, models, document, vid, phase)
         solver_name = phase.get("solver", vspec.get("solver", document.raw["mission"].get("default_solver")))
         integrator = solvers.get(solver_name, default_integrator) if solver_name else default_integrator
         events: list[VehicleEvent] = []
         if phase_index < len(phases)-1:
             guard_spec = phase["until"]
-            guard = self._build_guard(guard_spec, schema, body)
+            guard = self._build_guard(guard_spec, schema, body, models, document)
             next_index = phase_index+1
 
             def handler(ctx, *, _vid=vid, _vspec=vspec, _next=next_index, _schema=schema,
-                        _bodies=bodies, _envs=environments, _solvers=solvers, _default=default_integrator):
+                        _bodies=bodies, _envs=environments, _solvers=solvers,
+                        _default=default_integrator, _models=models):
                 new_spec = self._phase_spec(
                     document, _vid, _vspec, _next, _schema, ctx.source.state,
-                    _bodies, _envs, _solvers, _default,
+                    _bodies, _envs, _solvers, _default, _models,
                 )
                 return UniverseMutation(upsert=(new_spec,), note=f"phase -> {_vspec['phases'][_next]['name']}")
 
             events.append(VehicleEvent(
-                f"phase:{phase['name']}", guard,
-                direction=float(guard_spec.get("direction", 0.0)),
+                f"phase:{phase['name']}", guard, direction=float(guard_spec.get("direction", 0.0)),
                 priority=int(guard_spec.get("priority", 0)), handler=handler,
             ))
         events.extend(self._global_events_for_vehicle(
-            document, vid, schema, body, vspec, bodies, environments, solvers, default_integrator
+            document, vid, schema, body, vspec, phase_index, bodies, environments, solvers, default_integrator, models
         ))
         return VehicleSpec(
-            vid, schema, state, rhs, tuple(events), integrator,
-            mode=str(phase["name"]), dof=target_dof,
+            vid, schema, state, rhs, tuple(events), integrator, mode=str(phase["name"]), dof=target_dof,
             model_context={"body":str(vspec["body"]),"environment":vspec.get("environment"),"phase_index":phase_index},
         )
 
-    def _global_events_for_vehicle(self, document: MissionDocument, vid: str, schema: StateSchema, body: SphericalBody,
-                                   vspec: Mapping[str,Any], bodies: Mapping[str,SphericalBody],
-                                   environments: Mapping[str,PlanetaryEnvironment], solvers: Mapping[str,Any],
-                                   default_integrator: Any) -> list[VehicleEvent]:
+    def _global_events_for_vehicle(self, document: MissionDocument, vid: str, schema: StateSchema, body: Any,
+                                   vspec: Mapping[str,Any], phase_index: int,
+                                   bodies: Mapping[str,Any], environments: Mapping[str,Any], solvers: Mapping[str,Any],
+                                   default_integrator: Any, models: Mapping[str, Any]) -> list[VehicleEvent]:
         out=[]
         templates=document.raw.get("vehicle_templates", {})
         for event_spec in document.raw.get("events", []):
             if str(event_spec["vehicle"]) != vid:
                 continue
             guard_spec=event_spec["guard"]
-            guard=self._build_guard(guard_spec,schema,body)
+            guard=self._build_guard(guard_spec,schema,body,models,document)
             action=event_spec["action"]; atype=str(action["type"]); event_name=str(event_spec["name"])
             if atype=="remove_vehicle":
                 note=str(action.get("note",f"remove {vid}"))
@@ -861,10 +1022,8 @@ class MissionCompiler:
                         parent_velocity_i=np.asarray(vals["velocity"]), parent_attitude_bi=np.asarray(vals["attitude"]),
                         parent_angular_rate_b=np.asarray(vals["angular_rate"]), parent_inertia_b=_pI,
                         retained_mass=float(_r["mass"]), detached_mass=float(_d["mass"]),
-                        retained_offset_b=np.asarray(_r["offset_b"],dtype=float),
-                        detached_offset_b=np.asarray(_d["offset_b"],dtype=float),
-                        retained_inertia_b=np.asarray(_r["inertia_b"],dtype=float),
-                        detached_inertia_b=np.asarray(_d["inertia_b"],dtype=float),
+                        retained_offset_b=np.asarray(_r["offset_b"],dtype=float), detached_offset_b=np.asarray(_d["offset_b"],dtype=float),
+                        retained_inertia_b=np.asarray(_r["inertia_b"],dtype=float), detached_inertia_b=np.asarray(_d["inertia_b"],dtype=float),
                         relative_separation_velocity_i=_rel, conserve_angular_momentum=_conserve,
                     )
                     specs=[]
@@ -874,10 +1033,19 @@ class MissionCompiler:
                         y=core_schema.pack({"position":child_state.position_i,"velocity":child_state.velocity_i,
                                            "attitude":child_state.attitude_bi,"angular_rate":child_state.angular_rate_b,
                                            "mass":child_state.mass})
-                        specs.append(self._phase_spec(document,child_id,tmpl,0,core_schema,y,bodies,environments,solvers,default_integrator))
+                        specs.append(self._phase_spec(document,child_id,tmpl,0,core_schema,y,bodies,environments,solvers,default_integrator,models))
                     remove=() if vid in {s.vehicle_id for s in specs} else (vid,)
                     return UniverseMutation(remove=remove,upsert=tuple(specs),note=_note)
-            else:  # validated earlier
+            elif ":" in atype:
+                handler = self.registry.build("event_action", atype, self._plugin_spec(atype, action), {
+                    "document": document, "vehicle_id": vid, "schema": schema, "body": body,
+                    "vehicle_spec": vspec, "phase_index": phase_index, "bodies": bodies,
+                    "environments": environments, "solvers": solvers, "default_integrator": default_integrator,
+                    "models": models, "compiler": self,
+                })
+                if not callable(handler):
+                    raise MissionCompilationError(f"plugin event action {atype!r} must build a callable handler")
+            else:
                 continue
             out.append(VehicleEvent(event_name,guard,direction=float(guard_spec.get("direction",0.0)),
                                     priority=int(event_spec.get("priority",0)),handler=handler))
@@ -888,17 +1056,26 @@ class MissionCompiler:
             return np.asarray(state,dtype=float).copy()
         src_keys = {f.key for f in src.fields}; dst_keys = {f.key for f in dst.fields}
         if "attitude" not in src_keys and "attitude" in dst_keys:
-            attitude = transition.get("attitude")
-            rate = transition.get("angular_rate", [0,0,0])
+            attitude = transition.get("attitude"); rate = transition.get("angular_rate", [0,0,0])
             return promote_3dof_to_6dof(state, attitude=None if attitude is None else np.asarray(attitude,dtype=float),
                                         angular_rate_b=np.asarray(rate,dtype=float), source_schema=src, target_schema=dst)
         if "attitude" in src_keys and "attitude" not in dst_keys:
             return demote_6dof_to_3dof(state, source_schema=src, target_schema=dst)
-        defaults = transition.get("defaults", {})
-        return map_state_fields(src, dst, state, defaults=defaults)
+        return map_state_fields(src, dst, state, defaults=transition.get("defaults", {}))
 
-    def _build_rhs(self, schema: StateSchema, dynamics: Mapping[str,Any], body: SphericalBody,
-                   env: PlanetaryEnvironment) -> Callable[[float,np.ndarray],np.ndarray]:
+    def _build_rhs(self, schema: StateSchema, dynamics: Mapping[str,Any], body: Any,
+                   env: Any, models: Mapping[str, Any], document: MissionDocument,
+                   vehicle_id: str, phase: Mapping[str, Any]) -> Callable[[float,np.ndarray],np.ndarray]:
+        typ = str(dynamics.get("type", "")) if isinstance(dynamics, Mapping) else ""
+        if typ and ":" in typ:
+            rhs = self.registry.build("dynamics", typ, self._plugin_spec(typ, dynamics), {
+                "schema": schema, "body": body, "environment": env, "models": models,
+                "document": document, "vehicle_id": vehicle_id, "phase": phase, "compiler": self,
+            })
+            if callable(rhs): return rhs
+            if hasattr(rhs, "rhs") and callable(rhs.rhs): return rhs.rhs
+            raise MissionCompilationError(f"plugin dynamics {typ!r} must build a callable RHS or object with rhs")
+
         _strict_keys(dynamics, {"gravity","ideal_rocket","constant_body_rocket","inertia_b"}, "phase.dynamics")
         gravity = body.gravity if bool(dynamics.get("gravity", True)) else None
         is6 = "attitude" in {f.key for f in schema.fields}
@@ -910,12 +1087,10 @@ class MissionCompiler:
                 _strict_keys(r,{"exhaust_velocity","mass_flow","direction_i"},"phase.dynamics.ideal_rocket")
                 rocket=IdealRocket(float(r["exhaust_velocity"]),float(r["mass_flow"]),np.asarray(r.get("direction_i",[1,0,0]),dtype=float))
                 accel.append(rocket); owners.append(rocket)
-            assembler=DynamicsAssembler(schema,[TranslationalKinematics(gravity,tuple(accel)),*owners])
-            return assembler.rhs
+            return DynamicsAssembler(schema,[TranslationalKinematics(gravity,tuple(accel)),*owners]).rhs
 
         inertia=np.asarray(dynamics.get("inertia_b",np.eye(3)),dtype=float)
-        mp=ConstantMassProperties(inertia)
-        wrenches=[]; owners=[]
+        mp=ConstantMassProperties(inertia); wrenches=[]; owners=[]
         rocket_spec=dynamics.get("constant_body_rocket")
         if rocket_spec is not None:
             r=_as_mapping(rocket_spec,"phase.dynamics.constant_body_rocket")
@@ -925,21 +1100,24 @@ class MissionCompiler:
                                           np.asarray(r.get("mount_b",[0,0,0]),dtype=float),
                                           np.asarray(r.get("cg_b",[0,0,0]),dtype=float))
             wrenches.append(rocket); owners.append(rocket)
-        assembler=DynamicsAssembler(schema,[RigidBody6DOFDynamics(mp,gravity,tuple(wrenches)),QuaternionKinematics(),*owners])
-        return assembler.rhs
+        return DynamicsAssembler(schema,[RigidBody6DOFDynamics(mp,gravity,tuple(wrenches)),QuaternionKinematics(),*owners]).rhs
 
-    def _build_guard(self, spec: Mapping[str,Any], schema: StateSchema, body: SphericalBody):
-        typ=str(spec["type"]); value=float(spec["value"])
-        if typ=="time":
-            return lambda t,y: float(t-value)
+    def _build_guard(self, spec: Mapping[str,Any], schema: StateSchema, body: Any,
+                     models: Mapping[str, Any], document: MissionDocument):
+        typ=str(spec["type"])
+        if ":" in typ:
+            guard = self.registry.build("guard", typ, self._plugin_spec(typ, spec), {
+                "schema": schema, "body": body, "models": models, "document": document,
+            })
+            if not callable(guard): raise MissionCompilationError(f"plugin guard {typ!r} must build a callable")
+            return guard
+        value=float(spec["value"])
+        if typ=="time": return lambda t,y: float(t-value)
         if typ=="altitude":
-            sl=schema.sl("position")
-            return lambda t,y: float(body.altitude(np.asarray(y[sl],dtype=float))-value)
+            sl=schema.sl("position"); return lambda t,y: float(body.altitude(np.asarray(y[sl],dtype=float))-value)
         field=str(spec["field"]); sl=schema.sl(field); index=spec.get("index")
-        if index is None:
-            return lambda t,y: float(np.asarray(y[sl]).reshape(-1)[0]-value)
-        idx=int(index)
-        return lambda t,y: float(np.asarray(y[sl]).reshape(-1)[idx]-value)
+        if index is None: return lambda t,y: float(np.asarray(y[sl]).reshape(-1)[0]-value)
+        idx=int(index); return lambda t,y: float(np.asarray(y[sl]).reshape(-1)[idx]-value)
 
     def _parse_optimization(self, document: MissionDocument) -> MissionOptimizationDeclaration | None:
         spec=document.raw.get("optimization")
@@ -951,17 +1129,10 @@ class MissionCompiler:
             dvs.append(DesignVariable(str(d["name"]),initial,lower,upper,float(d.get("scale",1.0))))
             pointers.append(str(d["pointer"]))
         objspec=spec["objective"]
-        obj=MetricObjective(
-            metric=str(objspec["metric"]),
-            sense=str(objspec.get("sense","minimize")),
-            scale=float(objspec.get("scale",1.0)),
-        )
-        cons=tuple(MetricConstraint(
-            metric=str(c["metric"]),
-            lower=-np.inf if c.get("lower") is None else float(c["lower"]),
-            upper=np.inf if c.get("upper") is None else float(c["upper"]),
-            scale=float(c.get("scale",1.0)),
-        ) for c in spec.get("constraints",[]))
+        obj=MetricObjective(metric=str(objspec["metric"]),sense=str(objspec.get("sense","minimize")),scale=float(objspec.get("scale",1.0)))
+        cons=tuple(MetricConstraint(metric=str(c["metric"]), lower=-np.inf if c.get("lower") is None else float(c["lower"]),
+                                    upper=np.inf if c.get("upper") is None else float(c["upper"]), scale=float(c.get("scale",1.0)))
+                   for c in spec.get("constraints",[]))
         return MissionOptimizationDeclaration(tuple(dvs),tuple(pointers),obj,cons,
                                               str(spec.get("method","SLSQP")),int(spec.get("max_iterations",100)))
 
@@ -975,71 +1146,65 @@ class MissionCompiler:
         return tuple(out)
 
     def build_trajectory_problem(self, document: MissionDocument) -> TrajectoryProblem:
-        compiled=self.compile(document)
-        decl=compiled.optimization
-        if decl is None:
-            raise MissionCompilationError("mission contains no optimization declaration")
+        compiled=self.compile(document); decl=compiled.optimization
+        if decl is None: raise MissionCompilationError("mission contains no optimization declaration")
         space=DesignSpace(list(decl.design_variables))
-
         def evaluator(values: Mapping[str,float]):
             overrides={ptr:float(values[dv.name]) for dv,ptr in zip(decl.design_variables,decl.pointers)}
             report=self.compile(document.with_overrides(overrides)).run()
-            metrics=dict(report.outputs)
-            metrics["mission_success"]=1.0 if report.success else 0.0
+            metrics=dict(report.outputs); metrics["mission_success"]=1.0 if report.success else 0.0
             return metrics
-
         return TrajectoryProblem(space,evaluator,decl.objective,decl.constraints)
 
     def optimize(self, document: MissionDocument):
         compiled=self.compile(document); decl=compiled.optimization
-        if decl is None:
-            raise MissionCompilationError("mission contains no optimization declaration")
+        if decl is None: raise MissionCompilationError("mission contains no optimization declaration")
         problem=self.build_trajectory_problem(document)
+        if ":" in decl.method:
+            built=self.registry.build("optimizer",decl.method,{"max_iterations":decl.max_iterations},{
+                "problem":problem,"declaration":decl,"document":document,"compiler":self,
+            })
+            if hasattr(built,"solve") and callable(built.solve): return built.solve(problem)
+            if callable(built): return built(problem)
+            if hasattr(built,"success"): return built
+            raise MissionCompilationError(f"plugin optimizer {decl.method!r} returned unsupported object")
         return TrajectoryOptimizer(OptimizationSettings(method=decl.method,maxiter=decl.max_iterations)).solve(problem)
 
     def sample_monte_carlo(self, document: MissionDocument, cases: int | None = None, seed: int | None = None) -> tuple[Mapping[str,Any], ...]:
-        compiled=self.compile(document)
-        mc=document.raw.get("monte_carlo") or {}
-        n=int(cases if cases is not None else mc.get("cases",1))
-        rng=np.random.default_rng(int(seed if seed is not None else mc.get("seed",0)))
+        compiled=self.compile(document); mc=document.raw.get("monte_carlo") or {}
+        n=int(cases if cases is not None else mc.get("cases",1)); rng=np.random.default_rng(int(seed if seed is not None else mc.get("seed",0)))
         samples=[]
         for i in range(n):
-            overrides={}
-            values={}
+            overrides={}; values={}
             for d in compiled.dispersions:
-                if d.distribution=="normal":
-                    value=float(rng.normal(d.parameters["mean"],d.parameters["std"]))
-                else:
-                    value=float(rng.uniform(d.parameters["low"],d.parameters["high"]))
+                value=float(rng.normal(d.parameters["mean"],d.parameters["std"])) if d.distribution=="normal" else float(rng.uniform(d.parameters["low"],d.parameters["high"]))
                 overrides[d.pointer]=value; values[d.name]=value
             samples.append(MappingProxyType({"index":i,"overrides":MappingProxyType(overrides),"values":MappingProxyType(values)}))
         return tuple(samples)
 
-
-def _extract_outputs(result: UniverseResult, specs: Sequence[Mapping[str,Any]], bodies: Mapping[str,SphericalBody]) -> dict[str,float]:
-    out: dict[str,float]={}
+def _extract_outputs(result: UniverseResult, specs: Sequence[Mapping[str,Any]], bodies: Mapping[str,Any],
+                     registry: MissionRegistry | None = None, models: Mapping[str,Any] | None = None) -> dict[str,float]:
+    out: dict[str,float]={}; models=models or {}
     for spec in specs:
         name=str(spec["name"]); typ=str(spec["type"])
-        if typ=="time":
-            out[name]=float(result.end_time); continue
-        if typ=="vehicle_count":
-            out[name]=float(len(result.final_vehicles)); continue
+        if ":" in typ:
+            if registry is None: raise MissionCompilationError(f"plugin output {typ!r} requires a mission registry")
+            value=registry.build("output",typ,_as_mapping(spec.get("config",{}),f"outputs.{name}.config"),{
+                "result":result,"spec":spec,"bodies":bodies,"models":models,"outputs_so_far":MappingProxyType(dict(out)),
+            })
+            out[name]=float(value() if callable(value) else value); continue
+        if typ=="time": out[name]=float(result.end_time); continue
+        if typ=="vehicle_count": out[name]=float(len(result.final_vehicles)); continue
         vid=str(spec["vehicle"])
-        if vid not in result.final_vehicles:
-            out[name]=math.nan; continue
+        if vid not in result.final_vehicles: out[name]=math.nan; continue
         snap=result.final_vehicles[vid]; values=snap.schema.unpack(snap.state)
-        if typ=="speed":
-            out[name]=float(np.linalg.norm(values["velocity"])); continue
+        if typ=="speed": out[name]=float(np.linalg.norm(values["velocity"])); continue
         if typ=="altitude":
             body_name=spec.get("body") or snap.model_context.get("body")
-            if body_name not in bodies:
-                raise MissionCompilationError(f"output {name!r} cannot resolve body for altitude")
+            if body_name not in bodies: raise MissionCompilationError(f"output {name!r} cannot resolve body for altitude")
             out[name]=float(bodies[str(body_name)].altitude(values["position"])); continue
-        field=str(spec["field"]); value=values[field]
-        arr=np.asarray(value,dtype=float).reshape(-1)
-        idx=int(spec.get("index",0))
-        if idx >= arr.size:
-            raise MissionCompilationError(f"output {name!r} state index out of range")
+        field=str(spec["field"]); value=values[field]; arr=np.asarray(value,dtype=float).reshape(-1); idx=int(spec.get("index",0))
+        if idx >= arr.size: raise MissionCompilationError(f"output {name!r} state index out of range")
         out[name]=float(arr[idx])
     return out
 

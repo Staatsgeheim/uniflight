@@ -40,6 +40,9 @@
       ],
       "type": "object"
     },
+    "models": {
+      "type": "object"
+    },
     "monte_carlo": {
       "type": "object"
     },
@@ -47,6 +50,9 @@
       "type": "object"
     },
     "outputs": {
+      "type": "array"
+    },
+    "plugins": {
       "type": "array"
     },
     "vehicle_templates": {

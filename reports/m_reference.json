@@ -1,0 +1,67 @@
+{
+  "end_time": 8.0,
+  "events": [
+    {
+      "active_after": [
+        "lander"
+      ],
+      "event": "plugin-discard",
+      "note": "removed by installed third-party plugin",
+      "priority": 0,
+      "time": 2.0,
+      "vehicle": "discard"
+    },
+    {
+      "active_after": [
+        "lander"
+      ],
+      "event": "phase:plugin-powered",
+      "note": "phase -> core-coast",
+      "priority": 0,
+      "time": 4.0,
+      "vehicle": "lander"
+    }
+  ],
+  "final_vehicles": {
+    "lander": {
+      "dof": 3,
+      "mode": "core-coast",
+      "schema_hash": "6bdcbd7759602c13e83c070f4a11b26875c097084b987d1683fa06296b0adf58",
+      "state": {
+        "mass": 99.20000000000014,
+        "position": [
+          1001115.2098172406,
+          0.0,
+          0.0
+        ],
+        "velocity": [
+          18.80250423662489,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "message": "success",
+  "metadata": {
+    "dataset_inventory": [],
+    "mission_id": "nereid-m-plugin",
+    "mission_sha256": "2b5ecae9bb0e893e96ffebe752bc454e2fe80ec67415a6effc257e084bad7090",
+    "plugin_inventory": [
+      {
+        "api_version": "1.0",
+        "plugin_id": "demo.nereid",
+        "version": "1.0.0"
+      }
+    ],
+    "uniflight_version": "0.13.0"
+  },
+  "outputs": {
+    "active_vehicles": 1.0,
+    "final_altitude": 1115.2098172405967,
+    "final_mass": 99.20000000000014,
+    "specific_energy": -149656.1377907552
+  },
+  "start_time": 0.0,
+  "success": true
+}
