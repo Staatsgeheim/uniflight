@@ -6,7 +6,7 @@ from typing import Mapping
 import json
 import numpy as np
 
-from .units import DIMENSIONLESS, LENGTH, VELOCITY, MASS, ANGULAR_RATE, TEMPERATURE, AREAL_ENERGY, UnitDimension
+from .units import DIMENSIONLESS, LENGTH, VELOCITY, MASS, ANGLE, ANGULAR_RATE, TEMPERATURE, AREAL_ENERGY, UnitDimension
 
 @dataclass(frozen=True, slots=True)
 class StateField:
@@ -141,4 +141,19 @@ def edl_6dof_schema() -> StateSchema:
         *entry_6dof_schema().fields,
         StateField("parachute_deployment", (), DIMENSIONLESS, None, owner="parachute"),
         StateField("gear_deployment", (), DIMENSIONLESS, None, owner="gear"),
+    ])
+
+
+def gnc_edl_6dof_schema() -> StateSchema:
+    """Milestone-F EDL truth state with bounded actuator states.
+
+    Controller commands remain outside the continuous state and are held on a
+    sampled-data command bus. The three actuator states are the physical
+    throttle and two gimbal positions seen by propulsion.
+    """
+    return StateSchema([
+        *edl_6dof_schema().fields,
+        StateField("throttle_actuator", (), DIMENSIONLESS, None, owner="throttle-actuator"),
+        StateField("pitch_gimbal_actuator", (), ANGLE, None, owner="pitch-actuator"),
+        StateField("yaw_gimbal_actuator", (), ANGLE, None, owner="yaw-actuator"),
     ])

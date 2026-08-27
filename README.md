@@ -1,61 +1,38 @@
-# UniFlight — Milestone E
+# UniFlight — Milestone F
 
-Milestone E extends the Milestone D planet-agnostic entry/re-entry kernel through **entry, descent, powered terminal descent, touchdown, and first-contact dynamics**. The milestone keeps mission phase discrete while the physical vehicle state remains numeric, and it preserves the one-owner-per-state-derivative rule introduced in Milestone A.
+Milestone F extends the Milestone E surface-to-space-to-surface physics kernel with **sampled-data guidance, navigation and control plus reproducible mission robustness analysis**. The central architectural rule is that state estimation and control execute only at explicit chronological sample times; commands are zero-order held while the adaptive continuous-time plant integrator advances between samples.
 
-## Implemented in E
+## Implemented in F
 
-- `edl_6dof_schema()` extending the Milestone-D entry state with:
-  - parachute deployment fraction
-  - landing-gear deployment fraction
-- Generic `FirstOrderDeployable`
-  - deploy/retract time constants
-  - irreversible deployment option
-  - callable command support
-- 6-DOF `InflatingParachute`
-  - deployment-dependent effective area
-  - atmosphere-relative drag
-  - body attachment point and resulting moment about CG
-- `RadialTerrain`
-  - arbitrary spherical body
-  - constant or callable radial elevation
-  - AGL, surface normal, surface point, and local rotating-surface velocity
-- `LandingGearContact`
-  - multiple gear legs
-  - stowed/deployed foot locations
-  - spring-damper normal contact
-  - regularized Coulomb friction
-  - 6-DOF force and moment output
-- `VerticalDescentThrottle`
-  - local-gravity feedforward
-  - altitude-dependent descent-speed schedule
-  - arbitrary planetary atmosphere and gravity
-- `JettisonJump`
-  - hybrid state jump for mass removal
-  - optional state resets, e.g. parachute deployment -> 0
-- Momentum-conserving `separate_two_body()` utility
-  - produces retained and detached daughter initial states
-  - supports a prescribed relative separation velocity
-- `HybridModeEngine`
-  - phase-specific RHS and event sets
-  - discrete mode remains outside continuous `X`
-  - transition by terminal event name
-  - concatenated state/event/mode history
-- Full regression coverage for Milestones A-D
-- End-to-end fictional-world EDL example:
-  - parachute inflation and descent
-  - parachute jettison
-  - powered terminal descent
-  - gear deployment
-  - touchdown
-  - spring/damper first-contact compression
+- `gnc_edl_6dof_schema()` with actuator states for throttle and two-axis TVC
+- deterministic noisy position/velocity sensing
+- noisy quaternion/angular-rate sensing with unit-quaternion preservation
+- radar-altimeter sensor interface
+- generic Extended Kalman Filter with Joseph-form covariance update
+- 6-state translational navigation EKF using arbitrary-body gravity
+- 3-D vector terminal-landing guidance with local-gravity feedforward
+- quaternion PD attitude controller
+- sampled-data GNC command bus
+- zero-order-held commands between GNC updates
+- first-order actuators with position and slew-rate limits
+- bounded commanded body torque
+- GNC-controlled gimballed rocket engine
+- state-limit abort rules and terminal abort events
+- deterministic seeded normal/uniform dispersions
+- serial Monte Carlo campaign runner
+- success-rate and p05/median/p95 mission statistics
+- JSON campaign-report export from the reference example
+- full regression coverage for Milestones A-E
+
+## Why sampled-data GNC is outside the ODE RHS
+
+An adaptive ODE solver may evaluate its RHS at trial times that are not monotonically increasing. A mutable estimator/controller called from inside that RHS could therefore process measurements out of chronological order. Milestone F avoids that failure mode by integrating the continuous plant to the next GNC sample boundary, performing exactly one sensor/estimator/controller update, holding the resulting command, and repeating.
 
 ## Important fidelity note
 
-Milestone E establishes the **EDL software contracts**. Its parachute and contact models are engineering reference closures, not substitutes for validated canopy CFD/FSI, line dynamics, flexible landing-gear models, soil mechanics, crushable structures, or high-fidelity multibody impact simulation.
+Milestone F establishes the **GNC and robustness software contracts**. The included sensors, EKF process model, landing guidance, PD attitude controller, actuator models, and dispersion set are engineering reference implementations. They are not flight-qualified navigation filters, fault-tolerant flight software, or a tuned operational landing controller.
 
-`separate_two_body()` establishes momentum-consistent daughter initialization. Milestone E does **not** yet provide a single solver that automatically changes the dimension of the global state and concurrently integrates an arbitrary number of newly created daughter vehicles; each daughter can already be initialized and integrated independently with the existing kernel.
-
-## Numerical dependencies
+## Dependencies
 
 - Python >= 3.11
 - NumPy >= 2.0
@@ -68,141 +45,78 @@ Milestone E establishes the **EDL software contracts**. Its parachute and contac
 python -m pip install -e .
 ```
 
-For an offline environment with the build toolchain already installed:
+Offline, when the build toolchain is already installed:
 
 ```bash
 python -m pip install -e . --no-build-isolation
 ```
 
-## Run verification
+## Verification
+
+For a deterministic local test environment:
 
 ```bash
-PYTHONPATH=src pytest -q
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q
 ```
 
-The project currently passes **47 tests**.
+The complete Milestone A-F suite contains **59 tests**.
 
-## Run the full EDL example
+## Sandbox-friendly acceptance run
+
+The bounded acceptance profile exercises all F-specific unit tests and one full noisy closed-loop landing at the intended 0.5 s GNC cadence:
 
 ```bash
-PYTHONPATH=src python examples/full_edl.py
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_gnc_robustness.py
+PYTHONPATH=src python examples/gnc_monte_carlo.py --nominal-only --sample-period 0.5
 ```
 
-The reference example uses the fictional body **Nereid-E**. The checked configuration begins at 3 km AGL with a 120 m/s downward speed and then executes:
+The checked nominal sandbox result is approximately 125.05 s to touchdown, 0.038 m lateral error, 0.040 m/s total touchdown speed, and 370.76 kg final mass. Statistical acceptance is intentionally left to the larger local campaign.
 
-1. parachute inflation and descent
-2. parachute jettison / powered-descent transition at 500 m
-3. closed-loop powered vertical descent
-4. landing-gear deployment
-5. first foot contact
-6. engine-off landing-gear compression to the first zero-radial-speed point
+## Full local campaign
 
-Representative checked output:
+The exact same runner scales to larger campaigns:
 
-- powered-descent event: ~185.76 s
-- touchdown event: ~301.20 s
-- first compression stop: ~301.27 s
-- final CG altitude: ~1.975 m
-- final radial speed: ~0 m/s at maximum first compression
-- final vehicle mass: ~364.23 kg
-- landing gear deployment: 1.0
-- quaternion norm: 1.0 to displayed precision
-- gear contact active at termination
-
-The example is intentionally a reference architecture case, not a tuned operational landing guidance law.
-
-## Core Milestone E assembly
-
-```python
-chute_deploy = FirstOrderDeployable(
-    "parachute_deployment", command=1.0, deploy_time_constant=1.5
-)
-parachute = InflatingParachute(
-    environment, mass_properties,
-    maximum_area=80.0,
-    drag_coefficient=1.5,
-    deployment=chute_deploy,
-)
-
-gear_deploy = FirstOrderDeployable(
-    "gear_deployment", command=1.0, deploy_time_constant=0.5
-)
-landing_gear = LandingGearContact(
-    terrain, mass_properties, legs=(gear_leg,)
-)
-
-guidance = VerticalDescentThrottle(
-    environment, terrain,
-    exhaust_velocity=2000.0,
-    mdot_exhaust=3.0,
-)
-engine = GimballedRocketEngine(
-    environment, mass_properties,
-    exhaust_velocity=2000.0,
-    mdot_exhaust=3.0,
-    base_direction_b=np.array([1.0, 0.0, 0.0]),
-    throttle=guidance,
-)
-
-modes = {
-    "parachute": ModeDefinition("parachute", parachute_rhs, (to_power_event,)),
-    "powered": ModeDefinition("powered", powered_rhs, (touchdown_event,)),
-    "contact": ModeDefinition("contact", contact_rhs, (compression_stop_event,)),
-}
-mission = HybridModeEngine(modes, transition_function, integrator)
+```bash
+PYTHONPATH=src python examples/gnc_monte_carlo.py \
+  --cases 1000 \
+  --sample-period 0.5 \
+  --seed 20260827 \
+  --output reports/f1000.json
 ```
 
-## State and mode ownership
+See `FULL_SCALE_VALIDATION.md` for the recommended sequence, success criteria, dispersions, and handoff format.
 
-Continuous physical state remains in the packed schema:
+## Reference GNC loop
 
 ```text
-[position, velocity, attitude, angular_rate, mass,
- tps_temperature, heat_load, tps_mass,
- parachute_deployment, gear_deployment]
+truth state
+    ↓
+sensors + deterministic noise
+    ↓
+EKF navigation estimate
+    ↓
+3-D landing guidance
+    ↓
+quaternion attitude control
+    ↓
+limited actuator commands
+    ↓
+zero-order-held plant input
+    ↓
+adaptive 6-DOF integration to next sample time
 ```
-
-Mission mode is intentionally **not** stored as a floating-point state. `HybridModeEngine` owns discrete phase selection and records mode intervals separately. This preserves clear semantics for ODE integration and event root finding.
-
-## Separation convention
-
-For two daughters with masses `m1` and `m2`, parent velocity `V`, and prescribed relative separation velocity
-
-```text
-dv = v_detached - v_retained
-```
-
-Milestone E initializes
-
-```text
-v_retained = V - (m2 / (m1 + m2)) * dv
-v_detached = V + (m1 / (m1 + m2)) * dv
-```
-
-which conserves parent linear momentum exactly up to floating-point roundoff.
-
-## Contact convention
-
-For a deployed foot below terrain by penetration `delta` and normal relative speed `v_n` (positive outward), the reference normal-force closure is
-
-```text
-F_n = max(0, k * delta - c * v_n)
-```
-
-with regularized tangential friction bounded by `mu * F_n`. This is a penalty formulation; rigid complementarity contact remains a later high-fidelity option.
 
 ## Intentionally deferred
 
-Milestone E does **not** yet implement:
+Milestone F does not yet implement:
 
-- flexible/parachute canopy multibody or FSI models
-- automatic variable-dimension concurrent multi-vehicle integration
-- rigid complementarity/impulse contact and wheel/leg kinematic constraints
-- deformable terrain / regolith / soil mechanics
-- closed-loop attitude guidance for arbitrary 3-D powered landing
-- state estimation and sensor models
-- Monte Carlo dispersion runner
-- trajectory optimization / optimal control
-- finite-rate chemistry and higher-fidelity TPS models deferred from D
+- high-fidelity INS/GNSS/star-tracker/radar measurement geometry
+- tightly coupled inertial navigation with IMU bias states
+- nonlinear MPC / convex powered-descent guidance
+- fault detection, isolation and reconfiguration beyond reference abort rules
+- concurrent parallel Monte Carlo execution
+- automatic worst-case search / importance sampling
+- mission trajectory optimization
+- variable-dimension concurrent multi-vehicle propagation
 
-Those remain compatible with the architecture and are natural later milestones.
+These are compatible with the existing interfaces and can be added without changing the trusted physics kernel.

@@ -1,4 +1,6 @@
-"""UniFlight Milestone E: planet-agnostic entry, descent, and landing kernel."""
+"""UniFlight Milestone F: planet-agnostic GNC and robustness flight dynamics kernel."""
+
+__version__ = "0.6.0"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -86,4 +88,45 @@ __all__ = [
     "SeparatedBodyState", "TwoBodySeparationResult", "separate_two_body", "JettisonJump",
     "DescentGuidanceEvaluation", "VerticalDescentThrottle",
     "ModeDefinition", "ModeInterval", "HybridMissionResult", "HybridModeEngine",
+]
+
+# Milestone F: sampled-data GNC, sensors, estimation, robustness, and aborts.
+from .state import gnc_edl_6dof_schema
+from .actuators import (
+    GNCCommandBus, StateFieldProvider, BusScalarProvider,
+    FirstOrderLimitedStateActuator, CommandedBodyTorque,
+)
+from .sensors import (
+    SensorMeasurement, PositionVelocitySensor, RadarAltimeterSensor,
+    AttitudeRateMeasurement, AttitudeRateSensor,
+)
+from .estimation import (
+    numerical_jacobian, EKFUpdate, ExtendedKalmanFilter,
+    KinematicProcessModel, TranslationalNavigationEKF,
+)
+from .control import (
+    ThrustGuidanceCommand, VectorLandingGuidance, quaternion_align_body_x,
+    QuaternionPDController, GNCDecision, LandingGNCController,
+)
+from .aborts import LimitAbortRule, AbortManager
+from .montecarlo import (
+    Dispersion, NormalDispersion, UniformDispersion, MonteCarloCaseResult,
+    MetricStatistics, MonteCarloSummary, MonteCarloRunner,
+)
+from .closed_loop import GNCRecord, ClosedLoopResult, SampledDataClosedLoopEngine
+
+__all__ += [
+    "gnc_edl_6dof_schema",
+    "GNCCommandBus", "StateFieldProvider", "BusScalarProvider",
+    "FirstOrderLimitedStateActuator", "CommandedBodyTorque",
+    "SensorMeasurement", "PositionVelocitySensor", "RadarAltimeterSensor",
+    "AttitudeRateMeasurement", "AttitudeRateSensor",
+    "numerical_jacobian", "EKFUpdate", "ExtendedKalmanFilter",
+    "KinematicProcessModel", "TranslationalNavigationEKF",
+    "ThrustGuidanceCommand", "VectorLandingGuidance", "quaternion_align_body_x",
+    "QuaternionPDController", "GNCDecision", "LandingGNCController",
+    "LimitAbortRule", "AbortManager",
+    "Dispersion", "NormalDispersion", "UniformDispersion", "MonteCarloCaseResult",
+    "MetricStatistics", "MonteCarloSummary", "MonteCarloRunner",
+    "GNCRecord", "ClosedLoopResult", "SampledDataClosedLoopEngine",
 ]
