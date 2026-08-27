@@ -1,0 +1,231 @@
+{
+  "metadata": {
+    "uniflight_version": "1.0.1",
+    "python": "3.13.5",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "suite": "Milestone O formal verification"
+  },
+  "summary": {
+    "total": 14,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 2,
+    "success": true
+  },
+  "results": [
+    {
+      "case_id": "O-001",
+      "title": "RK4 manufactured exponential solution",
+      "category": "convergence/MMS",
+      "status": "PASS",
+      "error": 0.06894947883376501,
+      "tolerance": 0.2,
+      "reference": 4.0,
+      "actual": 3.931050521166235,
+      "details": {
+        "steps": [
+          0.2,
+          0.1,
+          0.05,
+          0.025
+        ],
+        "errors": [
+          3.06918531096656e-05,
+          2.0843238792700447e-06,
+          1.3580271085444906e-07,
+          8.666191764206133e-09
+        ]
+      },
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-002",
+      "title": "Adaptive manufactured sine solution",
+      "category": "MMS",
+      "status": "PASS",
+      "error": 1.3455903058456897e-13,
+      "tolerance": 2e-11,
+      "reference": 0.0,
+      "actual": 1.3455903058456897e-13,
+      "details": {
+        "nfev": 509
+      },
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-003",
+      "title": "Tsiolkovsky limiting case",
+      "category": "analytical",
+      "status": "PASS",
+      "error": 1.654305178722539e-16,
+      "tolerance": 2e-13,
+      "reference": 0.0,
+      "actual": 1.654305178722539e-16,
+      "details": {
+        "delta_v": 2748.872195622465
+      },
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-004",
+      "title": "One-period circular Kepler orbit",
+      "category": "analytical/conservation",
+      "status": "PASS",
+      "error": 3.793601634084879e-12,
+      "tolerance": 2e-09,
+      "reference": 0.0,
+      "actual": 3.793601634084879e-12,
+      "details": {
+        "position_relative_error": 3.793601634084879e-12,
+        "energy_relative_error": 3.855675458908081e-14,
+        "period_s": 2809.9258924162905
+      },
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-005",
+      "title": "Point-mass gravity Jacobian",
+      "category": "derivative",
+      "status": "PASS",
+      "error": 2.954223517871911e-10,
+      "tolerance": 5e-08,
+      "reference": 0.0,
+      "actual": 2.954223517871911e-10,
+      "details": {},
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-006",
+      "title": "Constant-rate quaternion kinematics",
+      "category": "analytical",
+      "status": "PASS",
+      "error": 7.229248575812844e-15,
+      "tolerance": 2e-11,
+      "reference": 0.0,
+      "actual": 7.229248575812844e-15,
+      "details": {},
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-007",
+      "title": "Axisymmetric torque-free rigid body",
+      "category": "analytical 6-DOF",
+      "status": "PASS",
+      "error": 2.667796350634167e-14,
+      "tolerance": 2e-10,
+      "reference": 0.0,
+      "actual": 2.667796350634167e-14,
+      "details": {},
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-008",
+      "title": "Hybrid event-root timing",
+      "category": "hybrid",
+      "status": "PASS",
+      "error": 8.881784197001252e-16,
+      "tolerance": 2e-08,
+      "reference": 0.0,
+      "actual": 8.881784197001252e-16,
+      "details": {
+        "dop853": 1.4999999999999993,
+        "rk4": 1.5000000000000002
+      },
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-009",
+      "title": "DOP853/RK4 constant-acceleration comparison",
+      "category": "cross-integrator",
+      "status": "PASS",
+      "error": 8.810729923425242e-13,
+      "tolerance": 2e-10,
+      "reference": 0.0,
+      "actual": 8.810729923425242e-13,
+      "details": {},
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-010",
+      "title": "Rigid two-body separation momentum conservation",
+      "category": "hybrid/conservation",
+      "status": "PASS",
+      "error": 2.2737367544323206e-13,
+      "tolerance": 2e-10,
+      "reference": 0.0,
+      "actual": 2.2737367544323206e-13,
+      "details": {},
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-011",
+      "title": "Frame graph round trip",
+      "category": "coordinate-transform",
+      "status": "PASS",
+      "error": 9.171947447016606e-16,
+      "tolerance": 2e-13,
+      "reference": 0.0,
+      "actual": 9.171947447016606e-16,
+      "details": {},
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "O-012",
+      "title": "Long-run quaternion norm stability",
+      "category": "numerical-stability",
+      "status": "PASS",
+      "error": 2.7111646261346323e-13,
+      "tolerance": 2e-10,
+      "reference": 0.0,
+      "actual": 2.7111646261346323e-13,
+      "details": {
+        "duration_s": 4000.0
+      },
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "case_id": "NESC-ATM-01",
+      "title": "NESC dropped sphere, dragless",
+      "category": "external-reference",
+      "status": "SKIP",
+      "error": null,
+      "tolerance": null,
+      "reference": null,
+      "actual": null,
+      "details": {
+        "reason": "NASA/NESC reference trajectory not bundled",
+        "source": "https://nescacademy.nasa.gov/flightsim/2015"
+      },
+      "passed": false,
+      "skipped": true
+    },
+    {
+      "case_id": "NESC-ORB-08B",
+      "title": "NESC torque-free rotation, non-zero rate",
+      "category": "external-reference",
+      "status": "SKIP",
+      "error": null,
+      "tolerance": null,
+      "reference": null,
+      "actual": null,
+      "details": {
+        "reason": "NASA/NESC reference trajectory not bundled",
+        "source": "https://nescacademy.nasa.gov/flightsim/2015"
+      },
+      "passed": false,
+      "skipped": true
+    }
+  ]
+}

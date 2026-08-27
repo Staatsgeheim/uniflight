@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
-version = "1.0.0"
+version = "1.0.1"
 description = "UniFlight 1.0 POST2-class research flight dynamics with formal mathematical/software verification"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13", "PyYAML>=6.0"]
@@ -13,7 +13,14 @@ license = {text = "MIT"}
 authors = [{name = "Unified Flight Dynamics project"}]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = [
+  "pytest>=8",
+  "pytest-cov>=5",
+  "build>=1.2",
+  "jsonschema>=4.23",
+  "ruff>=0.6",
+  "mypy>=1.11",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -26,3 +33,30 @@ testpaths = ["tests"]
 uniflight-mission = "uniflight.mission_cli:main"
 uniflight-analysis = "uniflight.analysis_cli:main"
 uniflight-verify = "uniflight.verify_cli:main"
+
+
+[tool.coverage.run]
+branch = true
+source = ["uniflight"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+# Start CI enforcement with correctness-oriented rules. The historical style/
+# unused-import backlog can be tightened incrementally without blocking safety fixes.
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_configs = true
+warn_redundant_casts = true
+no_implicit_optional = true

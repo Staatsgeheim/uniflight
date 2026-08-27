@@ -387,4 +387,4 @@ External time-history comparison is verification against a reference you supply,
 
 ## License
 
-MIT. See `pyproject.toml`.
+MIT. See [`LICENSE`](LICENSE).

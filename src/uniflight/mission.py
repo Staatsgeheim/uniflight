@@ -67,6 +67,34 @@ class MissionCompilationError(RuntimeError):
     """Raised when a valid document cannot be compiled into runtime models."""
 
 
+def _deep_freeze(value: Any) -> Any:
+    """Recursively freeze mission data so its provenance digest cannot drift."""
+    if isinstance(value, Mapping):
+        return MappingProxyType({str(k): _deep_freeze(v) for k, v in value.items()})
+    if isinstance(value, list):
+        return tuple(_deep_freeze(v) for v in value)
+    if isinstance(value, tuple):
+        return tuple(_deep_freeze(v) for v in value)
+    if isinstance(value, np.ndarray):
+        arr = np.asarray(value).copy()
+        arr.setflags(write=False)
+        return arr
+    return value
+
+
+def _deep_thaw(value: Any) -> Any:
+    """Return a fully mutable plain-Python copy of recursively frozen data."""
+    if isinstance(value, Mapping):
+        return {str(k): _deep_thaw(v) for k, v in value.items()}
+    if isinstance(value, tuple):
+        return [_deep_thaw(v) for v in value]
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, np.generic):
+        return value.item()
+    return deepcopy(value)
+
+
 def _freeze_mapping(value: Mapping[str, Any] | None) -> Mapping[str, Any]:
     return MappingProxyType(dict(value or {}))
 
@@ -159,7 +187,7 @@ def pointer_get(root: Any, pointer: str) -> Any:
             if part not in node:
                 raise KeyError(pointer)
             node = node[part]
-        elif isinstance(node, list):
+        elif isinstance(node, (list, tuple)):
             node = node[int(part)]
         else:
             raise KeyError(pointer)
@@ -199,10 +227,10 @@ class MissionDocument:
     digest_sha256: str = ""
 
     def __post_init__(self) -> None:
-        raw = deepcopy(dict(self.raw))
+        raw = _deep_thaw(self.raw)
         validate_mission_dict(raw)
         digest = mission_sha256(raw)
-        object.__setattr__(self, "raw", MappingProxyType(raw))
+        object.__setattr__(self, "raw", _deep_freeze(raw))
         object.__setattr__(self, "base_directory", Path(self.base_directory).resolve())
         object.__setattr__(self, "source_path", None if self.source_path is None else Path(self.source_path).resolve())
         object.__setattr__(self, "digest_sha256", digest)
@@ -212,7 +240,7 @@ class MissionDocument:
         return str(self.raw["mission"]["id"])
 
     def mutable_copy(self) -> dict[str, Any]:
-        return deepcopy(dict(self.raw))
+        return _deep_thaw(self.raw)
 
     def with_overrides(self, overrides: Mapping[str, Any]) -> "MissionDocument":
         raw = self.mutable_copy()
@@ -754,6 +782,9 @@ def mission_json_schema() -> Mapping[str, Any]:
             "models": {"type": "object"},
             "datasets": {"type": "array"},
             "bodies": {"type": "object", "minProperties": 1},
+            "atmospheres": {"type": "object"},
+            "environments": {"type": "object"},
+            "solvers": {"type": "object"},
             "vehicles": {"type": "object", "minProperties": 1},
             "vehicle_templates": {"type": "object"},
             "events": {"type": "array"},
@@ -761,6 +792,7 @@ def mission_json_schema() -> Mapping[str, Any]:
             "optimization": {"type": "object"},
             "monte_carlo": {"type": "object"},
             "analysis": {"type": "object"},
+            "metadata": {"type": "object"},
         },
         "additionalProperties": False,
     }

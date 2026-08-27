@@ -4,7 +4,7 @@ from typing import Callable
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from .events import Event
+from .events import Event, EventAction
 
 
 @dataclass(frozen=True, slots=True)
@@ -14,6 +14,18 @@ class SolverConfig:
     atol: float | np.ndarray = 1e-12
     max_step: float = np.inf
     dense_output: bool = True
+    event_time_tolerance: float = 1e-10
+    event_guard_tolerance: float = 1e-10
+
+    def __post_init__(self) -> None:
+        if self.rtol <= 0:
+            raise ValueError("rtol must be positive")
+        if np.any(np.asarray(self.atol) <= 0):
+            raise ValueError("atol must be positive")
+        if self.max_step <= 0:
+            raise ValueError("max_step must be positive")
+        if self.event_time_tolerance <= 0 or self.event_guard_tolerance < 0:
+            raise ValueError("event tolerances invalid")
 
 
 class ScipyIVPIntegrator:
@@ -21,20 +33,87 @@ class ScipyIVPIntegrator:
     def __init__(self, config: SolverConfig | None = None):
         self.config = config or SolverConfig()
 
+    @staticmethod
+    def _changes_state(event: Event) -> bool:
+        return event.jump is not None or event.action is EventAction.TERMINATE
+
+    def _collect_terminal_ties(self, result, events: tuple[Event, ...]) -> None:
+        """Augment SciPy's first terminal root with all guards firing there.
+
+        ``solve_ivp`` stops as soon as the first terminal event is located.  If
+        several terminal guards share the same physical root, later wrappers
+        are not guaranteed to appear in ``t_events``.  Hybrid semantics require
+        the kernel to see the complete tied set before applying priority-ordered
+        jump maps, so evaluate every guard at the terminal root and verify its
+        crossing direction from the preceding accepted state.
+        """
+        if getattr(result, "status", 0) != 1 or not events or result.t.size == 0:
+            return
+        t_root = float(result.t[-1])
+        y_root = np.asarray(result.y[:, -1], dtype=float)
+        time_tol = max(
+            self.config.event_time_tolerance,
+            16.0*np.finfo(float).eps*max(1.0, abs(t_root)),
+        )
+        if result.t.size >= 2:
+            t_prev = float(result.t[-2])
+            y_prev = np.asarray(result.y[:, -2], dtype=float)
+        else:
+            t_prev = float(t_root)
+            y_prev = y_root
+
+        for i, event in enumerate(events):
+            arr = np.asarray(result.t_events[i], dtype=float)
+            if np.any(np.abs(arr-t_root) <= time_tol):
+                continue
+            g_root = float(event.guard(t_root, y_root))
+            if not np.isfinite(g_root):
+                raise ValueError("event guard returned a non-finite value")
+            guard_tol = max(
+                self.config.event_guard_tolerance,
+                128.0*np.finfo(float).eps,
+            )
+            if abs(g_root) > guard_tol or t_prev >= t_root:
+                continue
+            g_prev = float(event.guard(t_prev, y_prev))
+            if not np.isfinite(g_prev):
+                raise ValueError("event guard returned a non-finite value")
+            if event.direction > 0:
+                crossed = g_prev < 0.0
+            elif event.direction < 0:
+                crossed = g_prev > 0.0
+            else:
+                crossed = g_prev != 0.0
+            if not crossed:
+                continue
+            result.t_events[i] = np.append(arr, t_root)
+            y_events = np.asarray(result.y_events[i], dtype=float)
+            if y_events.size == 0:
+                result.y_events[i] = y_root.reshape(1, -1)
+            else:
+                result.y_events[i] = np.vstack((y_events, y_root))
+
     def solve_segment(self, rhs: Callable, t_span: tuple[float, float], y0: np.ndarray,
                       events: list[Event] | tuple[Event, ...] = ()):
+        event_list = tuple(events)
         wrappers = []
-        for event in events:
+        for event in event_list:
             def fn(t, y, e=event):
                 return float(e.guard(t, y))
             fn.direction = event.direction
-            fn.terminal = True  # kernel resolves ordered jumps itself
+            # Pure observation/continuation events do not alter the state or
+            # dynamics and therefore must not force an adaptive restart at the
+            # root.  This also prevents left-endpoint zero re-trigger cycles.
+            fn.terminal = self._changes_state(event)
             wrappers.append(fn)
-        return solve_ivp(
+        result = solve_ivp(
             rhs, t_span, np.asarray(y0, dtype=float), method=self.config.method,
             rtol=self.config.rtol, atol=self.config.atol, max_step=self.config.max_step,
             dense_output=self.config.dense_output, events=wrappers if wrappers else None,
         )
+        if event_list:
+            self._collect_terminal_ties(result, event_list)
+        return result
 
 
 @dataclass(frozen=True, slots=True)
@@ -157,12 +236,17 @@ class FixedStepRK4Integrator:
         nfev = 0
 
         guards = [float(e.guard(t, y)) for e in event_list]
+        guards = [0.0 if abs(g) <= self.config.event_guard_tolerance else g for g in guards]
         while t < tf:
             h = min(self.config.step, tf-t)
             yn, used = self._rk4(rhs, t, y, h)
             nfev += used
             tn = t+h
             next_guards = [float(e.guard(tn, yn)) for e in event_list]
+            next_guards = [
+                0.0 if abs(g) <= self.config.event_guard_tolerance else g
+                for g in next_guards
+            ]
 
             candidates: list[tuple[float, int, np.ndarray]] = []
             for i, event in enumerate(event_list):

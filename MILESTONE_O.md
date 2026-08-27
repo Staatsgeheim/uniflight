@@ -1,6 +1,6 @@
 # Milestone O — Formal Verification & Numerical Credibility
 
-**UniFlight 1.0.0**
+**UniFlight 1.0.1**
 
 Milestone O is the final milestone in the POST2-class research-capability roadmap. It adds a formal verification layer while keeping the project boundary explicit: UniFlight performs mathematical/software verification but does not claim real-mission validation, flight heritage, certification, or independent IV&V pedigree.
 
@@ -41,4 +41,4 @@ Tolerance values are explicit in each case or baseline; there is no hidden globa
 
 ## Non-claims
 
-UniFlight 1.0.0 does not claim flight-data correlation, flight heritage, mission certification, NASA endorsement, independent IV&V, or compliance with a particular agency software-assurance process.
+UniFlight 1.0.1 does not claim flight-data correlation, flight heritage, mission certification, NASA endorsement, independent IV&V, or compliance with a particular agency software-assurance process.

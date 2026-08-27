@@ -1,4 +1,4 @@
-"""UniFlight 1.0.0: POST2-class research flight dynamics with formal verification."""
+"""UniFlight 1.0.1: POST2-class research flight dynamics with formal verification."""
 
 from ._version import __version__
 

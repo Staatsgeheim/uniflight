@@ -6,6 +6,9 @@
     "analysis": {
       "type": "object"
     },
+    "atmospheres": {
+      "type": "object"
+    },
     "bodies": {
       "minProperties": 1,
       "type": "object"
@@ -13,11 +16,17 @@
     "datasets": {
       "type": "array"
     },
+    "environments": {
+      "type": "object"
+    },
     "events": {
       "type": "array"
     },
     "format_version": {
       "const": "1.0"
+    },
+    "metadata": {
+      "type": "object"
     },
     "mission": {
       "properties": {
@@ -57,6 +66,9 @@
     },
     "plugins": {
       "type": "array"
+    },
+    "solvers": {
+      "type": "object"
     },
     "vehicle_templates": {
       "type": "object"

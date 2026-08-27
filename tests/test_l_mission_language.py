@@ -170,3 +170,30 @@ def test_json_format_loads_and_runs(tmp_path):
     rep=MissionCompiler().compile(load_mission(path)).run()
     assert rep.success
     assert rep.outputs['altitude'] > 990.0
+
+
+def test_mission_document_is_deeply_immutable_after_hashing():
+    doc = load_mission(YAML)
+    digest = doc.digest_sha256
+    with pytest.raises(TypeError):
+        doc.raw["mission"]["id"] = "mutated"
+    with pytest.raises(TypeError):
+        doc.raw["vehicles"]["lander"]["initial"]["state"]["mass"] = 1.0
+    with pytest.raises(TypeError):
+        doc.raw["datasets"][0]["version"] = "9.9.9"
+    assert doc.digest_sha256 == digest
+    assert mission_sha256(doc.raw) == digest
+
+
+def test_emitted_json_schema_accepts_every_bundled_mission():
+    jsonschema = pytest.importorskip("jsonschema")
+    validator = jsonschema.Draft202012Validator(mission_json_schema())
+    mission_paths = sorted(
+        p for p in (ROOT/"missions").iterdir()
+        if p.suffix.lower() in {".yaml", ".yml", ".toml"} and p.name != "mission-1.0.schema.json"
+    )
+    assert mission_paths
+    for path in mission_paths:
+        doc = load_mission(path)
+        errors = sorted(validator.iter_errors(doc.mutable_copy()), key=lambda e: list(e.path))
+        assert not errors, f"{path.name}: {[e.message for e in errors]}"

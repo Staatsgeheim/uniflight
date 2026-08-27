@@ -160,7 +160,7 @@ def test_simultaneous_event_priority_suppresses_old_generation_lower_priority():
     def should_not_run(ctx):
         raise AssertionError("lower-priority event from replaced generation must not execute")
     low=VehicleEvent("low",lambda t,y:t-1,direction=1,priority=0,handler=should_not_run)
-    v=VehicleSpec("v",s,y,rhs3(s),events=(high,low),mode="old",dof=3)
+    v=VehicleSpec("v",s,y,rhs3(s),events=(low,high),mode="old",dof=3)
     result=MultiVehicleUniverseEngine().run((0,2),(v,))
     assert len(result.events)==1 and result.events[0].event_name=="high"
     assert result.final_vehicles["v"].mode=="new"

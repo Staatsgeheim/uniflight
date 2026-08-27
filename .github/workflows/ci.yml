@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install project and development tools
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+
+      - name: Ruff correctness lint
+        run: ruff check src tests
+
+      - name: Tests with branch coverage
+        run: pytest --cov=uniflight --cov-branch --cov-report=term-missing --cov-fail-under=80
+
+      - name: Build wheel
+        run: python -m build --wheel
+
+      - name: Clean wheel-install smoke test
+        shell: bash
+        run: |
+          python -m venv .wheel-smoke
+          . .wheel-smoke/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install dist/*.whl
+          uniflight-mission validate missions/nereid_l_minimal.toml
+          uniflight-verify run --output /tmp/uniflight-verification.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("/tmp/uniflight-verification.json").read_text())
+          assert report["summary"]["failed"] == 0
+          PY

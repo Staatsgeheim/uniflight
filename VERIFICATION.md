@@ -1,98 +1,70 @@
-# UniFlight 0.14.0 verification — Milestone N
+# UniFlight 1.0.1 verification
 
-Verification was executed in bounded groups because a monolithic pytest invocation exceeds the sandbox wall-clock limit.
+This document supersedes the stale Milestone-N verification summary that shipped in
+1.0.0. Validation is executed in bounded groups because the sandbox limits individual
+commands to roughly one minute.
 
-## Regression totals
+## Regression total
 
-| Group | Result |
-|---|---:|
-| A–E flight physics / atmosphere / entry / EDL | 47/47 |
-| F/F.1/G GNC / robustness / performance | 20/20 |
-| H–M optimization / multi-vehicle / subsystems / data / MDL / plugins | 75/75 |
-| N analysis/HPC | 13/13 |
-| **Total** | **155/155** |
+**171/171 tests pass.**
 
-## N-specific verification
+The 1.0.0 baseline contained 165 tests. Version 1.0.1 adds six regression cases for
+review findings:
 
-The N tests cover:
+1. adaptive simultaneous state events are all collected at one root;
+2. adaptive tied events execute in descending priority order even when a lower-priority
+   guard is declared first;
+3. fixed-step RK4 preserves the same tie/priority semantics;
+4. continuing non-jump state roots do not enter zero-time cycles in either integrator;
+5. `MissionDocument.raw` is recursively immutable after hashing;
+6. every bundled YAML/TOML mission validates against the emitted Draft 2020-12 JSON Schema.
 
-1. Cartesian sweep construction and stable content IDs;
-2. deterministic Monte Carlo sampling;
-3. a known two-variable linear Sobol problem (`S=[0.8,0.2]`);
-4. transactional SQLite checkpoint persistence;
-5. external executor adaptation;
-6. multiprocessing backend execution;
-7. MDL analysis declaration validation;
-8. campaign restart skipping completed case IDs;
-9. multistart optimization pointer resolution;
-10. rejection of unpickleable multiprocessing workers;
-11. duplicate analysis-ID rejection;
-12. failed-case recording without crashing the campaign coordinator;
-13. analysis CLI declaration inspection.
+## Formal numerical verification
 
-## Reference campaigns
-
-Reference mission: `missions/nereid_n_analysis.yaml`
-
-Mission SHA-256:
+`uniflight-verify run` reports:
 
 ```text
-9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5
+total   = 14
+passed  = 12
+failed  = 0
+skipped = 2
+success = true
 ```
 
-The sandbox exposed a small CPU allocation; four worker processes were used for the reference campaigns.
+The two skipped entries are external NASA/NESC reference manifests. They are deliberately
+not counted as passes until independently sourced reference trajectories are compared.
 
-| Campaign | Cases | Completed | Failed | Wall time |
-|---|---:|---:|---:|---:|
-| Parameter sweep | 6 | 6 | 0 | 2.58 s |
-| Monte Carlo | 32 | 32 | 0 | 2.65 s |
-| Sobol sensitivity | 256 | 256 | 0 | 4.31 s |
-| Optimization multistart | 3 | 3 | 0 | 2.36 s |
+## Release-review fixes
 
-The shared SQLite store therefore contains **297 completed cases** and zero failed cases.
+Version 1.0.1 additionally verifies:
 
-### Checkpoint/restart
+- SciPy terminal-event tie collection is completed by guard evaluation at the located
+  terminal state and crossing-direction confirmation from the prior accepted state;
+- pure `CONTINUE`/no-jump events are nonterminal under adaptive integration, eliminating
+  unnecessary restarts and left-endpoint re-trigger loops;
+- fixed-step guards within the configured guard tolerance are normalized to zero before
+  crossing tests, preventing duplicate numerical roots on restart;
+- mission provenance data is recursively frozen, while `mutable_copy()` returns a deep,
+  ordinary mutable structure for optimization/Monte Carlo overrides;
+- the emitted mission schema contains all runtime-valid root sections, including
+  `atmospheres`, `environments`, `solvers`, and `metadata`.
 
-The parameter sweep was immediately reissued with the same mission SHA and campaign ID:
+## CI/release hygiene
 
-```text
-requested_cases = 6
-executed_cases  = 0
-resumed_cases   = 6
-```
+`.github/workflows/ci.yml` runs Python 3.11, 3.12, and 3.13 and includes:
 
-This confirms that the database serves as a restart checkpoint.
+- correctness-oriented Ruff checks;
+- pytest with branch coverage and an 80% minimum;
+- wheel build;
+- clean wheel installation;
+- `uniflight-mission` smoke validation;
+- `uniflight-verify` smoke verification.
 
-### Sobol reference
+Development extras now include pytest, pytest-cov, build, jsonschema, Ruff, and mypy.
+The repository also includes the MIT `LICENSE` file.
 
-With 64 base samples and two propulsion variables:
+## Scope boundary
 
-```text
-first-order:
-  mass_flow         0.9413
-  exhaust_velocity  0.1000
-
-total-order:
-  mass_flow         0.8900
-  exhaust_velocity  0.0986
-```
-
-Finite-sample first-order estimators can lie slightly outside their asymptotic ordering; larger production studies should use the full-scale guidance in `FULL_SCALE_VALIDATION_N.md`.
-
-### Multistart optimization reference
-
-All three starts converged to the same constrained optimum within numerical tolerance:
-
-```text
-mass_flow       ≈ 0.4138534 kg/s
-final_altitude  ≈ 8.000000 m
-max constraint violation = 0
-```
-
-## Numerical/reproducibility notes
-
-- process execution uses `spawn`, including on POSIX, to match Windows/macOS portability requirements;
-- worker count does not change Monte Carlo dispersion values or case identity;
-- Monte Carlo mission stochastic seeds are separately derived from dispersion random streams;
-- result-store writes are coordinator-only and transactional;
-- stable case IDs do not depend on scheduling order or wall-clock timing.
+The release still does not claim real-flight validation, flight heritage, certification,
+or independent IV&V. External benchmark comparison remains a separately reported
+verification activity.
