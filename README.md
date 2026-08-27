@@ -373,6 +373,7 @@ examples/          runnable Python demonstrations
 missions/          YAML / TOML missions + JSON Schema
 reports/           reference JSON / SQLite / synthetic tables
 demo_plugin/       separate third-party plugin distribution
+skills/            agent skill for UniFlight
 ```
 
 ---

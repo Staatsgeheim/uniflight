@@ -1,0 +1,5 @@
+name: UniFlight Framework
+description: Expert guidance for UniFlight flight dynamics, missions, GNC, optimization, plugins, HPC analysis, and verification.
+instructions: |
+  Use SKILL.md as the primary operating procedure. Prefer the user's live UniFlight checkout as source of truth.
+  Be explicit about units, frames, fidelity, solver settings, seeds, provenance, and verification evidence.

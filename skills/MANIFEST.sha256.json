@@ -1,0 +1,22 @@
+{
+  "agents/openai.yaml": "75c2a413ef9821d24d0fc7b8d39c0d521401db0f1b2cae27d07e2de107821f12",
+  "README.md": "fee9e68f0b031a91988c68c40f65efc85765c02fa58d278d563a55650fea7ede",
+  "references/01_architecture.md": "12f07f6af3956c57f21e5cdee2ced203cb13861efe27760eff647d29c001b8f4",
+  "references/02_python_api.md": "a7df3af866e474b304b1451b0e3cf4029bce068ecaf03dc4b04446590b9e78ec",
+  "references/03_physics_models.md": "673499fa2912134b91dc44c4457c0436a0a6f0901cee6cead7e6526332847fa2",
+  "references/04_gnc_subsystems.md": "15aabc8780931b123cebb6ef5b24a0b8c507394c21a57c087ed3fe96b98d466e",
+  "references/05_mission_dsl.md": "74a8872549ba55837515b7354b42c173b765a145de000f270ab27ac8fdd4a86d",
+  "references/06_hybrid_multivehicle.md": "a74bf776e40a72277ff3dce3fd265dcd692b86595c0deb567dd344cc52e12d89",
+  "references/07_optimization.md": "19859645f6fcde6aa8570a02c4407fb7306295eb56b277a73145db4dc49958b0",
+  "references/08_engineering_data.md": "5d22a68e6254944e870a0e0ce42bcd991c2ea774e786d3e3a248572d615810b3",
+  "references/09_edl_thermal.md": "564030f0a12650a380fd47b2359b8e9b79d8465e4d894556ec31c51a54c34fe3",
+  "references/10_plugins.md": "20af648a7715470fc4960635a0b06381642fdc7df96ec5ff7704bd5c8de0c9cd",
+  "references/11_analysis_hpc.md": "9011b6d215a3ac457f19008e3c20bcc505d35a960e83716d9ff4d5f0cd481c26",
+  "references/12_verification.md": "868ea19d59a317774f4526cb5e6876f4cd131206ad75af74316d9afaede4d841",
+  "references/13_benchmarking.md": "fe8a3c6a64d67525c12aaf8fac82f4315aa0a390940d2f182265d2a61ee022d2",
+  "references/14_testing_debugging.md": "b0ec18cd58a58b65dd17893c32ed674d96217f1266448e9ad318877a54544d70",
+  "references/15_agent_recipes.md": "f05dcd80311f2de07c62e25b19a909b10700b5a8bd3ba358b62dd7f8f05918f6",
+  "references/16_api_index.md": "9b054f8b56300e8776e827ef0330588f95a75a0d6546f1e0f8e8ed2cd49fa731",
+  "references/17_limitations.md": "6dd4dfb879f670ab8f94d9fd05080a42503428b1b855eca3ce3ba6c4f415d303",
+  "SKILL.md": "fc2030ac08d5e64141dd1dd97487374b953967d6e188f65694d4211853044b91"
+}
