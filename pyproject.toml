@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
-version = "0.14.0"
-description = "Milestone N integrated analysis and HPC for a POST2-class research flight dynamics engine"
+version = "1.0.0"
+description = "UniFlight 1.0 POST2-class research flight dynamics with formal mathematical/software verification"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13", "PyYAML>=6.0"]
 readme = "README.md"
@@ -25,3 +25,4 @@ testpaths = ["tests"]
 [project.scripts]
 uniflight-mission = "uniflight.mission_cli:main"
 uniflight-analysis = "uniflight.analysis_cli:main"
+uniflight-verify = "uniflight.verify_cli:main"

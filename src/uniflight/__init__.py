@@ -1,4 +1,4 @@
-"""UniFlight 0.14.0 Milestone N: POST2-class research flight dynamics with integrated analysis/HPC."""
+"""UniFlight 1.0.0: POST2-class research flight dynamics with formal verification."""
 
 from ._version import __version__
 
@@ -289,3 +289,7 @@ __all__ += [
     "OptimizationStart", "OptimizationBatch", "summarize_numeric_metrics",
     "mission_case_worker", "optimization_case_worker",
 ]
+
+# Milestone O formal verification API
+from .verification import TolerancePolicy, VerificationResult, VerificationReport, RegressionBaseline, ReferenceTimeHistory, compare_time_histories, observed_order
+from .verification_cases import run_builtin_verification
