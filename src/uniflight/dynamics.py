@@ -95,3 +95,55 @@ class IdealRocket:
 
     def derivatives(self, state: StateView) -> dict[str, float]:
         return {"mass": -self.mdot_exhaust}
+
+# ---------------------------------------------------------------------------
+# Milestone C: coupled 6-DOF rigid-body dynamics
+# ---------------------------------------------------------------------------
+from .mass_properties import MassPropertiesModel
+from .wrenches import WrenchModel
+
+
+@dataclass(frozen=True, slots=True)
+class RigidBody6DOFDynamics:
+    """Own position, velocity, and body angular-rate derivatives.
+
+    Gravity is supplied as an acceleration field. Every other interaction is
+    supplied as a wrench model returning inertial force and body-frame moment
+    about the instantaneous center of mass. Attitude and mass remain separate
+    state owners (`QuaternionKinematics` and propulsion/tank models).
+    """
+
+    mass_properties: MassPropertiesModel
+    gravity: object | None = None
+    wrench_models: tuple[WrenchModel, ...] = ()
+    external_acceleration_models: tuple[object, ...] = ()
+
+    def derivatives(self, state: StateView) -> dict[str, np.ndarray]:
+        mp = self.mass_properties.evaluate(state)
+        state_mass = float(state.get("mass"))
+        if abs(mp.mass-state_mass) > 1e-10*max(1.0, abs(state_mass)):
+            raise ValueError("mass-properties model disagrees with canonical mass state")
+
+        force_i = np.zeros(3)
+        moment_b = np.zeros(3)
+        for model in self.wrench_models:
+            w = model.wrench(state)
+            force_i += w.force_i
+            moment_b += w.moment_b
+
+        accel_i = force_i / mp.mass
+        if self.gravity is not None:
+            accel_i += np.asarray(self.gravity.acceleration(state.get("position"), state.time), dtype=float)
+        for model in self.external_acceleration_models:
+            accel_i += np.asarray(model.acceleration(state), dtype=float)
+
+        omega = np.asarray(state.get("angular_rate"), dtype=float)
+        gyro = np.cross(omega, mp.inertia_b @ omega)
+        rhs_moment = moment_b - mp.inertia_rate_b @ omega - gyro
+        omega_dot = np.linalg.solve(mp.inertia_b, rhs_moment)
+
+        return {
+            "position": np.asarray(state.get("velocity"), dtype=float),
+            "velocity": accel_i,
+            "angular_rate": omega_dot,
+        }

@@ -117,3 +117,27 @@ class FrameGraph:
                 seen.add(nxt)
                 q.append((nxt, new_tf))
         raise KeyError(f"No frame path {source!r}->{target!r}")
+
+
+def body_to_inertial_matrix(attitude: Vec) -> np.ndarray:
+    """Return R_IB, mapping body-frame components into inertial components.
+
+    Milestone C makes the quaternion convention explicit: the canonical
+    attitude state is a scalar-first quaternion whose rotation matrix maps
+    B -> I. This is the convention consistent with ``QuaternionKinematics``
+    and body angular rate expressed in B.
+    """
+    return quat_to_matrix(attitude)
+
+
+def inertial_to_body_matrix(attitude: Vec) -> np.ndarray:
+    """Return R_BI, mapping inertial-frame components into body components."""
+    return body_to_inertial_matrix(attitude).T
+
+
+def rotate_body_to_inertial(attitude: Vec, vector_b: Vec) -> Vec:
+    return body_to_inertial_matrix(attitude) @ np.asarray(vector_b, dtype=float)
+
+
+def rotate_inertial_to_body(attitude: Vec, vector_i: Vec) -> Vec:
+    return inertial_to_body_matrix(attitude) @ np.asarray(vector_i, dtype=float)

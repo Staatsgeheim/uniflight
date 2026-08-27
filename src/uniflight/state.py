@@ -114,7 +114,7 @@ def core_6dof_schema() -> StateSchema:
     return StateSchema([
         StateField("position", (3,), LENGTH, "I", owner="kinematics"),
         StateField("velocity", (3,), VELOCITY, "I", owner="dynamics"),
-        StateField("attitude", (4,), DIMENSIONLESS, "B<-I", owner="attitude"),
+        StateField("attitude", (4,), DIMENSIONLESS, "I<-B", owner="attitude"),
         StateField("angular_rate", (3,), ANGULAR_RATE, "B", owner="rotation"),
         StateField("mass", (), MASS, None, owner="mass"),
     ])

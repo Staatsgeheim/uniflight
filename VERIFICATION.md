@@ -1,72 +1,53 @@
-# UniFlight verification record — Milestone B
+# Milestone C verification record
 
-Validated in the provided execution environment using:
+Milestone C is accepted when all Milestone A/B regressions and the new coupled 6-DOF cases pass.
+
+## Result
+
+**26 tests passed.**
+
+### Existing regression coverage
+
+1. Tsiolkovsky rocket equation
+2. Kepler two-body energy/angular momentum
+3. vacuum radial free fall
+4. constant-rate quaternion propagation
+5. state packing/immutability
+6. frame vector/tensor round trip
+7. event root timing
+8. jump-map plumbing
+9. gas-mixture thermodynamic closure
+10. exact spherical hydrostatic pressure integral
+11. body rotation + wind environment velocity
+12. atmospheric ceiling → vacuum
+13. relative-flow Mach/Re/Kn/q calculation
+14. continuum point-mass drag magnitude/direction
+15. Mach-table drag interpolation
+16. pressure-corrected rocket thrust/mass flow
+17. end-to-end 3-DOF atmospheric ascent
+
+### Milestone C verification cases
+
+18. analytic alpha/beta recovery and orthonormal wind frame
+19. attitude transformation of inertial relative flow into body axes
+20. 6-DOF wind-axis force and body-moment coefficient scaling
+21. trilinear Mach/alpha/beta aerodynamic database interpolation
+22. ellipsoid projected-area change with flow orientation
+23. constant body torque vs. Euler rigid-body equation
+24. torque-free asymmetric rigid body: rotational energy and inertial angular-momentum conservation
+25. two-axis TVC: body/inertial force and mounting-arm moment
+26. end-to-end fictional-world 6-DOF atmospheric flight coupling translation, rotation, attitude, aerodynamics, TVC, gravity, and mass depletion
+
+## Current numerical thresholds
+
+- Wind-frame orthogonality: near machine precision in analytic cases
+- Torque-free rotational energy relative drift: < 2e-10
+- Torque-free inertial angular momentum relative drift: < 3e-10
+- Quaternion norm in coupled 6-DOF example/test: < 2e-8 error without post-step projection
+- Existing Milestone A/B tolerances remain unchanged
+
+## Command
 
 ```bash
-PYTHONPATH=src python -m pytest -q
+PYTHONPATH=src pytest -q
 ```
-
-Result: **17 passed**.
-
-## Milestone A regression cases
-
-| ID | Case | Acceptance criterion |
-|---|---|---|
-| 001 | Tsiolkovsky variable-mass rocket | relative error < `1e-9` |
-| 002 | circular Kepler orbit | energy/angular-momentum drift < `2e-11`; position closure < `5e-10 R` |
-| 003 | short-time radial free fall | agrees with independent local Taylor limit |
-| 004 | constant-rate quaternion propagation | analytic quaternion agreement |
-| 005 | hybrid event root timing | expected root time |
-| 006 | jump-map plumbing | state transition applied at event |
-| 007 | state-view immutability/schema behavior | mutation prevented, shapes enforced |
-| 008 | frame transform round trip | numerical round-trip precision |
-
-## Milestone B cases
-
-| ID | Case | What is checked |
-|---|---|---|
-| 009 | Gas mixture closure | molar mass, `cp/cv`, gamma, mass fractions, viscosity, mean free path |
-| 010 | Spherical hydrostatic atmosphere | pressure equals exact spherical hydrostatic integral; density EOS consistency |
-| 011 | Environment rotation + wind | fluid velocity = body rotational velocity + wind |
-| 012 | Atmosphere ceiling | clean transition to explicit vacuum sample |
-| 013 | Relative-flow state | speed, dynamic pressure, Mach, Reynolds, Knudsen |
-| 014 | Continuum drag | force opposes flow and equals `q Cd A` |
-| 015 | Mach-table Cd | interpolation at an interior Mach number |
-| 016 | Pressure-corrected rocket | ambient-pressure thrust and mass flow in atmosphere/vacuum |
-| 017 | Integrated atmospheric ascent | burnout event timing/mass; drag reduces burnout speed and altitude |
-
-## Model-specific formulas independently exercised
-
-### Isothermal spherical hydrostatics
-
-For constant composition and temperature in point-mass gravity,
-
-```text
-p(h) = p0 exp[ mu/(R T) (1/(R+h) - 1/R) ]
-rho  = p/(R T)
-```
-
-Test 010 evaluates the implementation against this expression independently.
-
-### Continuum drag
-
-```text
-q = 1/2 rho |V_rel|^2
-F_D = -q Cd A V_rel/|V_rel|
-```
-
-Test 014 compares the full vector result to the scalar analytic magnitude and direction.
-
-### Pressure thrust
-
-For the Milestone-B engine closure at full throttle,
-
-```text
-T = mdot ve + (pe - pa) Ae
-```
-
-Test 016 checks both finite ambient pressure and vacuum-above-ceiling cases.
-
-## Regression policy
-
-All Milestone A tests remain in the Milestone B package and must continue passing. Future milestones should append verification cases rather than replace these baselines.
