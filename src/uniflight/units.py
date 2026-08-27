@@ -1,0 +1,15 @@
+from __future__ import annotations
+from dataclasses import dataclass
+
+@dataclass(frozen=True, slots=True)
+class UnitDimension:
+    """Human-readable SI metadata. Numeric kernel values are always coherent SI."""
+    symbol: str
+    si_unit: str
+
+DIMENSIONLESS = UnitDimension("1", "1")
+LENGTH = UnitDimension("L", "m")
+VELOCITY = UnitDimension("L T^-1", "m/s")
+ACCELERATION = UnitDimension("L T^-2", "m/s^2")
+MASS = UnitDimension("M", "kg")
+ANGULAR_RATE = UnitDimension("T^-1", "rad/s")
