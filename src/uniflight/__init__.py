@@ -1,6 +1,6 @@
-"""UniFlight Milestone F.1: performance and parallel Monte Carlo flight dynamics kernel."""
+"""UniFlight Milestone G: robust terminal GNC and parallel Monte Carlo flight dynamics kernel."""
 
-__version__ = "0.6.1"
+__version__ = "0.7.0"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -106,7 +106,7 @@ from .estimation import (
 )
 from .control import (
     ThrustGuidanceCommand, VectorLandingGuidance, quaternion_align_body_x,
-    QuaternionPDController, GNCDecision, LandingGNCController,
+    QuaternionPDController, AdaptiveThrustScaleEstimator, GNCDecision, LandingGNCController,
 )
 from .aborts import LimitAbortRule, AbortManager
 from .montecarlo import (
@@ -124,7 +124,7 @@ __all__ += [
     "numerical_jacobian", "EKFUpdate", "ExtendedKalmanFilter",
     "KinematicProcessModel", "TranslationalNavigationEKF",
     "ThrustGuidanceCommand", "VectorLandingGuidance", "quaternion_align_body_x",
-    "QuaternionPDController", "GNCDecision", "LandingGNCController",
+    "QuaternionPDController", "AdaptiveThrustScaleEstimator", "GNCDecision", "LandingGNCController",
     "LimitAbortRule", "AbortManager",
     "Dispersion", "NormalDispersion", "UniformDispersion", "MonteCarloCaseResult",
     "MetricStatistics", "MonteCarloSummary", "MonteCarloRunner", "automatic_worker_count",

@@ -21,6 +21,7 @@ class GNCRecord:
     throttle_command: float
     torque_command_b: np.ndarray
     thrust_direction_i: np.ndarray
+    thrust_scale_estimate: float = 1.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -79,6 +80,8 @@ class SampledDataClosedLoopEngine:
                 t, self.navigator.x.copy(), self.navigator.covariance.copy(), pv.value.copy(),
                 decision.throttle_command, decision.torque_command_b.copy(),
                 decision.thrust_direction_i.copy(),
+                float(self.controller.thrust_scale_estimator.estimate)
+                if self.controller.thrust_scale_estimator is not None else 1.0,
             )
         return rec, decision
 

@@ -21,13 +21,22 @@ class ThrustGuidanceCommand:
 
 @dataclass(frozen=True, slots=True)
 class VectorLandingGuidance:
-    """Planet-agnostic 3-D PD terminal guidance with local gravity feed-forward."""
+    """Planet-agnostic 3-D terminal guidance with gravity feed-forward.
+
+    ``terminal_sink_rate`` is an optional anti-hover contact mode.  Inside
+    ``terminal_zone`` the commanded target velocity acquires a component along
+    local gravity (toward the surface), preventing a PD controller with
+    multiplicative thrust error from settling into a static hover above the
+    touchdown surface.  Defaults preserve the Milestone-F controller exactly.
+    """
     environment: PlanetaryEnvironment
     target_position_i: np.ndarray
     kp_position: float
     kd_velocity: float
     max_thrust_acceleration: float
     target_velocity_i: np.ndarray | None = None
+    terminal_sink_rate: float = 0.0
+    terminal_zone: float = 0.0
 
     def __post_init__(self) -> None:
         target = np.asarray(self.target_position_i, dtype=float)
@@ -38,6 +47,11 @@ class VectorLandingGuidance:
             raise ValueError("target_velocity_i must be finite 3-vector")
         if any((not np.isfinite(v) or v <= 0) for v in (self.kp_position,self.kd_velocity,self.max_thrust_acceleration)):
             raise ValueError("guidance gains and acceleration limit must be positive")
+        if (not np.isfinite(self.terminal_sink_rate) or self.terminal_sink_rate < 0 or
+                not np.isfinite(self.terminal_zone) or self.terminal_zone < 0):
+            raise ValueError("terminal sink parameters must be finite and non-negative")
+        if self.terminal_sink_rate > 0 and self.terminal_zone <= 0:
+            raise ValueError("terminal_zone must be positive when terminal_sink_rate is enabled")
         object.__setattr__(self,"target_position_i",target.copy())
         if tv is not None: object.__setattr__(self,"target_velocity_i",tv.copy())
 
@@ -47,9 +61,18 @@ class VectorLandingGuidance:
         r,v=x[:3],x[3:]
         tv = self.environment.body.rotational_velocity_i(self.target_position_i) if self.target_velocity_i is None else self.target_velocity_i
         er = self.target_position_i-r
+        g = self.environment.query(r,0.0).gravity_i
+        gmag = float(np.linalg.norm(g))
+        # Local outward direction is opposite gravity.  This remains independent
+        # of any Earth-specific radial-axis convention and works for any gravity
+        # model that provides a meaningful local vertical.
+        if self.terminal_sink_rate > 0 and gmag > 1e-12:
+            outward = -g/gmag
+            normal_distance = float(np.dot(r-self.target_position_i, outward))
+            if normal_distance <= self.terminal_zone:
+                tv = np.asarray(tv, dtype=float) - self.terminal_sink_rate*outward
         ev = tv-v
         desired_total = self.kp_position*er + self.kd_velocity*ev
-        g = self.environment.query(r,0.0).gravity_i
         thrust_accel = desired_total-g
         mag=float(np.linalg.norm(thrust_accel))
         cap=min(self.max_thrust_acceleration,float(available_thrust_acceleration))
@@ -105,6 +128,68 @@ class QuaternionPDController:
         return np.clip(torque,-self.max_torque,self.max_torque)
 
 
+@dataclass(slots=True)
+class AdaptiveThrustScaleEstimator:
+    """Scalar online estimate of effective thrust relative to the nominal model.
+
+    The estimate uses sampled navigation velocity increments.  It projects the
+    observed non-gravitational acceleration onto the previous commanded thrust
+    direction and compares it with the previous nominal commanded thrust
+    acceleration.  A bounded exponential update rejects measurement noise.
+
+    The estimator is deliberately lightweight: it is not a replacement for an
+    augmented-state propulsion EKF, but it removes persistent multiplicative
+    thrust bias without putting mutable logic inside the continuous ODE RHS.
+    """
+    estimate: float = 1.0
+    adaptation_gain: float = 0.08
+    minimum: float = 0.8
+    maximum: float = 1.2
+    min_commanded_acceleration: float = 0.5
+    innovation_limit: float = 0.25
+    _previous_time: float | None = None
+    _previous_velocity_i: np.ndarray | None = None
+    _previous_thrust_acceleration_i: np.ndarray | None = None
+
+    def __post_init__(self) -> None:
+        vals=(self.estimate,self.adaptation_gain,self.minimum,self.maximum,self.min_commanded_acceleration,self.innovation_limit)
+        if not all(np.isfinite(v) for v in vals):
+            raise ValueError("thrust estimator parameters must be finite")
+        if not (0 < self.adaptation_gain <= 1):
+            raise ValueError("adaptation_gain must lie in (0,1]")
+        if not (0 < self.minimum <= self.estimate <= self.maximum):
+            raise ValueError("invalid thrust-scale bounds/initial estimate")
+        if self.min_commanded_acceleration < 0 or self.innovation_limit <= 0:
+            raise ValueError("estimator thresholds must be non-negative/positive")
+
+    def observe(self, time: float, estimate_rv: np.ndarray, gravity_i: np.ndarray) -> float:
+        t=float(time); x=np.asarray(estimate_rv,dtype=float); g=np.asarray(gravity_i,dtype=float)
+        if x.shape!=(6,) or g.shape!=(3,):
+            raise ValueError("invalid thrust-estimator observation")
+        if self._previous_time is not None and self._previous_velocity_i is not None and self._previous_thrust_acceleration_i is not None:
+            dt=t-self._previous_time
+            a_cmd=np.asarray(self._previous_thrust_acceleration_i,dtype=float)
+            amag=float(np.linalg.norm(a_cmd))
+            if dt > 1e-9 and amag >= self.min_commanded_acceleration:
+                a_obs=(x[3:]-self._previous_velocity_i)/dt
+                direction=a_cmd/amag
+                measured=float(np.dot(a_obs-g,direction))/amag
+                if np.isfinite(measured) and measured > 0:
+                    # Bound each innovation before low-pass adaptation so a
+                    # single noisy velocity sample cannot destabilize guidance.
+                    error=float(np.clip(measured-self.estimate,-self.innovation_limit,self.innovation_limit))
+                    self.estimate=float(np.clip(self.estimate+self.adaptation_gain*error,self.minimum,self.maximum))
+        self._previous_time=t
+        self._previous_velocity_i=x[3:].copy()
+        return self.estimate
+
+    def commit_command(self, thrust_acceleration_i: np.ndarray) -> None:
+        a=np.asarray(thrust_acceleration_i,dtype=float)
+        if a.shape!=(3,) or not np.all(np.isfinite(a)):
+            raise ValueError("thrust acceleration command must be finite 3-vector")
+        self._previous_thrust_acceleration_i=a.copy()
+
+
 @dataclass(frozen=True, slots=True)
 class GNCDecision:
     throttle_command: float
@@ -121,12 +206,16 @@ class LandingGNCController:
     engine_exhaust_velocity: float
     engine_mdot_exhaust: float
     bus: GNCCommandBus
+    thrust_scale_estimator: AdaptiveThrustScaleEstimator | None = None
 
     def update(self, truth: StateView, estimate_rv: np.ndarray,
                attitude_measurement: AttitudeRateMeasurement) -> GNCDecision:
         mass=float(truth.get("mass"))
         env=self.guidance.environment.query(estimate_rv[:3],truth.time)
-        max_thrust=max(0.0,self.engine_mdot_exhaust*self.engine_exhaust_velocity)
+        scale=1.0
+        if self.thrust_scale_estimator is not None:
+            scale=self.thrust_scale_estimator.observe(truth.time, estimate_rv, env.gravity_i)
+        max_thrust=max(0.0,self.engine_mdot_exhaust*self.engine_exhaust_velocity*scale)
         amax=max_thrust/mass
         guide=self.guidance.evaluate(estimate_rv,amax)
         desired_q=quaternion_align_body_x(guide.direction_i)
@@ -140,4 +229,6 @@ class LandingGNCController:
         yaw_cmd = float(np.arctan2(desired_b[1], desired_b[0]))
         pitch_cmd = float(np.arctan2(-desired_b[2], np.hypot(desired_b[0], desired_b[1])))
         self.bus.set(throttle=guide.throttle, pitch_gimbal=pitch_cmd, yaw_gimbal=yaw_cmd, torque_b=torque)
+        if self.thrust_scale_estimator is not None:
+            self.thrust_scale_estimator.commit_command(guide.thrust_acceleration_i)
         return GNCDecision(guide.throttle,torque,guide.direction_i,guide.thrust_acceleration_i,desired_q)

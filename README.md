@@ -1,53 +1,58 @@
-# UniFlight — Milestone F.1 Performance & Parallel Monte Carlo
+# UniFlight — Milestone G Robust Terminal GNC
 
-Milestone F.1 is a focused execution-layer optimization of Milestone F. **No flight-physics model or success criterion is intentionally relaxed.** The same sampled-data GNC architecture is retained, while high-volume robustness campaigns can now use deterministic fixed-step integration and process-level parallelism across CPU cores.
+UniFlight 0.7.0 is a targeted guidance/control robustness upgrade on top of the complete Milestone F.1 physics and parallel Monte Carlo stack.
 
-## What changed in F.1
+The F.1 large-scale campaign exposed a specific failure mode: slightly positive multiplicative thrust error could make the PD terminal controller settle into an almost motionless hover a few metres above the touchdown surface. Those cases satisfied lateral-error, speed, and propellant margins but never crossed the touchdown event before the 150 s campaign limit.
 
-- multiprocessing Monte Carlo with portable `spawn` workers
-- `--workers 0` automatic CPU discovery (logical CPUs minus one)
-- deterministic case seeds invariant to worker count
-- multiprocessing chunksize control and progress reporting
-- fixed-step classical RK4 campaign integrator with hybrid-event detection
-- endpoint-only integration output for low-allocation campaign execution
-- optional suppression of trajectory/GNC history for Monte Carlo cases
-- analytical point-mass gravity Jacobian for the translational EKF
-- serial and parallel campaign results are exactly reproducible for the same seed
-- adaptive SciPy DOP853 remains the high-accuracy reference backend
-- JSON reports include backend, worker count, elapsed time and throughput
+Milestone G fixes that failure mode without changing the plant physics or relaxing the success criteria.
 
-The package version is **0.6.1**.
+## New in G
 
-## Why this is faster
+- opt-in terminal contact/sink mode in `VectorLandingGuidance`
+- `AdaptiveThrustScaleEstimator` for sampled-data propulsion-effectiveness adaptation
+- thrust-scale diagnostics in `GNCRecord`
+- robust Nereid-G validation scenario (`validation_g.py`)
+- parallel G Monte Carlo runner (`examples/gnc_monte_carlo_g.py`)
+- paired F.1-vs-G sandbox acceptance reports
+- 4 new terminal-robustness verification tests
 
-The trusted Milestone F loop executes GNC at explicit sample boundaries. With a 0.5 s cadence and a ~125 s landing, one case has roughly 250 controller intervals. Repeated adaptive `solve_ivp` calls are accurate but expensive for thousands of independent trajectories.
+Package version: **0.7.0**.
 
-F.1 adds two orthogonal optimizations:
+## Terminal anti-hover mode
 
-1. **Campaign RK4 backend.** A deterministic fixed step (default 0.1 s) removes most adaptive-solver startup/control overhead while retaining event checks at every internal step.
-2. **Process parallelism.** Independent trajectories are dispatched to separate Python processes, so a many-core workstation can run many cases concurrently despite the CPython GIL.
+Inside a configurable terminal zone, the guidance law commands a small nonzero velocity toward the surface instead of asymptotically requesting zero velocity before contact. This removes the static equilibrium produced by a positive thrust-model bias.
 
-The adaptive solver remains available and should be used to spot-check representative cases.
+The Nereid-G reference configuration uses:
 
-## Numerical agreement of the campaign backend
+- terminal zone: **30 m**
+- terminal sink rate: **0.5 m/s**
 
-For the nominal Nereid-F landing at a 0.5 s GNC cadence, the sandbox comparison was:
+Defaults remain disabled, so existing Milestone-F behavior is preserved unless explicitly requested.
 
-| Metric | SciPy DOP853 | RK4, dt=0.1 s | Difference |
+## Adaptive thrust effectiveness
+
+`AdaptiveThrustScaleEstimator` compares sampled observed non-gravitational acceleration against the previous commanded thrust acceleration and estimates an effective multiplicative propulsion scale. The update is bounded and low-pass filtered.
+
+The estimator is kept outside the adaptive/fixed-step continuous RHS and therefore preserves the sampled-data architecture introduced in F.
+
+## Paired sandbox acceptance
+
+Same 32 deterministic dispersion cases, same seed (`20260827`), same RK4 `dt=0.1 s`, same 0.5 s GNC cadence:
+
+| Controller | Success | Mean touchdown time | Wall time (4 workers) |
 |---|---:|---:|---:|
-| touchdown time | 125.04603 s | 125.04194 s | -0.00409 s |
-| lateral error | 0.0379271 m | 0.0379168 m | -0.0000103 m |
-| touchdown speed | 0.0397865 m/s | 0.0397945 m/s | +0.0000080 m/s |
-| final mass | 370.75509 kg | 370.75864 kg | +0.00355 kg |
+| F.1 | 16/32 (50.0%) | 111.35 s | 30.62 s |
+| G | 32/32 (100.0%) | 54.36 s | 14.50 s |
 
-These values establish a software benchmark only; users should choose RK4 step size based on their own model fidelity and convergence study.
+For the G set:
 
-## Dependencies
+- mean landing error: ~0.97 m
+- 95th percentile landing error: ~2.01 m
+- mean touchdown speed: ~0.60 m/s
+- 95th percentile touchdown speed: ~0.80 m/s
+- mean final mass: ~437.9 kg
 
-- Python >= 3.11
-- NumPy >= 2.0
-- SciPy >= 1.13
-- pytest >= 8 for development tests
+The original success limits remain: touchdown event, `<5 m` lateral error, `<3 m/s` touchdown speed, and `>300 kg` final mass.
 
 ## Install
 
@@ -55,87 +60,52 @@ These values establish a software benchmark only; users should choose RK4 step s
 python -m pip install -e . --no-build-isolation
 ```
 
+Dependencies:
+
+- Python >= 3.11
+- NumPy >= 2.0
+- SciPy >= 1.13
+- pytest >= 8 for development
+
 ## Verification
 
 ```bash
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q
 ```
 
-The complete A–F.1 suite contains **63 tests**. In the constrained sandbox, the suite was run in two bounded groups: 51 A–E regression tests and 16 F/F.1 tests (the groups overlap on the original F tests), with all tests passing. A single all-in-one invocation reached the sandbox wall-clock limit after 56 passing tests and no failures.
+Milestone G defines **67 tests**. In the constrained sandbox they were run in bounded groups:
 
-## Fast parallel campaign
+- 47 A–E/non-GNC regressions: all passed
+- 20 F/F.1/G tests: all passed
 
-On Linux/macOS:
+## Run the robust campaign
+
+Linux/macOS:
 
 ```bash
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
-PYTHONPATH=src python examples/gnc_monte_carlo.py \
-  --cases 100 \
-  --workers 0 \
-  --backend rk4 \
-  --rk4-step 0.1 \
-  --sample-period 0.5 \
-  --seed 20260827 \
-  --skip-reference \
-  --output reports/f1_100.json
+PYTHONPATH=src python examples/gnc_monte_carlo_g.py \
+  --cases 1000 --workers 0 --backend rk4 --rk4-step 0.1 \
+  --sample-period 0.5 --seed 20260827 --skip-reference \
+  --output reports/g1000.json
 ```
 
-`--workers 0` means automatic. On a 32-logical-CPU system it normally selects 31 worker processes. To use all 32 explicitly, pass `--workers 32`.
-
-On Windows PowerShell, set the BLAS thread limits before launching if your NumPy distribution uses a threaded BLAS:
+Windows PowerShell:
 
 ```powershell
 $env:OPENBLAS_NUM_THREADS="1"
 $env:OMP_NUM_THREADS="1"
 $env:MKL_NUM_THREADS="1"
-python examples/gnc_monte_carlo.py --cases 100 --workers 32 --backend rk4 --rk4-step 0.1 --sample-period 0.5 --seed 20260827 --skip-reference --output reports/f1_100.json
+python examples/gnc_monte_carlo_g.py --cases 1000 --workers 0 --backend rk4 --rk4-step 0.1 --sample-period 0.5 --seed 20260827 --skip-reference --output reports/g1000.json
 ```
 
-Limiting BLAS threads prevents `N workers × N BLAS threads` oversubscription. The UniFlight case itself mostly uses small matrices, but this is a safe campaign setting.
+`--workers 0` uses logical CPUs minus one (bounded by case count). Case dispersions and stochastic streams are deterministic across worker counts.
 
-## Reference/adaptive campaign
+The original F.1 runner remains at `examples/gnc_monte_carlo.py` for direct baseline reproduction.
 
-For a smaller high-accuracy comparison:
+See:
 
-```bash
-PYTHONPATH=src python examples/gnc_monte_carlo.py \
-  --cases 10 --workers 1 --backend scipy --sample-period 0.5
-```
-
-The default runner performs one adaptive reference nominal before the campaign. Use `--skip-reference` for repeated performance runs.
-
-## Determinism
-
-For a fixed base seed, the following are invariant to `--workers`:
-
-- sampled dispersions
-- per-case sensor RNG seeds
-- per-case metrics
-- case ordering in the JSON report
-- aggregate statistics
-
-The parallel runner requires a pickleable module-level case function because workers use `spawn`; this is portable to Windows and macOS and avoids unsafe state inheritance.
-
-## Architecture retained from Milestone F
-
-```text
-truth state
-    ↓
-sensors + deterministic noise
-    ↓
-EKF navigation estimate
-    ↓
-3-D landing guidance
-    ↓
-quaternion attitude control
-    ↓
-limited actuator commands
-    ↓
-zero-order-held plant input
-    ↓
-continuous integration to next GNC sample
-```
-
-Estimator/controller mutation remains outside the ODE RHS. The performance work does not compromise chronological sampled-data semantics.
-
-See `PERFORMANCE.md` for measured sandbox timings and `FULL_SCALE_VALIDATION.md` for the recommended workstation campaign.
+- `MILESTONE_G.md` for the control-law rationale and boundaries
+- `FULL_SCALE_VALIDATION_G.md` for the workstation campaign
+- `PERFORMANCE.md` for F.1 execution-layer details
+- `VERIFICATION.md` for the test record

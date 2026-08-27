@@ -1,0 +1,772 @@
+{
+  "metadata": {
+    "uniflight_version": "0.7.0",
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "logical_cpus": 5,
+    "cases": 32,
+    "base_seed": 20260827,
+    "sample_period_s": 0.5,
+    "campaign_backend": "rk4",
+    "rk4_step_s": 0.1,
+    "requested_workers": 4,
+    "actual_workers": 4,
+    "elapsed_seconds": 14.500673702001222,
+    "cases_per_second": 2.2067940192036537,
+    "controller": {
+      "terminal_sink_rate_mps": 0.5,
+      "terminal_zone_m": 30.0,
+      "adaptive_thrust_scale": true
+    },
+    "success_criteria": {
+      "touchdown_event": true,
+      "lateral_error_m_lt": 5.0,
+      "touchdown_speed_mps_lt": 3.0,
+      "final_mass_kg_gt": 300.0
+    }
+  },
+  "reference_nominal_scipy": {},
+  "summary": {
+    "success_rate": 1.0,
+    "statistics": {
+      "altitude": {
+        "mean": 0.0,
+        "std": 7.128953417946986e-11,
+        "minimum": -1.1641532182693481e-10,
+        "maximum": 1.1641532182693481e-10,
+        "p05": -1.1641532182693481e-10,
+        "median": 0.0,
+        "p95": 1.1641532182693481e-10
+      },
+      "estimated_thrust_scale": {
+        "mean": 1.0013369293292724,
+        "std": 0.007042755683739181,
+        "minimum": 0.9882008515406278,
+        "maximum": 1.0188645154934646,
+        "p05": 0.9919032717056558,
+        "median": 1.0001443569255397,
+        "p95": 1.0110906770533372
+      },
+      "final_mass": {
+        "mean": 437.88888707416004,
+        "std": 4.687722466732971,
+        "minimum": 424.03290532690676,
+        "maximum": 444.5904775895985,
+        "p05": 430.2431453809096,
+        "median": 438.3975520103143,
+        "p95": 443.69701851486246
+      },
+      "landing_error": {
+        "mean": 0.9732529670678853,
+        "std": 0.5488618118897152,
+        "minimum": 0.16979634512938935,
+        "maximum": 2.523901156726421,
+        "p05": 0.3036175427743272,
+        "median": 0.88340768729143,
+        "p95": 2.0067605054629656
+      },
+      "radial_speed": {
+        "mean": -0.5961954597392618,
+        "std": 0.12039306234335788,
+        "minimum": -0.8088121756836942,
+        "maximum": -0.3103708883419987,
+        "p05": -0.7935067530034956,
+        "median": -0.6042883540668283,
+        "p95": -0.4057860407492325
+      },
+      "touchdown_speed": {
+        "mean": 0.5982903210149204,
+        "std": 0.12055817672201681,
+        "minimum": 0.3129645979337127,
+        "maximum": 0.8121336854182639,
+        "p05": 0.40728718249082335,
+        "median": 0.6053220400716333,
+        "p95": 0.796533154809691
+      },
+      "touchdown_time": {
+        "mean": 54.3616953312993,
+        "std": 5.412873164712987,
+        "minimum": 46.63544646402201,
+        "maximum": 70.35534903928637,
+        "p05": 47.73294102045149,
+        "median": 53.793378271279394,
+        "p95": 63.23243398518664
+      }
+    }
+  },
+  "case_results": [
+    {
+      "index": 0,
+      "seed": 2074685541747091923,
+      "parameters": {
+        "lateral_y": 1.3612815761152302,
+        "lateral_z": -0.35306151017502796,
+        "radial_speed": -12.57653157946287,
+        "thrust_scale": 1.0294565371149922,
+        "sensor_bias_y": -0.3835012665354347
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 65.48950281673002,
+        "altitude": 0.0,
+        "landing_error": 0.20606540068350082,
+        "touchdown_speed": 0.36158325010714865,
+        "radial_speed": -0.35931433337265867,
+        "final_mass": 428.19328961519307,
+        "estimated_thrust_scale": 1.0137280232991588
+      }
+    },
+    {
+      "index": 1,
+      "seed": 3208394267650110382,
+      "parameters": {
+        "lateral_y": -0.03384979247352149,
+        "lateral_z": 2.094472202588507,
+        "radial_speed": -12.385089101506603,
+        "thrust_scale": 1.0150247532501275,
+        "sensor_bias_y": -0.492823791683628
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 58.83085565447808,
+        "altitude": 1.1641532182693481e-10,
+        "landing_error": 0.43434495404432827,
+        "touchdown_speed": 0.4754967919516091,
+        "radial_speed": -0.47291522022025434,
+        "final_mass": 433.9351033249251,
+        "estimated_thrust_scale": 1.0089328483067561
+      }
+    },
+    {
+      "index": 2,
+      "seed": 662895319855691624,
+      "parameters": {
+        "lateral_y": 13.52258730185878,
+        "lateral_z": -6.034083848189593,
+        "radial_speed": -11.947115245415741,
+        "thrust_scale": 0.9779573934310113,
+        "sensor_bias_y": 0.2642070203921474
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 46.63544646402201,
+        "altitude": -1.1641532182693481e-10,
+        "landing_error": 1.3381211718530215,
+        "touchdown_speed": 0.8121336854182639,
+        "radial_speed": -0.8088121756836942,
+        "final_mass": 444.5904775895985,
+        "estimated_thrust_scale": 0.9882008515406278
+      }
+    },
+    {
+      "index": 3,
+      "seed": 3287365020995297066,
+      "parameters": {
+        "lateral_y": 17.22093741566548,
+        "lateral_z": -2.9709512949577523,
+        "radial_speed": -11.724633943555853,
+        "thrust_scale": 0.9894367380092488,
+        "sensor_bias_y": -0.48698463397776764
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 49.68970136625426,
+        "altitude": 0.0,
+        "landing_error": 2.523901156726421,
+        "touchdown_speed": 0.6915015155862664,
+        "radial_speed": -0.6878606826783291,
+        "final_mass": 442.01079745397936,
+        "estimated_thrust_scale": 0.9943081913742371
+      }
+    },
+    {
+      "index": 4,
+      "seed": 9118434188636987759,
+      "parameters": {
+        "lateral_y": 4.851076334584718,
+        "lateral_z": -4.014879553189036,
+        "radial_speed": -11.223141684614793,
+        "thrust_scale": 0.9905483862120437,
+        "sensor_bias_y": -0.18250240347374536
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 50.79614787259522,
+        "altitude": 0.0,
+        "landing_error": 0.6034093671393722,
+        "touchdown_speed": 0.6644516950669226,
+        "radial_speed": -0.6637294887179755,
+        "final_mass": 441.0195411317119,
+        "estimated_thrust_scale": 0.9970552150609628
+      }
+    },
+    {
+      "index": 5,
+      "seed": 14297284521563575967,
+      "parameters": {
+        "lateral_y": 1.1169077022450917,
+        "lateral_z": 4.792820048995712,
+        "radial_speed": -11.151767990629281,
+        "thrust_scale": 1.0125518530973077,
+        "sensor_bias_y": -0.379678830399665
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 58.71822568901946,
+        "altitude": 0.0,
+        "landing_error": 0.5937869831063064,
+        "touchdown_speed": 0.5125031583735413,
+        "radial_speed": -0.5122969766792078,
+        "final_mass": 434.17123329253985,
+        "estimated_thrust_scale": 1.0050564120462655
+      }
+    },
+    {
+      "index": 6,
+      "seed": 11525650194286246061,
+      "parameters": {
+        "lateral_y": 14.040630880724482,
+        "lateral_z": 6.694336312510939,
+        "radial_speed": -13.27933855680026,
+        "thrust_scale": 0.9921995277052413,
+        "sensor_bias_y": 0.47508181393818233
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 49.63089713576963,
+        "altitude": 0.0,
+        "landing_error": 1.5314680914527796,
+        "touchdown_speed": 0.6772245126031172,
+        "radial_speed": -0.6742576644341203,
+        "final_mass": 441.87376768799714,
+        "estimated_thrust_scale": 0.995579925213279
+      }
+    },
+    {
+      "index": 7,
+      "seed": 12122763483126286404,
+      "parameters": {
+        "lateral_y": 13.779270751312705,
+        "lateral_z": 0.061228832963061905,
+        "radial_speed": -11.627748465125679,
+        "thrust_scale": 0.9844997600109501,
+        "sensor_bias_y": 0.3017057623117316
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 48.74500751709327,
+        "altitude": 0.0,
+        "landing_error": 1.3405980025231554,
+        "touchdown_speed": 0.7627127997204944,
+        "radial_speed": -0.760509116198032,
+        "final_mass": 442.7697649548273,
+        "estimated_thrust_scale": 0.9937687734403179
+      }
+    },
+    {
+      "index": 8,
+      "seed": 4636020596331667198,
+      "parameters": {
+        "lateral_y": 13.218129186174256,
+        "lateral_z": 5.290763366343433,
+        "radial_speed": -11.65323938517034,
+        "thrust_scale": 0.9813584610709608,
+        "sensor_bias_y": 0.8102816922910739
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 47.75868383347989,
+        "altitude": 1.1641532182693481e-10,
+        "landing_error": 1.1000061436239839,
+        "touchdown_speed": 0.798647744881525,
+        "radial_speed": -0.7954462487715495,
+        "final_mass": 443.6431392484827,
+        "estimated_thrust_scale": 0.9934920766697101
+      }
+    },
+    {
+      "index": 9,
+      "seed": 6701007450054281467,
+      "parameters": {
+        "lateral_y": 9.995072030796127,
+        "lateral_z": 3.147365147810656,
+        "radial_speed": -12.585174366778931,
+        "thrust_scale": 1.0105109776487489,
+        "sensor_bias_y": 0.8321430103605721
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 56.0957299734865,
+        "altitude": 0.0,
+        "landing_error": 0.16979634512938935,
+        "touchdown_speed": 0.5666856217634669,
+        "radial_speed": -0.5644946722427073,
+        "final_mass": 436.39976824395814,
+        "estimated_thrust_scale": 1.0082567874163886
+      }
+    },
+    {
+      "index": 10,
+      "seed": 16376444003316223026,
+      "parameters": {
+        "lateral_y": 13.30811047222356,
+        "lateral_z": -0.952627441546638,
+        "radial_speed": -10.802829163044086,
+        "thrust_scale": 0.9788985036931682,
+        "sensor_bias_y": -0.6789351600499272
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 47.70147758230567,
+        "altitude": 0.0,
+        "landing_error": 2.042580842486812,
+        "touchdown_speed": 0.7948030356600086,
+        "radial_speed": -0.7919198928296334,
+        "final_mass": 443.7628709515488,
+        "estimated_thrust_scale": 0.9910523361628382
+      }
+    },
+    {
+      "index": 11,
+      "seed": 198912479950816384,
+      "parameters": {
+        "lateral_y": 11.533905868174324,
+        "lateral_z": -0.3558445790736863,
+        "radial_speed": -10.305437277497001,
+        "thrust_scale": 0.9962154971037084,
+        "sensor_bias_y": 0.023464580756121685
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 53.48305780712297,
+        "altitude": 1.1641532182693481e-10,
+        "landing_error": 0.8814622378780131,
+        "touchdown_speed": 0.6679470072062799,
+        "radial_speed": -0.6665302590164112,
+        "final_mass": 438.7586385077511,
+        "estimated_thrust_scale": 0.9989818403418086
+      }
+    },
+    {
+      "index": 12,
+      "seed": 3137987291437775824,
+      "parameters": {
+        "lateral_y": 13.90528970163887,
+        "lateral_z": -4.96066431861044,
+        "radial_speed": -12.08578434232658,
+        "thrust_scale": 0.9964279767506562,
+        "sensor_bias_y": -0.05058881035561637
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 51.838660810070664,
+        "altitude": -1.1641532182693481e-10,
+        "landing_error": 1.5736808253514876,
+        "touchdown_speed": 0.6237859612955716,
+        "radial_speed": -0.6214895888692624,
+        "final_mass": 440.06754773003826,
+        "estimated_thrust_scale": 0.9959277537496102
+      }
+    },
+    {
+      "index": 13,
+      "seed": 7675130697229898089,
+      "parameters": {
+        "lateral_y": 15.431036158883892,
+        "lateral_z": -2.7654850160606665,
+        "radial_speed": -11.256205738762517,
+        "thrust_scale": 1.0112011474272342,
+        "sensor_bias_y": -0.5426673457962311
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 58.019227164983754,
+        "altitude": 0.0,
+        "landing_error": 1.9774529569889097,
+        "touchdown_speed": 0.5223887791770522,
+        "radial_speed": -0.5196371782188952,
+        "final_mass": 434.7757656382484,
+        "estimated_thrust_scale": 1.0039233261498772
+      }
+    },
+    {
+      "index": 14,
+      "seed": 2658212315629410614,
+      "parameters": {
+        "lateral_y": 7.711667571437246,
+        "lateral_z": -2.859772710857652,
+        "radial_speed": -10.645232747427459,
+        "thrust_scale": 1.015891679215718,
+        "sensor_bias_y": 0.24936464788761273
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 60.62795370635779,
+        "altitude": 1.1641532182693481e-10,
+        "landing_error": 0.5594403921731377,
+        "touchdown_speed": 0.4638511758424612,
+        "radial_speed": -0.46193782957973295,
+        "final_mass": 432.5622682373585,
+        "estimated_thrust_scale": 1.0055383551153074
+      }
+    },
+    {
+      "index": 15,
+      "seed": 10440064255761917751,
+      "parameters": {
+        "lateral_y": 9.299109612169374,
+        "lateral_z": -0.9005460337507387,
+        "radial_speed": -13.617918647544968,
+        "thrust_scale": 0.9909756302489571,
+        "sensor_bias_y": -0.190354913043564
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 48.47725226436343,
+        "altitude": 1.1641532182693481e-10,
+        "landing_error": 1.1187153295311623,
+        "touchdown_speed": 0.6825723665855958,
+        "radial_speed": -0.6816432981027899,
+        "final_mass": 442.938256492093,
+        "estimated_thrust_scale": 0.9972099384131262
+      }
+    },
+    {
+      "index": 16,
+      "seed": 17043624918008303965,
+      "parameters": {
+        "lateral_y": 9.579334818376175,
+        "lateral_z": -0.5317276324160825,
+        "radial_speed": -13.176305006754653,
+        "thrust_scale": 0.9949469239440293,
+        "sensor_bias_y": 0.3772908532672081
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 50.78659830875696,
+        "altitude": 0.0,
+        "landing_error": 0.6040751774515891,
+        "touchdown_speed": 0.6231713370734258,
+        "radial_speed": -0.6220152325787119,
+        "final_mass": 440.8334944813087,
+        "estimated_thrust_scale": 0.9997055983128084
+      }
+    },
+    {
+      "index": 17,
+      "seed": 9809668998122162826,
+      "parameters": {
+        "lateral_y": 9.26154189278055,
+        "lateral_z": 8.328049110622276,
+        "radial_speed": -11.977861088722698,
+        "thrust_scale": 0.9859329201450472,
+        "sensor_bias_y": -0.2828800515100136
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 49.011440555308326,
+        "altitude": 0.0,
+        "landing_error": 1.5083030965144717,
+        "touchdown_speed": 0.7287708015903535,
+        "radial_speed": -0.7240274462065367,
+        "final_mass": 442.4796416906955,
+        "estimated_thrust_scale": 0.9925994916952339
+      }
+    },
+    {
+      "index": 18,
+      "seed": 13703750203937740253,
+      "parameters": {
+        "lateral_y": 5.988240816648197,
+        "lateral_z": -3.2606328034443806,
+        "radial_speed": -13.358715689153918,
+        "thrust_scale": 0.9919103187307601,
+        "sensor_bias_y": -0.2028688432997416
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 49.215859181050114,
+        "altitude": 0.0,
+        "landing_error": 0.6607610353321066,
+        "touchdown_speed": 0.6661305360799499,
+        "radial_speed": -0.6646260516787266,
+        "final_mass": 442.2703943342486,
+        "estimated_thrust_scale": 0.9939978433314175
+      }
+    },
+    {
+      "index": 19,
+      "seed": 18365117543951533926,
+      "parameters": {
+        "lateral_y": 9.726202206545862,
+        "lateral_z": 1.9236169992901149,
+        "radial_speed": -12.088822259727566,
+        "thrust_scale": 0.9919477099050635,
+        "sensor_bias_y": 0.27106576843498925
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 50.255525843302415,
+        "altitude": -1.1641532182693481e-10,
+        "landing_error": 0.6321971267799982,
+        "touchdown_speed": 0.7002334696081604,
+        "radial_speed": -0.6985996119085134,
+        "final_mass": 441.4783110886727,
+        "estimated_thrust_scale": 0.9943660250914778
+      }
+    },
+    {
+      "index": 20,
+      "seed": 9988906612419311588,
+      "parameters": {
+        "lateral_y": 7.159559511576587,
+        "lateral_z": -3.233045710964988,
+        "radial_speed": -11.997918115718411,
+        "thrust_scale": 1.008128881507142,
+        "sensor_bias_y": 0.8044794977069039
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 56.477444386687765,
+        "altitude": 0.0,
+        "landing_error": 0.6363374352301654,
+        "touchdown_speed": 0.5708860913644949,
+        "radial_speed": -0.5697908017588229,
+        "final_mass": 436.0005129378862,
+        "estimated_thrust_scale": 1.0042147843505869
+      }
+    },
+    {
+      "index": 21,
+      "seed": 14813988064196934092,
+      "parameters": {
+        "lateral_y": 4.972776699312653,
+        "lateral_z": 2.8185440651567166,
+        "radial_speed": -12.164650001775813,
+        "thrust_scale": 1.0021782444859892,
+        "sensor_bias_y": 0.129527261910408
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 54.10369873543582,
+        "altitude": -1.1641532182693481e-10,
+        "landing_error": 0.4728672071262496,
+        "touchdown_speed": 0.5874727430698407,
+        "radial_speed": -0.5870871192643943,
+        "final_mass": 438.03646551287756,
+        "estimated_thrust_scale": 1.0000008984373872
+      }
+    },
+    {
+      "index": 22,
+      "seed": 948354630636175315,
+      "parameters": {
+        "lateral_y": 6.482577700515432,
+        "lateral_z": -2.2536512918317766,
+        "radial_speed": -12.0307271946499,
+        "thrust_scale": 1.0065429353277109,
+        "sensor_bias_y": -0.5098353456067951
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 55.48223331879687,
+        "altitude": -1.1641532182693481e-10,
+        "landing_error": 0.9983945814451758,
+        "touchdown_speed": 0.5468471263365278,
+        "radial_speed": -0.5462513832160142,
+        "final_mass": 436.9042081918908,
+        "estimated_thrust_scale": 1.0037201380438039
+      }
+    },
+    {
+      "index": 23,
+      "seed": 10171948315050976572,
+      "parameters": {
+        "lateral_y": 14.954697038534672,
+        "lateral_z": 1.8511673245265023,
+        "radial_speed": -12.72070913530727,
+        "thrust_scale": 1.0166059878469378,
+        "sensor_bias_y": 0.2968985974004772
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 58.85482821961245,
+        "altitude": 0.0,
+        "landing_error": 0.9772178136620192,
+        "touchdown_speed": 0.4724568561738408,
+        "radial_speed": -0.468150364069316,
+        "final_mass": 433.93751050281804,
+        "estimated_thrust_scale": 1.0081949497838516
+      }
+    },
+    {
+      "index": 24,
+      "seed": 17238790798660411793,
+      "parameters": {
+        "lateral_y": 14.99935312395824,
+        "lateral_z": 7.104513471043967,
+        "radial_speed": -13.05848448655845,
+        "thrust_scale": 1.0107639886536557,
+        "sensor_bias_y": 0.3616202759172168
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 55.83214355515584,
+        "altitude": 1.1641532182693481e-10,
+        "landing_error": 1.2172511805473907,
+        "touchdown_speed": 0.5340312156975442,
+        "radial_speed": -0.5321431214176051,
+        "final_mass": 436.5726322477021,
+        "estimated_thrust_scale": 1.0075760999742502
+      }
+    },
+    {
+      "index": 25,
+      "seed": 7415224258914270200,
+      "parameters": {
+        "lateral_y": 11.01589862884966,
+        "lateral_z": 8.541450847495096,
+        "radial_speed": -11.350739657355374,
+        "thrust_scale": 1.0201955133288358,
+        "sensor_bias_y": 0.28721128214907665
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 61.38574130483296,
+        "altitude": 0.0,
+        "landing_error": 0.885353136704847,
+        "touchdown_speed": 0.44468130898655717,
+        "radial_speed": -0.44380834678461106,
+        "final_mass": 431.920300098314,
+        "estimated_thrust_scale": 1.0087065659155645
+      }
+    },
+    {
+      "index": 26,
+      "seed": 9296643419792609570,
+      "parameters": {
+        "lateral_y": 13.734974632891719,
+        "lateral_z": -4.483885355532333,
+        "radial_speed": -11.038029144943902,
+        "thrust_scale": 0.9963653319544926,
+        "sensor_bias_y": -0.1839360253977198
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 53.02102507244456,
+        "altitude": 0.0,
+        "landing_error": 1.3609612633268504,
+        "touchdown_speed": 0.6364705052070498,
+        "radial_speed": -0.6347128760371131,
+        "final_mass": 439.07608453123737,
+        "estimated_thrust_scale": 1.0000332465531359
+      }
+    },
+    {
+      "index": 27,
+      "seed": 14841788051423673409,
+      "parameters": {
+        "lateral_y": 8.004952392522096,
+        "lateral_z": -6.373299779507265,
+        "radial_speed": -11.975704493078533,
+        "thrust_scale": 1.010942076621445,
+        "sensor_bias_y": -0.11961494921361551
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 57.12836124212653,
+        "altitude": 0.0,
+        "landing_error": 1.1290547855337645,
+        "touchdown_speed": 0.5399096710888355,
+        "radial_speed": -0.5337794924501866,
+        "final_mass": 435.5053675876919,
+        "estimated_thrust_scale": 1.0081507344337994
+      }
+    },
+    {
+      "index": 28,
+      "seed": 16110928324690978216,
+      "parameters": {
+        "lateral_y": 11.915656434527383,
+        "lateral_z": -4.743134855378428,
+        "radial_speed": -11.920787465346892,
+        "thrust_scale": 1.035778884674647,
+        "sensor_bias_y": 0.24396614985314302
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 70.35534903928637,
+        "altitude": 0.0,
+        "landing_error": 0.4625353711478842,
+        "touchdown_speed": 0.3129645979337127,
+        "radial_speed": -0.3103708883419987,
+        "final_mass": 424.03290532690676,
+        "estimated_thrust_scale": 1.0188645154934646
+      }
+    },
+    {
+      "index": 29,
+      "seed": 9504192062733140731,
+      "parameters": {
+        "lateral_y": 9.677876305512212,
+        "lateral_z": -0.9705659885238821,
+        "radial_speed": -12.264272076342458,
+        "thrust_scale": 1.0069171414583193,
+        "sensor_bias_y": 0.32722214439506336
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 54.93875900251524,
+        "altitude": -1.1641532182693481e-10,
+        "landing_error": 0.6650353924037654,
+        "touchdown_speed": 0.5685161858728528,
+        "radial_speed": -0.5672825011384854,
+        "final_mass": 437.4344306890877,
+        "estimated_thrust_scale": 1.0036742994853318
+      }
+    },
+    {
+      "index": 30,
+      "seed": 8412143699680461401,
+      "parameters": {
+        "lateral_y": 10.956565811607227,
+        "lateral_z": -5.378695265508383,
+        "radial_speed": -12.987349357646888,
+        "thrust_scale": 1.0140932069806172,
+        "sensor_bias_y": 0.2657090397762855
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 57.58073692345619,
+        "altitude": 0.0,
+        "landing_error": 0.5554872105165373,
+        "touchdown_speed": 0.498077524896263,
+        "radial_speed": -0.49724633873586177,
+        "final_mass": 435.01294356781614,
+        "estimated_thrust_scale": 1.0077084260363867
+      }
+    },
+    {
+      "index": 31,
+      "seed": 14873016467844519185,
+      "parameters": {
+        "lateral_y": 5.531530709166212,
+        "lateral_z": -2.833075705260842,
+        "radial_speed": -11.38572774085413,
+        "thrust_scale": 0.9972584980888664,
+        "sensor_bias_y": 0.12491069953352484
+      },
+      "metrics": {
+        "success": true,
+        "touchdown_time": 52.60667825467659,
+        "altitude": 0.0,
+        "landing_error": 0.3834329317577305,
+        "touchdown_speed": 0.6363812002587171,
+        "radial_speed": -0.6355685104542256,
+        "final_mass": 439.47695348371576,
+        "estimated_thrust_scale": 1.0002554672979436
+      }
+    }
+  ]
+}
