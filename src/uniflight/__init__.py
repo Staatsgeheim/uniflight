@@ -1,6 +1,6 @@
-"""UniFlight 0.11.0 Milestone K: POST2-class research flight dynamics with engineering-data infrastructure."""
+"""UniFlight 0.12.0 Milestone L: POST2-class research flight dynamics with engineering-data infrastructure."""
 
-__version__ = "0.11.0"
+from ._version import __version__
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -234,4 +234,22 @@ __all__ += [
     "MaterialEvaluation", "TabulatedMaterialProperties", "TabulatedMaterialLumpedTPS",
     "TabulatedRadialGravity", "TabulatedCartesianGravity",
     "TabulatedSphericalTerrain", "TabulatedAtmosphere",
+]
+
+
+# Milestone L: declarative mission definition language
+from .mission import (
+    MISSION_FORMAT_VERSION, MissionValidationError, MissionCompilationError,
+    MissionDocument, MissionOptimizationDeclaration, MissionDispersionDeclaration,
+    MissionRunReport, CompiledMission, MissionRegistry, MissionCompiler,
+    load_mission, validate_mission_dict, mission_json_schema, mission_sha256,
+    pointer_get, pointer_set, save_report,
+)
+
+__all__ += [
+    "MISSION_FORMAT_VERSION", "MissionValidationError", "MissionCompilationError",
+    "MissionDocument", "MissionOptimizationDeclaration", "MissionDispersionDeclaration",
+    "MissionRunReport", "CompiledMission", "MissionRegistry", "MissionCompiler",
+    "load_mission", "validate_mission_dict", "mission_json_schema", "mission_sha256",
+    "pointer_get", "pointer_set", "save_report",
 ]

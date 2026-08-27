@@ -1,0 +1,47 @@
+[
+  {
+    "index": 0,
+    "overrides": {
+      "/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow": 1.0910778821317257
+    },
+    "values": {
+      "mass_flow_dispersion": 1.0910778821317257
+    }
+  },
+  {
+    "index": 1,
+    "overrides": {
+      "/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow": 0.9762438804302801
+    },
+    "values": {
+      "mass_flow_dispersion": 0.9762438804302801
+    }
+  },
+  {
+    "index": 2,
+    "overrides": {
+      "/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow": 1.0171302253852708
+    },
+    "values": {
+      "mass_flow_dispersion": 1.0171302253852708
+    }
+  },
+  {
+    "index": 3,
+    "overrides": {
+      "/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow": 1.0188375903107814
+    },
+    "values": {
+      "mass_flow_dispersion": 1.0188375903107814
+    }
+  },
+  {
+    "index": 4,
+    "overrides": {
+      "/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow": 1.038348390984748
+    },
+    "values": {
+      "mass_flow_dispersion": 1.038348390984748
+    }
+  }
+]

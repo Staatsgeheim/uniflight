@@ -1,0 +1,20 @@
+{
+  "design": {
+    "mass_flow": 0.6336000390105647
+  },
+  "evaluations": 5,
+  "iterations": 5,
+  "max_constraint_violation": 0.0,
+  "message": "Optimization terminated successfully",
+  "method": "SLSQP",
+  "metrics": {
+    "final_altitude": 600.000001125969,
+    "final_mass": 96.8319998049472,
+    "final_speed": 62.58621547595274,
+    "final_time": 12.0,
+    "mission_success": 1.0,
+    "vehicle_count": 1.0
+  },
+  "objective": -0.968319998049472,
+  "success": true
+}

@@ -1,0 +1,137 @@
+format_version: "1.0"
+mission:
+  id: nereid-l-declarative
+  title: Nereid-L declarative phase/DOF demonstration
+  t_span: [0.0, 12.0]
+  default_solver: reference
+  seed: 20260827
+
+datasets:
+  - id: nereid-k.atmosphere
+    version: "1.0"
+    path: ../reports/k_datasets/atmosphere.npz
+    format: npz
+    verify_checksum: true
+
+bodies:
+  nereid:
+    type: spherical
+    mu: 1.5e11
+    radius: 1000000.0
+    rotation_vector_i: [0.0, 0.0, 0.0]
+    name: Nereid-L
+
+atmospheres:
+  vacuum:
+    type: vacuum
+
+environments:
+  nereid_vacuum:
+    body: nereid
+    atmosphere: vacuum
+
+solvers:
+  reference:
+    type: scipy
+    method: DOP853
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    max_step: 0.25
+    dense_output: true
+  campaign:
+    type: rk4
+    step: 0.05
+    save_every_step: false
+
+vehicles:
+  lander:
+    body: nereid
+    environment: nereid_vacuum
+    solver: reference
+    initial:
+      dof: 3
+      mode: powered-3dof
+      state:
+        position: [1000000.0, 0.0, 0.0]
+        velocity: [0.0, 0.0, 0.0]
+        mass: 100.0
+    phases:
+      - name: powered-3dof
+        dof: 3
+        until:
+          type: time
+          value: 5.0
+          direction: 1
+          priority: 10
+        dynamics:
+          gravity: true
+          ideal_rocket:
+            exhaust_velocity: 2000.0
+            mass_flow: 1.0
+            direction_i: [1.0, 0.0, 0.0]
+      - name: coast-6dof
+        dof: 6
+        transition:
+          attitude: [1.0, 0.0, 0.0, 0.0]
+          angular_rate: [0.0, 0.0, 0.0]
+        until:
+          type: time
+          value: 8.0
+          direction: 1
+        dynamics:
+          gravity: true
+          inertia_b:
+            - [40.0, 0.0, 0.0]
+            - [0.0, 50.0, 0.0]
+            - [0.0, 0.0, 60.0]
+      - name: coast-3dof
+        dof: 3
+        dynamics:
+          gravity: true
+
+outputs:
+  - name: final_altitude
+    type: altitude
+    vehicle: lander
+    body: nereid
+  - name: final_speed
+    type: speed
+    vehicle: lander
+  - name: final_mass
+    type: state
+    vehicle: lander
+    field: mass
+  - name: final_time
+    type: time
+  - name: vehicle_count
+    type: vehicle_count
+
+optimization:
+  method: SLSQP
+  max_iterations: 40
+  design_variables:
+    - name: mass_flow
+      pointer: /vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow
+      lower: 0.5
+      upper: 1.5
+      initial: 1.0
+      scale: 1.0
+  objective:
+    metric: final_mass
+    sense: maximize
+    scale: 100.0
+  constraints:
+    - metric: final_altitude
+      lower: 600.0
+      scale: 1000.0
+
+monte_carlo:
+  cases: 100
+  seed: 20260827
+  workers: 0
+  dispersions:
+    - name: mass_flow_dispersion
+      pointer: /vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow
+      distribution: normal
+      mean: 1.0
+      std: 0.05

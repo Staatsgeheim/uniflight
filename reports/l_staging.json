@@ -1,0 +1,90 @@
+{
+  "end_time": 4.0,
+  "events": [
+    {
+      "active_after": [
+        "booster",
+        "upper"
+      ],
+      "event": "stage-separation",
+      "note": "declarative two-body staging",
+      "priority": 100,
+      "time": 2.0,
+      "vehicle": "stack"
+    }
+  ],
+  "final_vehicles": {
+    "booster": {
+      "dof": 6,
+      "mode": "booster-coast",
+      "schema_hash": "b2a3520ea7aa3db8ccc3b4a18f18c5271b1c3f41ec8f6ba3ffee8fd7038d7ded",
+      "state": {
+        "angular_rate": [
+          0.07692307692307693,
+          0.10948687674109049,
+          0.5827381365865114
+        ],
+        "attitude": [
+          0.8259368596412823,
+          0.12216697412929527,
+          0.0751561611311748,
+          0.5452110469919088
+        ],
+        "mass": 40.0,
+        "position": [
+          1000998.204194446,
+          80.62213316835935,
+          0.04882745220464222
+        ],
+        "velocity": [
+          -0.5982030813841572,
+          20.305362931997163,
+          0.012272774240488263
+        ]
+      }
+    },
+    "upper": {
+      "dof": 6,
+      "mode": "upper-coast",
+      "schema_hash": "b2a3520ea7aa3db8ccc3b4a18f18c5271b1c3f41ec8f6ba3ffee8fd7038d7ded",
+      "state": {
+        "angular_rate": [
+          0.07692307692307693,
+          0.10574915197217985,
+          0.5834279980151823
+        ],
+        "attitude": [
+          0.8259464918891495,
+          0.12251454290023435,
+          0.07336906821442234,
+          0.545361860734046
+        ],
+        "mass": 60.0,
+        "position": [
+          1000999.2011969179,
+          79.58519138072342,
+          -0.03255163480311419
+        ],
+        "velocity": [
+          -0.5992017345749598,
+          19.796384831698667,
+          -0.008181849493680643
+        ]
+      }
+    }
+  },
+  "message": "success",
+  "metadata": {
+    "dataset_inventory": [],
+    "mission_id": "nereid-l-staging",
+    "mission_sha256": "b6c6ebe5eda6fc4f72b690e4e8915c0c991c6bf0d062a18ea3d408e412a4220c",
+    "uniflight_version": "0.12.0"
+  },
+  "outputs": {
+    "active_vehicles": 2.0,
+    "booster_altitude": 998.2074411704671,
+    "upper_altitude": 999.2043606586521
+  },
+  "start_time": 0.0,
+  "success": true
+}

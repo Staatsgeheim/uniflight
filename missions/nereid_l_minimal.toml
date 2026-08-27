@@ -1,0 +1,40 @@
+format_version = "1.0"
+
+[mission]
+id = "nereid-l-toml"
+t_span = [0.0, 2.0]
+default_solver = "fast"
+
+[bodies.nereid]
+type = "spherical"
+mu = 1.5e11
+radius = 1000000.0
+
+[solvers.fast]
+type = "rk4"
+step = 0.05
+
+[vehicles.probe]
+body = "nereid"
+solver = "fast"
+
+[vehicles.probe.initial]
+dof = 3
+mode = "coast"
+
+[vehicles.probe.initial.state]
+position = [1001000.0, 0.0, 0.0]
+velocity = [0.0, 10.0, 0.0]
+mass = 10.0
+
+[[vehicles.probe.phases]]
+name = "coast"
+dof = 3
+[vehicles.probe.phases.dynamics]
+gravity = true
+
+[[outputs]]
+name = "altitude"
+type = "altitude"
+vehicle = "probe"
+body = "nereid"

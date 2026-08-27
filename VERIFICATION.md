@@ -1,87 +1,118 @@
-# Verification Record — UniFlight Milestone K
+# Verification Record — UniFlight Milestone L
 
-UniFlight **0.11.0** preserves all 98 A–J verification cases and adds 15 engineering-data cases.
+UniFlight **0.12.0** preserves all 113 A–K verification cases and adds 17 Mission Definition Language cases.
 
-## New K cases (99–113)
+## New L cases (114–130)
 
-99. arbitrary three-dimensional multilinear interpolation of an exactly linear field;
-100. per-axis clamp / extrapolate / error policies plus periodic coordinate wrapping;
-101. soft/hard validity envelopes and absolute/relative uncertainty propagation;
-102. native NPZ round-trip, deterministic checksum, and explicit-version catalog semantics;
-103. N-D aerodynamic database adapter over Mach/alpha/Reynolds coordinates;
-104. tabulated atmosphere deriving density and transport properties from a gas mixture;
-105. tabulated aerothermal heat-flux model;
-106. tabulated propulsion map and 6-DOF engine integration;
-107. temperature-dependent material database driving an ablating lumped TPS;
-108. radial gravity table, gravity gradient, and `PlanetaryEnvironment` gravity override;
-109. Cartesian vector gravity field and numerical Jacobian;
-110. periodic latitude/longitude terrain with slope-aware surface normal;
-111. deterministic content fingerprints and reproducible catalog inventory;
-112. long-form CSV round-trip plus incomplete-grid rejection;
-113. end-to-end table-driven atmosphere + gravity + aero + propulsion 6-DOF flight.
+114. deterministic YAML load and canonical mission SHA-256;
+115. TOML load, compile, and propagation;
+116. RFC-6901 pointer get/set and immutable mission override semantics;
+117. rejection of unknown core mission keys;
+118. cross-reference rejection for undefined celestial bodies;
+119. exact-version/checksummed K engineering-data catalog resolution;
+120. dataset declaration/file-provenance mismatch rejection;
+121. end-to-end YAML phase execution with 3→6→3 DOF transitions;
+122. runtime-derived requested output metrics;
+123. H trajectory optimization compiled directly from YAML design variables/objective/constraint;
+124. deterministic seeded Monte Carlo dispersion sampling;
+125. invalid Monte Carlo pointer rejection;
+126. strict/extensible `MissionRegistry` semantics;
+127. editor-facing MDL schema contract;
+128. CLI validate/inspect/run/schema workflow;
+129. declarative 6-DOF rigid two-body staging and daughter propagation;
+130. JSON mission load/compile/run.
 
 ## Bounded regression execution
 
 ```bash
 # A–E physics
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
-  tests/test_6dof_atmospheric_flight.py tests/test_6dof_dynamics_and_tvc.py \
-  tests/test_6dof_flow_and_aero.py tests/test_atmosphere.py \
-  tests/test_atmospheric_ascent.py tests/test_attitude.py tests/test_edl.py \
-  tests/test_entry_reentry.py tests/test_events.py tests/test_flow_aero_propulsion.py \
-  tests/test_gravity.py tests/test_rocket.py tests/test_state_and_frames.py
+  tests/test_gravity.py tests/test_state_and_frames.py tests/test_rocket.py \
+  tests/test_attitude.py tests/test_events.py tests/test_atmosphere.py \
+  tests/test_flow_aero_propulsion.py tests/test_atmospheric_ascent.py \
+  tests/test_6dof_flow_and_aero.py tests/test_6dof_dynamics_and_tvc.py \
+  tests/test_6dof_atmospheric_flight.py tests/test_entry_reentry.py tests/test_edl.py
 # 47/47 passed
 
 # F/F.1/G GNC + robustness
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
-  tests/test_f1_performance.py tests/test_g_terminal_robustness.py \
-  tests/test_gnc_robustness.py
+  tests/test_gnc_robustness.py tests/test_f1_performance.py tests/test_g_terminal_robustness.py
 # 20/20 passed
 
-# H + I + J
+# H + I + J + K + L
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
-  tests/test_h_optimization.py tests/test_i_multivehicle.py tests/test_j_subsystems.py
-# 31/31 passed
-
-# K engineering data
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_k_engineering_data.py
-# 15/15 passed
+  tests/test_h_optimization.py tests/test_i_multivehicle.py tests/test_j_subsystems.py \
+  tests/test_k_engineering_data.py tests/test_l_mission_language.py
+# 63/63 passed
 ```
 
-Total: **113/113 passed in bounded groups**.
+Total: **130/130 passed in bounded groups**.
 
-The H process-parallel test may emit Python's standard `fork()` deprecation warning in a multi-threaded Linux parent; the test itself passes.
+The H process-parallel test may emit Python's standard Linux `fork()` deprecation warning in a multi-threaded parent process; the test itself passes.
 
-## K reference output
+## Nereid-L nominal reference
 
-`examples/engineering_data_system.py --output reports/k_reference.json` generated six synthetic, checksummed Nereid-K datasets and reloaded them through the catalog.
+`missions/nereid_l.yaml` is compiled without mission-specific Python and executes:
 
-Coupled table-driven 6-DOF flight:
+```text
+0 s     powered 3-DOF
+5 s     -> coast 6-DOF
+8 s     -> coast 3-DOF
+12 s    mission end
+```
 
-- duration: 6.0 s;
-- final altitude: ~141.181299 m;
-- final speed: ~45.866155 m/s;
-- final mass: ~96.880000 kg;
-- quaternion norm: 1.0.
+Reference outputs:
 
-Reference data demonstrations:
+- final altitude: **961.584818023 m**;
+- final speed: **100.787989078 m/s**;
+- final mass: **95.000000000 kg**;
+- active vehicles: 1.
 
-- six explicit dataset/version/hash records are present in the catalog;
-- 900 K TPS material interpolation returns finite thermophysical properties;
-- terrain lookup returns a slope-aware normal;
-- the reference aerodynamic query at Mach 4 / alpha 9 deg is deliberately outside the declared recommended validity envelope and is flagged without suppressing the interpolation;
-- NPZ and CSV versions of all six synthetic datasets are included under `reports/k_datasets/`.
+The report records dataset `nereid-k.atmosphere` version `1.0` and its exact content SHA-256.
 
-## K acceptance invariants
+## Declarative H optimization
 
-- table coordinates and output data are finite and shapes match the complete Cartesian grid;
-- interpolation-domain behavior is explicit per axis;
-- validity is recorded separately from interpolation/extrapolation behavior;
-- periodic axes wrap deterministically;
-- unit strings are metadata only; kernel numeric values remain coherent SI;
-- uncertainty annotations never silently perturb deterministic simulation values;
-- catalog lookup never silently selects among multiple versions;
-- native NPZ reload verifies deterministic content SHA-256;
-- CSV ingestion rejects duplicate or missing Cartesian grid points;
-- domain adapters reuse existing dynamics interfaces rather than bypassing the force/moment/state ownership rules;
-- all A–J regression behavior remains unchanged.
+The YAML design variable points at:
+
+```text
+/vehicles/lander/phases/0/dynamics/ideal_rocket/mass_flow
+```
+
+SLSQP maximizes final mass subject to final altitude >= 600 m.
+
+Reference result:
+
+- success: true;
+- mass flow: **0.6336000390 kg/s**;
+- final altitude: **600.000001126 m**;
+- final mass: **96.831999805 kg**;
+- max normalized constraint violation: **0.0**;
+- trajectory evaluations: **5**.
+
+## Declarative staging reference
+
+`missions/nereid_l_staging.yaml` starts one 6-DOF 100 kg stack. At exactly 2 s a mission-file `rigid_separation` event invokes the verified I separation law and produces:
+
+- retained `upper`: 60 kg;
+- detached `booster`: 40 kg;
+- explicit daughter COM offsets satisfying the parent COM relation;
+- specified relative separation velocity;
+- angular-momentum conservation enabled.
+
+Both daughters propagate independently to 4 s. Final active vehicle count is **2**.
+
+## L acceptance invariants
+
+- YAML uses safe parsing only; mission files cannot execute Python;
+- unknown core keys are errors;
+- mission format version is explicit and mandatory;
+- body/environment/solver/template/output references are checked before propagation;
+- design-variable and dispersion JSON pointers must resolve against the original mission document;
+- mission SHA-256 is deterministic for normalized equivalent input content;
+- declared K dataset ID/version must match native file provenance;
+- phase changes use the existing I universe event scheduler;
+- 3↔6-DOF transitions use the existing schema mapping layer;
+- rigid staging uses the existing I conservation-checked separation model;
+- optimization wraps the trusted simulator rather than changing dynamics equations;
+- Monte Carlo sampling is deterministic for a fixed seed;
+- all A–K regression behavior remains unchanged.

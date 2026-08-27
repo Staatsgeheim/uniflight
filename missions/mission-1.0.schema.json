@@ -1,0 +1,68 @@
+{
+  "$id": "https://uniflight.local/schema/mission-1.0.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "bodies": {
+      "minProperties": 1,
+      "type": "object"
+    },
+    "datasets": {
+      "type": "array"
+    },
+    "events": {
+      "type": "array"
+    },
+    "format_version": {
+      "const": "1.0"
+    },
+    "mission": {
+      "properties": {
+        "default_solver": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "t_span": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "t_span"
+      ],
+      "type": "object"
+    },
+    "monte_carlo": {
+      "type": "object"
+    },
+    "optimization": {
+      "type": "object"
+    },
+    "outputs": {
+      "type": "array"
+    },
+    "vehicle_templates": {
+      "type": "object"
+    },
+    "vehicles": {
+      "minProperties": 1,
+      "type": "object"
+    }
+  },
+  "required": [
+    "format_version",
+    "mission",
+    "bodies",
+    "vehicles"
+  ],
+  "title": "UniFlight Mission Definition Language 1.0",
+  "type": "object"
+}

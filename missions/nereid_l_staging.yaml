@@ -1,0 +1,112 @@
+format_version: "1.0"
+mission:
+  id: nereid-l-staging
+  t_span: [0.0, 4.0]
+  default_solver: reference
+
+bodies:
+  nereid:
+    type: spherical
+    mu: 1.5e11
+    radius: 1000000.0
+
+solvers:
+  reference:
+    type: scipy
+    method: DOP853
+    rtol: 1.0e-10
+    atol: 1.0e-12
+    max_step: 0.1
+
+vehicles:
+  stack:
+    body: nereid
+    initial:
+      dof: 6
+      state:
+        position: [1001000.0, 0.0, 0.0]
+        velocity: [0.0, 20.0, 0.0]
+        attitude: [1.0, 0.0, 0.0, 0.0]
+        angular_rate: [0.05, 0.02, -0.01]
+        mass: 100.0
+    phases:
+      - name: stack-coast
+        dof: 6
+        dynamics:
+          gravity: true
+          inertia_b:
+            - [20.0, 0.0, 0.0]
+            - [0.0, 40.0, 0.0]
+            - [0.0, 0.0, 40.0]
+
+vehicle_templates:
+  upper-template:
+    body: nereid
+    phases:
+      - name: upper-coast
+        dof: 6
+        dynamics:
+          gravity: true
+          inertia_b:
+            - [8.0, 0.0, 0.0]
+            - [0.0, 12.0, 0.0]
+            - [0.0, 0.0, 12.0]
+  booster-template:
+    body: nereid
+    phases:
+      - name: booster-coast
+        dof: 6
+        dynamics:
+          gravity: true
+          inertia_b:
+            - [5.0, 0.0, 0.0]
+            - [0.0, 8.0, 0.0]
+            - [0.0, 0.0, 8.0]
+
+events:
+  - name: stage-separation
+    vehicle: stack
+    priority: 100
+    guard:
+      type: time
+      value: 2.0
+      direction: 1
+    action:
+      type: rigid_separation
+      note: declarative two-body staging
+      parent_inertia_b:
+        - [20.0, 0.0, 0.0]
+        - [0.0, 40.0, 0.0]
+        - [0.0, 0.0, 40.0]
+      relative_separation_velocity_i: [0.0, 0.5, 0.0]
+      conserve_angular_momentum: true
+      retained:
+        vehicle_id: upper
+        template: upper-template
+        mass: 60.0
+        offset_b: [0.4, 0.0, 0.0]
+        inertia_b:
+          - [8.0, 0.0, 0.0]
+          - [0.0, 12.0, 0.0]
+          - [0.0, 0.0, 12.0]
+      detached:
+        vehicle_id: booster
+        template: booster-template
+        mass: 40.0
+        offset_b: [-0.6, 0.0, 0.0]
+        inertia_b:
+          - [5.0, 0.0, 0.0]
+          - [0.0, 8.0, 0.0]
+          - [0.0, 0.0, 8.0]
+
+outputs:
+  - name: active_vehicles
+    type: vehicle_count
+  - name: upper_altitude
+    type: altitude
+    vehicle: upper
+    body: nereid
+  - name: booster_altitude
+    type: altitude
+    vehicle: booster
+    body: nereid

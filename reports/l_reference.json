@@ -1,0 +1,67 @@
+{
+  "end_time": 12.0,
+  "events": [
+    {
+      "active_after": [
+        "lander"
+      ],
+      "event": "phase:powered-3dof",
+      "note": "phase -> coast-6dof",
+      "priority": 10,
+      "time": 5.0,
+      "vehicle": "lander"
+    },
+    {
+      "active_after": [
+        "lander"
+      ],
+      "event": "phase:coast-6dof",
+      "note": "phase -> coast-3dof",
+      "priority": 0,
+      "time": 8.0,
+      "vehicle": "lander"
+    }
+  ],
+  "final_vehicles": {
+    "lander": {
+      "dof": 3,
+      "mode": "coast-3dof",
+      "schema_hash": "6bdcbd7759602c13e83c070f4a11b26875c097084b987d1683fa06296b0adf58",
+      "state": {
+        "mass": 95.0,
+        "position": [
+          1000961.5848180234,
+          0.0,
+          0.0
+        ],
+        "velocity": [
+          100.78798907795151,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "message": "success",
+  "metadata": {
+    "dataset_inventory": [
+      {
+        "dataset_id": "nereid-k.atmosphere",
+        "sha256": "bfbf5534b674ceadf9d6d3ecad5fa65148ce9f28813caa858099b13c8a16d9cb",
+        "version": "1.0"
+      }
+    ],
+    "mission_id": "nereid-l-declarative",
+    "mission_sha256": "4b81a27c492b274398e2115c6cf475c0125c11be2055bce222f06d68e2599000",
+    "uniflight_version": "0.12.0"
+  },
+  "outputs": {
+    "final_altitude": 961.5848180233734,
+    "final_mass": 95.0,
+    "final_speed": 100.78798907795151,
+    "final_time": 12.0,
+    "vehicle_count": 1.0
+  },
+  "start_time": 0.0,
+  "success": true
+}

@@ -1,0 +1,36 @@
+{
+  "end_time": 2.0,
+  "events": [],
+  "final_vehicles": {
+    "probe": {
+      "dof": 3,
+      "mode": "coast",
+      "schema_hash": "6bdcbd7759602c13e83c070f4a11b26875c097084b987d1683fa06296b0adf58",
+      "state": {
+        "mass": 10.0,
+        "position": [
+          1000999.7005990713,
+          19.99999800598753,
+          0.0
+        ],
+        "velocity": [
+          -0.2994009584426549,
+          9.999997008980833,
+          0.0
+        ]
+      }
+    }
+  },
+  "message": "success",
+  "metadata": {
+    "dataset_inventory": [],
+    "mission_id": "nereid-l-toml",
+    "mission_sha256": "22df8f45219c7800250d40baaa5ac827bcf84441b71d4f60cf94279427e98c16",
+    "uniflight_version": "0.12.0"
+  },
+  "outputs": {
+    "altitude": 999.7007988714613
+  },
+  "start_time": 0.0,
+  "success": true
+}
