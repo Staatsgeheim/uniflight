@@ -30,8 +30,8 @@ jobs:
       - name: Tests with branch coverage
         run: pytest --cov=uniflight --cov-branch --cov-report=term-missing --cov-fail-under=80
 
-      - name: Build wheel
-        run: python -m build --wheel
+      - name: Build sdist and wheel
+        run: python -m build
 
       - name: Clean wheel-install smoke test
         shell: bash

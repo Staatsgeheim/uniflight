@@ -1,16 +1,41 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
 version = "1.0.1"
-description = "UniFlight 1.0 POST2-class research flight dynamics with formal mathematical/software verification"
+description = "Planet-agnostic 3/6-DOF research flight-dynamics engine with missions, plugins, campaign analysis, and formal verification"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13", "PyYAML>=6.0"]
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{name = "Unified Flight Dynamics project"}]
+keywords = [
+  "flight-dynamics",
+  "6dof",
+  "simulation",
+  "gnc",
+  "trajectory",
+  "aerospace",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+
+[project.urls]
+Homepage = "https://github.com/Staatsgeheim/uniflight"
+Repository = "https://github.com/Staatsgeheim/uniflight"
+Issues = "https://github.com/Staatsgeheim/uniflight/issues"
 
 [project.optional-dependencies]
 dev = [
