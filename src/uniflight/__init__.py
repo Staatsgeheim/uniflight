@@ -1,6 +1,6 @@
-"""UniFlight Milestone I: celestial-body-agnostic multi-vehicle, multi-DOF flight dynamics."""
+"""UniFlight 0.11.0 Milestone K: POST2-class research flight dynamics with engineering-data infrastructure."""
 
-__version__ = "0.10.0"
+__version__ = "0.11.0"
 
 from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
@@ -205,4 +205,33 @@ __all__ += [
     "DynamicGearLeg", "DynamicLandingGear",
     "FaultMode", "FaultWindow", "ScalarFaultSchedule", "FaultedScalarProvider",
     "FaultedWrenchModel", "SubsystemBundle", "WrenchSpecificForceBodyProvider",
+]
+
+# Milestone K: general engineering-data system
+from .engineering_data import (
+    InterpolationMethod, ExtrapolationPolicy, ValidityPolicy,
+    AxisMetadata, UncertaintyMetadata, OutputMetadata, DataProvenance,
+    ValidityBound, ValidityEnvelope, TableQueryResult, EngineeringTable,
+    EngineeringDataCatalog, load_long_form_csv, save_long_form_csv,
+)
+from .data_models import (
+    EngineeringTableAeroCoefficients, TabulatedAerothermalModel,
+    RocketPerformanceEvaluation, TabulatedRocketPerformance,
+    TabulatedRocket6DOFEvaluation, TabulatedGimballedRocketEngine,
+    MaterialEvaluation, TabulatedMaterialProperties, TabulatedMaterialLumpedTPS,
+    TabulatedRadialGravity, TabulatedCartesianGravity,
+    TabulatedSphericalTerrain, TabulatedAtmosphere,
+)
+
+__all__ += [
+    "InterpolationMethod", "ExtrapolationPolicy", "ValidityPolicy",
+    "AxisMetadata", "UncertaintyMetadata", "OutputMetadata", "DataProvenance",
+    "ValidityBound", "ValidityEnvelope", "TableQueryResult", "EngineeringTable",
+    "EngineeringDataCatalog", "load_long_form_csv", "save_long_form_csv",
+    "EngineeringTableAeroCoefficients", "TabulatedAerothermalModel",
+    "RocketPerformanceEvaluation", "TabulatedRocketPerformance",
+    "TabulatedRocket6DOFEvaluation", "TabulatedGimballedRocketEngine",
+    "MaterialEvaluation", "TabulatedMaterialProperties", "TabulatedMaterialLumpedTPS",
+    "TabulatedRadialGravity", "TabulatedCartesianGravity",
+    "TabulatedSphericalTerrain", "TabulatedAtmosphere",
 ]

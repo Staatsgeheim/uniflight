@@ -1,0 +1,185 @@
+{
+  "uniflight_version": "0.11.0",
+  "body": "Nereid-K",
+  "catalog_inventory": [
+    [
+      "nereid-k.aero",
+      "1.0",
+      "262bfcd028efcf6cd8721f7795baf035d3ef8df02cb3eefaa716145e862d61f5"
+    ],
+    [
+      "nereid-k.atmosphere",
+      "1.0",
+      "bfbf5534b674ceadf9d6d3ecad5fa65148ce9f28813caa858099b13c8a16d9cb"
+    ],
+    [
+      "nereid-k.gravity",
+      "1.0",
+      "1dba12ddd4eb1593dbf067b114725539bf47dfb394b7dbd67871fb81b24fdfff"
+    ],
+    [
+      "nereid-k.propulsion",
+      "1.0",
+      "05dbdce8c448316f13d7c31b8edea59d9c33f8c110fe07f4528a11e295246871"
+    ],
+    [
+      "nereid-k.terrain",
+      "1.0",
+      "3df8e7bc68012ac796fdec13ee500cbb28b851ae75447fdbfa1244ab4323c8b6"
+    ],
+    [
+      "nereid-k.tps-material",
+      "1.0",
+      "3388e9faa0d134c17b5708fcfc2bd9f576d01a1c9ab63fdc54156f67cd7d1f36"
+    ]
+  ],
+  "datasets": {
+    "atmosphere": {
+      "dataset_id": "nereid-k.atmosphere",
+      "version": "1.0",
+      "sha256": "bfbf5534b674ceadf9d6d3ecad5fa65148ce9f28813caa858099b13c8a16d9cb",
+      "npz": "reports/k_datasets/atmosphere.npz",
+      "csv": "reports/k_datasets/atmosphere.csv",
+      "shape": [
+        3
+      ],
+      "axes": [
+        "altitude"
+      ],
+      "outputs": [
+        "temperature",
+        "pressure"
+      ]
+    },
+    "gravity": {
+      "dataset_id": "nereid-k.gravity",
+      "version": "1.0",
+      "sha256": "1dba12ddd4eb1593dbf067b114725539bf47dfb394b7dbd67871fb81b24fdfff",
+      "npz": "reports/k_datasets/gravity.npz",
+      "csv": "reports/k_datasets/gravity.csv",
+      "shape": [
+        3
+      ],
+      "axes": [
+        "radius"
+      ],
+      "outputs": [
+        "gravity"
+      ]
+    },
+    "aero": {
+      "dataset_id": "nereid-k.aero",
+      "version": "1.0",
+      "sha256": "262bfcd028efcf6cd8721f7795baf035d3ef8df02cb3eefaa716145e862d61f5",
+      "npz": "reports/k_datasets/aero.npz",
+      "csv": "reports/k_datasets/aero.csv",
+      "shape": [
+        5,
+        3
+      ],
+      "axes": [
+        "mach",
+        "alpha"
+      ],
+      "outputs": [
+        "cd",
+        "cl",
+        "cy",
+        "c_roll",
+        "c_pitch",
+        "c_yaw"
+      ]
+    },
+    "propulsion": {
+      "dataset_id": "nereid-k.propulsion",
+      "version": "1.0",
+      "sha256": "05dbdce8c448316f13d7c31b8edea59d9c33f8c110fe07f4528a11e295246871",
+      "npz": "reports/k_datasets/propulsion.npz",
+      "csv": "reports/k_datasets/propulsion.csv",
+      "shape": [
+        3,
+        3
+      ],
+      "axes": [
+        "ambient_pressure",
+        "throttle"
+      ],
+      "outputs": [
+        "thrust",
+        "mass_flow"
+      ]
+    },
+    "material": {
+      "dataset_id": "nereid-k.tps-material",
+      "version": "1.0",
+      "sha256": "3388e9faa0d134c17b5708fcfc2bd9f576d01a1c9ab63fdc54156f67cd7d1f36",
+      "npz": "reports/k_datasets/material.npz",
+      "csv": "reports/k_datasets/material.csv",
+      "shape": [
+        3
+      ],
+      "axes": [
+        "temperature"
+      ],
+      "outputs": [
+        "specific_heat",
+        "emissivity",
+        "thermal_conductivity",
+        "density",
+        "ablation_temperature",
+        "effective_heat_of_ablation"
+      ]
+    },
+    "terrain": {
+      "dataset_id": "nereid-k.terrain",
+      "version": "1.0",
+      "sha256": "3df8e7bc68012ac796fdec13ee500cbb28b851ae75447fdbfa1244ab4323c8b6",
+      "npz": "reports/k_datasets/terrain.npz",
+      "csv": "reports/k_datasets/terrain.csv",
+      "shape": [
+        3,
+        3
+      ],
+      "axes": [
+        "latitude",
+        "longitude"
+      ],
+      "outputs": [
+        "elevation"
+      ]
+    }
+  },
+  "flight": {
+    "success": true,
+    "duration_s": 6.0,
+    "final_altitude_m": 141.18129942992528,
+    "final_speed_mps": 45.8661547697112,
+    "final_mass_kg": 96.88000000000044,
+    "quaternion_norm": 1.0
+  },
+  "material_at_900K": {
+    "specific_heat": 1130.0,
+    "emissivity": 0.8480000000000001,
+    "thermal_conductivity": 0.538,
+    "density": 1488.0,
+    "ablation_temperature": 1050.0,
+    "effective_heat_of_ablation": 3200000.0
+  },
+  "terrain_equator": {
+    "elevation_m": 55.0,
+    "normal_i": [
+      0.9999999550494622,
+      0.0,
+      -0.0002998350772223138
+    ]
+  },
+  "validity_demo": {
+    "validity_ok": false,
+    "violations": [
+      "mach=4 > valid upper 3.5",
+      "alpha=0.15708 > valid upper 0.139626"
+    ],
+    "cd": 0.4554831135561608,
+    "cd_sigma": 0.009109662271123215
+  }
+}

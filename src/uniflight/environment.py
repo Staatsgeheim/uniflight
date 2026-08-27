@@ -26,6 +26,7 @@ class PlanetaryEnvironment:
     body: SphericalBody
     atmosphere: AtmosphereModel = VacuumAtmosphere()
     wind_model: WindModel | None = None
+    gravity_model: object | None = None
 
     def query(self, position_i: np.ndarray, time: float = 0.0) -> EnvironmentSample:
         r = np.asarray(position_i, dtype=float)
@@ -39,7 +40,7 @@ class PlanetaryEnvironment:
         fluid = self.body.rotational_velocity_i(r) + wind
         return EnvironmentSample(
             time=float(time), position_i=r.copy(), altitude=h,
-            gravity_i=self.body.gravity.acceleration(r, time),
+            gravity_i=(self.body.gravity if self.gravity_model is None else self.gravity_model).acceleration(r, time),
             surface_normal_i=self.body.surface_normal_i(r), atmosphere=atm,
             fluid_velocity_i=fluid, wind_velocity_i=wind,
         )

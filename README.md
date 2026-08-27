@@ -1,28 +1,36 @@
-# UniFlight — Milestone J Engineering Subsystem Dynamics
+# UniFlight — Milestone K General Engineering Data System
 
-UniFlight **0.10.0** adds flexible-body modes, propellant slosh, second-order engine/actuator dynamics, control-structure-interaction hooks, stateful landing gear, deterministic fault injection, and explicit subsystem-coupling adapters on top of the complete A–I celestial-body-agnostic flight stack.
+UniFlight **0.11.0** adds the shared engineering-data infrastructure needed for POST2-class research workflows on top of the full A–J celestial-body-agnostic dynamics stack.
 
-Milestone J is the POST2-parity step that moves the vehicle model beyond a perfectly rigid vehicle with ideal subsystem response.
+Milestone K turns aerodynamic, aerothermal, propulsion, material, atmosphere, gravity, and terrain data into versioned first-class datasets rather than subsystem-specific hard-coded lookup logic.
 
-## New in J
+## New in K
 
-- composable `augment_engineering_schema()` for core/entry/EDL/GNC states
-- `ModalFlexibleBody` linear structural modes
-- torque-to-modal-force participation matrices
-- flexible point/station translation and rotation maps
-- flexible attitude/rate sensor for low-order control-structure interaction
-- `LinearSloshSubsystem` with reaction force/moment feedback
-- explicit selected-wrench -> body-specific-force slosh excitation
-- second-order normalized `EngineTransient`
-- second-order position/rate/acceleration-limited servo actuator
-- stateful `DynamicLandingGear` strut compression/rebound
-- deterministic gain, bias, stuck, and dropout fault windows
-- wrench-level fault injection
-- `SubsystemBundle` composition helper
-- coupled Nereid-J engineering-subsystem reference simulation
-- **98/98 total verification tests pass in bounded groups**
+- arbitrary regular **N-dimensional** `EngineeringTable`
+- linear / nearest interpolation
+- per-axis `error`, `clamp`, or `extrapolate` policy
+- periodic/wrapped axes such as longitude
+- explicit validity envelopes, separate from interpolation domain
+- coherent-SI axis/output unit metadata
+- output uncertainty annotations
+- dataset provenance and source metadata
+- deterministic table-content SHA-256
+- checksummed native NPZ persistence
+- human-readable complete-grid long-form CSV import/export
+- provenance-aware `EngineeringDataCatalog` with explicit version resolution
+- finite-difference table partial derivatives
+- table-driven 6-DOF aerodynamic coefficients
+- tabulated aerothermal heat flux
+- tabulated rocket thrust/mass-flow performance
+- table-driven TPS material properties
+- tabulated atmospheres
+- radial and Cartesian gravity-field adapters
+- periodic latitude/longitude terrain with slope-aware normals
+- `PlanetaryEnvironment.gravity_model` override
+- coupled Nereid-K table-driven reference flight
+- **113/113 total verification tests pass in bounded groups**
 
-Package version: **0.10.0**.
+Package version: **0.11.0**.
 
 ## Install
 
@@ -37,53 +45,66 @@ Dependencies:
 - SciPy >= 1.13
 - pytest >= 8 for development
 
-## Run the J reference cases
+## Run the K reference case
 
 ```bash
-PYTHONPATH=src python examples/engineering_subsystems.py \
-  --output reports/j_reference.json
+PYTHONPATH=src python examples/engineering_data_system.py \
+  --output reports/k_reference.json
 ```
 
-The example contains a coupled engine/TVC/flex/slosh/fault case and a separate dynamic landing-gear drop/rebound case on fictional body Nereid-J.
+The example generates six synthetic engineering databases under `reports/k_datasets/`, reloads them through a versioned catalog, and uses the atmosphere, gravity, aero, and propulsion datasets in one coupled 6-DOF flight.
 
-## Minimal engineering-subsystem pattern
+## Minimal N-D table
 
 ```python
-schema = augment_engineering_schema(
-    core_6dof_schema(),
-    flex_modes=2,
-    slosh_modes=1,
+from uniflight import *
+import numpy as np
+
+mach = np.array([0.0, 1.0, 2.0])
+alpha = np.deg2rad([-10.0, 0.0, 10.0])
+M, A = np.meshgrid(mach, alpha, indexing="ij")
+
+table = EngineeringTable(
+    axes=(
+        AxisMetadata("mach", mach, "1", extrapolation="clamp"),
+        AxisMetadata("alpha", alpha, "rad", extrapolation="clamp"),
+    ),
+    outputs={
+        "cd": 0.4 + 0.1*M + A*A,
+        "cl": 2.0*A,
+    },
+    provenance=DataProvenance("vehicle-x.aero", "2026.1"),
 )
 
-engine_transient = EngineTransient(command=1.0)
-engine = GimballedRocketEngine(
-    environment,
-    mass_properties,
-    exhaust_velocity=2400.0,
-    mdot_exhaust=1.2,
-    throttle=engine_transient,
-)
-
-flex = ModalFlexibleBody([3.0, 7.5], [0.02, 0.03])
-slosh = LinearSloshSubsystem(...)
-
-rigid = RigidBody6DOFDynamics(
-    mass_properties,
-    gravity=body.gravity,
-    wrench_models=(engine, slosh),
-)
+q = table.query({"mach": 1.5, "alpha": np.deg2rad(4.0)})
+print(q.values)
 ```
+
+## Native dataset storage
+
+```python
+table.to_npz("vehicle-x-aero.npz")
+loaded = EngineeringTable.from_npz("vehicle-x-aero.npz")
+
+catalog = EngineeringDataCatalog()
+catalog.register(loaded)
+model_data = catalog.resolve("vehicle-x.aero", "2026.1")
+```
+
+If multiple versions are present, `resolve()` requires an explicit version rather than silently choosing one.
 
 ## Documents
 
-- `MILESTONE_J.md` — subsystem mathematics, coupling semantics, and boundaries
-- `MILESTONE_I.md` — multi-vehicle/multi-DOF runtime
-- `MILESTONE_H.md` — trajectory targeting and optimization
-- `VERIFICATION.md` — complete J regression/acceptance record
-- `reports/j_reference.json` — deterministic J reference output
+- `MILESTONE_K.md` — data mathematics, policies, adapters, and boundaries
+- `MILESTONE_J.md` — engineering subsystem dynamics
+- `MILESTONE_I.md` — multi-vehicle / multi-DOF runtime
+- `MILESTONE_H.md` — targeting and optimization
+- `VERIFICATION.md` — complete K verification record
+- `reports/k_reference.json` — deterministic K reference result
+- `reports/k_datasets/` — synthetic NPZ + CSV reference datasets
 
 ## Project scope
 
 The project target remains functional/architectural proximity to NASA POST2 while explicitly **not claiming** real-mission validation, flight heritage, or certification/independent-IV&V pedigree.
 
-The next roadmap item is **Milestone K — General Engineering Data System**: arbitrary N-dimensional engineering tables, interpolation/extrapolation policies, validity envelopes, uncertainty metadata, aero/aerothermal/propulsion/material datasets, gravity/terrain datasets, and provenance-aware model lookup.
+The next roadmap item is **Milestone L — Mission Definition Language**: declarative bodies, vehicles, phases, events, datasets, optimization variables, constraints, Monte Carlo dispersions, solver settings, and output requests.

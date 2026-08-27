@@ -1,23 +1,26 @@
-# Verification Record — UniFlight Milestone J
+# Verification Record — UniFlight Milestone K
 
-UniFlight 0.10.0 preserves all 88 A–I verification cases and adds 10 engineering-subsystem cases.
+UniFlight **0.11.0** preserves all 98 A–J verification cases and adds 15 engineering-data cases.
 
-## New J cases (89–98)
+## New K cases (99–113)
 
-89. engineering-state schema augmentation is composable with arbitrary base schemas;
-90. flexible modal equation and modal-energy calculation;
-91. torque-to-mode participation and flexible-station attitude/rate sensing (CSI hook);
-92. transverse linear slosh equation plus reaction force/moment signs;
-93. second-order engine transient and second-order servo acceleration/position limits;
-94. deterministic gain/bias/stuck/dropout fault schedule semantics;
-95. stateful landing-gear compression dynamics and contact wrench;
-96. wrench-level fault scaling;
-97. subsystem-bundle composition preserves derivative/wrench/mass-flow ordering;
-98. coupled rigid + engine transient + TVC + flex + slosh + mass-depletion integration.
+99. arbitrary three-dimensional multilinear interpolation of an exactly linear field;
+100. per-axis clamp / extrapolate / error policies plus periodic coordinate wrapping;
+101. soft/hard validity envelopes and absolute/relative uncertainty propagation;
+102. native NPZ round-trip, deterministic checksum, and explicit-version catalog semantics;
+103. N-D aerodynamic database adapter over Mach/alpha/Reynolds coordinates;
+104. tabulated atmosphere deriving density and transport properties from a gas mixture;
+105. tabulated aerothermal heat-flux model;
+106. tabulated propulsion map and 6-DOF engine integration;
+107. temperature-dependent material database driving an ablating lumped TPS;
+108. radial gravity table, gravity gradient, and `PlanetaryEnvironment` gravity override;
+109. Cartesian vector gravity field and numerical Jacobian;
+110. periodic latitude/longitude terrain with slope-aware surface normal;
+111. deterministic content fingerprints and reproducible catalog inventory;
+112. long-form CSV round-trip plus incomplete-grid rejection;
+113. end-to-end table-driven atmosphere + gravity + aero + propulsion 6-DOF flight.
 
 ## Bounded regression execution
-
-The full suite is split to stay inside restricted wall-clock environments.
 
 ```bash
 # A–E physics
@@ -39,42 +42,46 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q \
   tests/test_h_optimization.py tests/test_i_multivehicle.py tests/test_j_subsystems.py
 # 31/31 passed
+
+# K engineering data
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=src pytest -q tests/test_k_engineering_data.py
+# 15/15 passed
 ```
 
-Total: **98/98 passed in bounded groups**.
+Total: **113/113 passed in bounded groups**.
 
-The H process-parallel ordering test may emit Python 3.13's standard `fork()` deprecation warning on Linux when the parent process is multi-threaded; the test itself passes.
+The H process-parallel test may emit Python's standard `fork()` deprecation warning in a multi-threaded Linux parent; the test itself passes.
 
-## J reference output
+## K reference output
 
-`examples/engineering_subsystems.py --output reports/j_reference.json` produced the deterministic Nereid-J reference:
+`examples/engineering_data_system.py --output reports/k_reference.json` generated six synthetic, checksummed Nereid-K datasets and reloaded them through the catalog.
 
-Coupled powered subsystem case:
+Coupled table-driven 6-DOF flight:
 
 - duration: 6.0 s;
-- final altitude: ~118.158 m;
-- final speed: ~4.315 m/s;
-- final mass: ~493.602 kg;
-- scheduled engine-command degradation reaches ~0.700 normalized power;
-- max pitch-gimbal magnitude: ~0.04022 rad;
-- max flexible modal displacement: ~0.01543 m;
-- max slosh displacement: ~0.00893 m.
+- final altitude: ~141.181299 m;
+- final speed: ~45.866155 m/s;
+- final mass: ~96.880000 kg;
+- quaternion norm: 1.0.
 
-Dynamic gear-drop case:
+Reference data demonstrations:
 
-- max strut compression: ~0.09248 m;
-- rebound is present by 1.0 s;
-- the stateful contact load remains finite and integration completes successfully.
+- six explicit dataset/version/hash records are present in the catalog;
+- 900 K TPS material interpolation returns finite thermophysical properties;
+- terrain lookup returns a slope-aware normal;
+- the reference aerodynamic query at Mach 4 / alpha 9 deg is deliberately outside the declared recommended validity envelope and is flagged without suppressing the interpolation;
+- NPZ and CSV versions of all six synthetic datasets are included under `reports/k_datasets/`.
 
-## J acceptance invariants
+## K acceptance invariants
 
-- engineering states can augment core, entry, EDL, GNC, or future schemas without replacing them;
-- each subsystem state field still has one derivative writer;
-- subsystem wrenches feed the existing rigid-body force/moment accumulator;
-- engine transient output is physically clipped to [0,1] at the propulsion interface;
-- second-order actuator output is physically clipped to declared hard stops;
-- slosh excitation explicitly selects non-slosh forcing models, preventing a hidden algebraic reaction loop;
-- flexible-station sensor effects are measurement-level couplings, not hidden changes to rigid truth state;
-- fault schedules are deterministic functions of simulation time;
-- dynamic gear compression is a continuous state, not an implicit mutation inside contact evaluation;
-- all A–I regression behavior remains unchanged.
+- table coordinates and output data are finite and shapes match the complete Cartesian grid;
+- interpolation-domain behavior is explicit per axis;
+- validity is recorded separately from interpolation/extrapolation behavior;
+- periodic axes wrap deterministically;
+- unit strings are metadata only; kernel numeric values remain coherent SI;
+- uncertainty annotations never silently perturb deterministic simulation values;
+- catalog lookup never silently selects among multiple versions;
+- native NPZ reload verifies deterministic content SHA-256;
+- CSV ingestion rejects duplicate or missing Cartesian grid points;
+- domain adapters reuse existing dynamics interfaces rather than bypassing the force/moment/state ownership rules;
+- all A–J regression behavior remains unchanged.

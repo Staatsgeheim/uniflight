@@ -1,0 +1,4 @@
+temperature,specific_heat,emissivity,thermal_conductivity,density,ablation_temperature,effective_heat_of_ablation
+250.0,950.0,0.78,0.45,1550.0,1050.0,3200000.0
+800.0,1100.0,0.84,0.52,1500.0,1050.0,3200000.0
+1300.0,1250.0,0.88,0.61,1440.0,1050.0,3200000.0
