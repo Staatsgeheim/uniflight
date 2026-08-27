@@ -1,0 +1,136 @@
+{
+  "campaign": {
+    "campaign_id": "nereid-n-analysis.sweep.propulsion-grid",
+    "created_unix": 1787851626.1976464,
+    "kind": "sweep",
+    "metadata": {
+      "analysis_id": "propulsion-grid",
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "updated_unix": 1787851628.3131018
+  },
+  "cases": [
+    {
+      "case_id": "aede99c8379ed99b4da6faf4",
+      "elapsed_seconds": 0.035212034003052395,
+      "error": null,
+      "index": 0,
+      "kind": "sweep",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.014752267743461,
+        "final_mass": 99.2999999999995,
+        "final_speed": 6.022154645472788,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "exhaust_velocity": 900.0,
+        "mass_flow": 0.35
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e7a047f23346d1509e26c07c",
+      "elapsed_seconds": 0.03216949999841745,
+      "error": null,
+      "index": 1,
+      "kind": "sweep",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.4180305561749265,
+        "final_mass": 99.2999999999995,
+        "final_speed": 7.427077913353685,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "exhaust_velocity": 1100.0,
+        "mass_flow": 0.35
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "abb652b94fe02444801d9fb5",
+      "elapsed_seconds": 0.021704950999264838,
+      "error": null,
+      "index": 2,
+      "kind": "sweep",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.730151777504943,
+        "final_mass": 98.99999999999949,
+        "final_speed": 8.745304012655808,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "exhaust_velocity": 900.0,
+        "mass_flow": 0.5
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "5e24408ccb379c33ce916b1b",
+      "elapsed_seconds": 0.02367312999922433,
+      "error": null,
+      "index": 3,
+      "kind": "sweep",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.736852179979905,
+        "final_mass": 98.99999999999949,
+        "final_speed": 10.755371584353119,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "exhaust_velocity": 1100.0,
+        "mass_flow": 0.5
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "157b204480c39ed8e07076fd",
+      "elapsed_seconds": 0.030000127000676002,
+      "error": null,
+      "index": 4,
+      "kind": "sweep",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.451033286517486,
+        "final_mass": 98.69999999999948,
+        "final_speed": 11.476717881411316,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "exhaust_velocity": 900.0,
+        "mass_flow": 0.65
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4b805a424a1d5a1e72d0fdb9",
+      "elapsed_seconds": 0.03384269199887058,
+      "error": null,
+      "index": 5,
+      "kind": "sweep",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 14.062374022556469,
+        "final_mass": 98.69999999999948,
+        "final_speed": 14.093766312829315,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "exhaust_velocity": 1100.0,
+        "mass_flow": 0.65
+      },
+      "status": "completed"
+    }
+  ]
+}

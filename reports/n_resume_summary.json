@@ -1,0 +1,76 @@
+{
+  "execution": {
+    "campaign_id": "nereid-n-analysis.sweep.propulsion-grid",
+    "elapsed_seconds": 2.4066001060418785e-05,
+    "executed_cases": 0,
+    "failed_cases": 0,
+    "kind": "sweep",
+    "requested_cases": 6,
+    "resumed_cases": 6,
+    "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+    "workers": 4
+  },
+  "statistics": {
+    "end_time": {
+      "max": 2.0,
+      "mean": 2.0,
+      "median": 2.0,
+      "min": 2.0,
+      "p05": 2.0,
+      "p95": 2.0,
+      "std": 0.0
+    },
+    "final_altitude": {
+      "max": 14.062374022556469,
+      "mean": 9.735532348412866,
+      "median": 9.733501978742424,
+      "min": 6.014752267743461,
+      "p05": 6.365571839851327,
+      "p95": 13.409538838546723,
+      "std": 2.6737287572765154
+    },
+    "final_mass": {
+      "max": 99.2999999999995,
+      "mean": 98.99999999999949,
+      "median": 98.99999999999949,
+      "min": 98.69999999999948,
+      "p05": 98.69999999999948,
+      "p95": 99.2999999999995,
+      "std": 0.2449489742783271
+    },
+    "final_speed": {
+      "max": 14.093766312829315,
+      "mean": 9.753398725012673,
+      "median": 9.750337798504464,
+      "min": 6.022154645472788,
+      "p05": 6.373385462443012,
+      "p95": 13.439504204974815,
+      "std": 2.682125250989586
+    },
+    "final_vehicle_count": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "std": 0.0
+    }
+  },
+  "store": {
+    "campaign_id": "nereid-n-analysis.sweep.propulsion-grid",
+    "case_counts": {
+      "completed": 6
+    },
+    "created_unix": 1787851626.1976464,
+    "kind": "sweep",
+    "metadata": {
+      "analysis_id": "propulsion-grid",
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "total_cases": 6,
+    "updated_unix": 1787851645.577902
+  }
+}

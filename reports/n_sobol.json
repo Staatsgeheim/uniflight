@@ -1,0 +1,5906 @@
+{
+  "campaign": {
+    "campaign_id": "nereid-n-analysis.sobol.propulsion-sensitivity",
+    "created_unix": 1787851635.215751,
+    "kind": "sobol",
+    "metadata": {
+      "analysis_id": "propulsion-sensitivity",
+      "base_samples": 64,
+      "metric": "final_altitude",
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "updated_unix": 1787851639.0775266
+  },
+  "cases": [
+    {
+      "case_id": "b1d18c1f450bb89a88c3d211",
+      "elapsed_seconds": 0.03424426399942604,
+      "error": null,
+      "index": 0,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.31072052125819,
+        "final_mass": 99.2978904286403,
+        "final_speed": 7.319669096061598,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 0,
+        "exhaust_velocity": 1081.4390409737825,
+        "mass_flow": 0.3510547856800258
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3ad7db61ed0c6027e787d765",
+      "elapsed_seconds": 0.0252236720007204,
+      "error": null,
+      "index": 1,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.703100928571075,
+        "final_mass": 99.00726227313328,
+        "final_speed": 9.719763034153779,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 0,
+        "exhaust_velocity": 1004.2877539992332,
+        "mass_flow": 0.4963688634335995
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "76bb94d3315245f88f8c031e",
+      "elapsed_seconds": 0.026488645999052096,
+      "error": null,
+      "index": 2,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.471558086108416,
+        "final_mass": 99.00726227313328,
+        "final_speed": 10.489500208399111,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 0,
+        "exhaust_velocity": 1081.4390409737825,
+        "mass_flow": 0.4963688634335995
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a83c927e25359ef9493922d5",
+      "elapsed_seconds": 0.031732947998534655,
+      "error": null,
+      "index": 3,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.767761683207937,
+        "final_mass": 99.2978904286403,
+        "final_speed": 6.776071852540281,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 0,
+        "exhaust_velocity": 1004.2877539992332,
+        "mass_flow": 0.3510547856800258
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a96fc0e97202cf599dee8a94",
+      "elapsed_seconds": 0.019980224999017082,
+      "error": null,
+      "index": 4,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.63898124662228,
+        "final_mass": 98.9992897041148,
+        "final_speed": 9.655670388663916,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 1,
+        "exhaust_velocity": 989.8740228265524,
+        "mass_flow": 0.5003551479429007
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "820f5a4f4d730057ce3a87b3",
+      "elapsed_seconds": 0.02329689000180224,
+      "error": null,
+      "index": 5,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.107631787192076,
+        "final_mass": 98.7689081132416,
+        "final_speed": 11.131233234523156,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 1,
+        "exhaust_velocity": 922.8166790679097,
+        "mass_flow": 0.6155459433794022
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1a6508c8caf9aff0b09d62ea",
+      "elapsed_seconds": 0.02054557100200327,
+      "error": null,
+      "index": 6,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.936578104272485,
+        "final_mass": 98.7689081132416,
+        "final_speed": 11.961894576046207,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 1,
+        "exhaust_velocity": 989.8740228265524,
+        "mass_flow": 0.6155459433794022
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e992b010125001c464aacc10",
+      "elapsed_seconds": 0.03823398799795541,
+      "error": null,
+      "index": 7,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.965681746834889,
+        "final_mass": 98.9992897041148,
+        "final_speed": 8.981240309454046,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 1,
+        "exhaust_velocity": 922.8166790679097,
+        "mass_flow": 0.5003551479429007
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "56404401b242a0a29636b0fd",
+      "elapsed_seconds": 0.03533753900046577,
+      "error": null,
+      "index": 8,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.426303928950801,
+        "final_mass": 98.79117018766692,
+        "final_speed": 12.452153623889934,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 2,
+        "exhaust_velocity": 1048.5279960557818,
+        "mass_flow": 0.6044149061664938
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4379afad2dbcbedd184d89e6",
+      "elapsed_seconds": 0.021299126998201245,
+      "error": null,
+      "index": 9,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.866923789610155,
+        "final_mass": 99.16504499036876,
+        "final_speed": 8.879752755410305,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 2,
+        "exhaust_velocity": 1094.834323786199,
+        "mass_flow": 0.4174775048159063
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "21d59990c22f3138f20cb5c6",
+      "elapsed_seconds": 0.02027475700015202,
+      "error": null,
+      "index": 10,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.47920615086332,
+        "final_mass": 99.16504499036876,
+        "final_speed": 8.49149251080644,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 2,
+        "exhaust_velocity": 1048.5279960557818,
+        "mass_flow": 0.4174775048159063
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7400b6fbee85cac7244b6fb5",
+      "elapsed_seconds": 0.02176704500016058,
+      "error": null,
+      "index": 11,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.988337946357206,
+        "final_mass": 98.79117018766692,
+        "final_speed": 13.01532924721591,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 2,
+        "exhaust_velocity": 1094.834323786199,
+        "mass_flow": 0.6044149061664938
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "60defb28b0fb3d99f3a5fea8",
+      "elapsed_seconds": 0.028536599998915335,
+      "error": null,
+      "index": 12,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.182074887910858,
+        "final_mass": 99.08977466281499,
+        "final_speed": 8.195022002569392,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 3,
+        "exhaust_velocity": 929.0336346253753,
+        "mass_flow": 0.4551126685924828
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "54069fd4998c663c3f694259",
+      "elapsed_seconds": 0.024718051001400454,
+      "error": null,
+      "index": 13,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.411284012719989,
+        "final_mass": 98.90644175279846,
+        "final_speed": 10.430950935768731,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 3,
+        "exhaust_velocity": 975.9120527654886,
+        "mass_flow": 0.5467791236005723
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9e92f546d44c6f5e805e83d9",
+      "elapsed_seconds": 0.01870012400104315,
+      "error": null,
+      "index": 14,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.89676218549721,
+        "final_mass": 98.90644175279846,
+        "final_speed": 9.915484397165917,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 3,
+        "exhaust_velocity": 929.0336346253753,
+        "mass_flow": 0.5467791236005723
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8140cc1a1b19335cc123c311",
+      "elapsed_seconds": 0.02237274700019043,
+      "error": null,
+      "index": 15,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.610074735828675,
+        "final_mass": 99.08977466281499,
+        "final_speed": 8.623675155174107,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 3,
+        "exhaust_velocity": 975.9120527654886,
+        "mass_flow": 0.4551126685924828
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "5f37f2fadf3a8ce01ad1cb0f",
+      "elapsed_seconds": 0.018406618997687474,
+      "error": null,
+      "index": 16,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.043387253186665,
+        "final_mass": 99.07150689046773,
+        "final_speed": 9.05793708145576,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 4,
+        "exhaust_velocity": 1003.1764095649123,
+        "mass_flow": 0.4642465547658503
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6972354ccd9fdb9485ddf352",
+      "elapsed_seconds": 0.01948391900077695,
+      "error": null,
+      "index": 17,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.106781231472269,
+        "final_mass": 98.81205683704479,
+        "final_speed": 11.129547190106306,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 4,
+        "exhaust_velocity": 956.4027858898044,
+        "mass_flow": 0.5939715814776718
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f240a4a767dba8c913bfb9ca",
+      "elapsed_seconds": 0.02471476700156927,
+      "error": null,
+      "index": 18,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.66463875991758,
+        "final_mass": 98.81205683704479,
+        "final_speed": 11.688518106690173,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 4,
+        "exhaust_velocity": 1003.1764095649123,
+        "mass_flow": 0.5939715814776718
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "83b38defdefe5e41e8f3ccac",
+      "elapsed_seconds": 0.021453724999446422,
+      "error": null,
+      "index": 19,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.607746944762766,
+        "final_mass": 99.07150689046773,
+        "final_speed": 8.621618378129288,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 4,
+        "exhaust_velocity": 956.4027858898044,
+        "mass_flow": 0.4642465547658503
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "5d158a0610aab468e6df1259",
+      "elapsed_seconds": 0.020042103999003302,
+      "error": null,
+      "index": 20,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.109717183629982,
+        "final_mass": 98.77069284282669,
+        "final_speed": 11.133288441840564,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 5,
+        "exhaust_velocity": 924.3309272453189,
+        "mass_flow": 0.6146535785868764
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ef2a99c6c9fd67670bb33e6a",
+      "elapsed_seconds": 0.02375231000041822,
+      "error": null,
+      "index": 21,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.118754695984535,
+        "final_mass": 99.11645714845463,
+        "final_speed": 9.132707649967601,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 5,
+        "exhaust_velocity": 1062.8769364207983,
+        "mass_flow": 0.4417714257724583
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "12aa60893f2b66b295a920bb",
+      "elapsed_seconds": 0.023400477999530267,
+      "error": null,
+      "index": 22,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.891020013485104,
+        "final_mass": 99.11645714845463,
+        "final_speed": 7.903154195422157,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 5,
+        "exhaust_velocity": 924.3309272453189,
+        "mass_flow": 0.4417714257724583
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "54403c927ec11cbdb9518a0e",
+      "elapsed_seconds": 0.0199039309991349,
+      "error": null,
+      "index": 23,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.819895582972094,
+        "final_mass": 98.77069284282669,
+        "final_speed": 12.846999891914951,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 5,
+        "exhaust_velocity": 1062.8769364207983,
+        "mass_flow": 0.6146535785868764
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "c2a5e8f9458d9f5f394026ba",
+      "elapsed_seconds": 0.01911075499810977,
+      "error": null,
+      "index": 24,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.797317939111963,
+        "final_mass": 98.86755833923786,
+        "final_speed": 11.820325514395044,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 6,
+        "exhaust_velocity": 1064.2106797546148,
+        "mass_flow": 0.5662208303809166
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "81e112c24c0aecda3fdffabd",
+      "elapsed_seconds": 0.023659759001020575,
+      "error": null,
+      "index": 25,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.611067882506177,
+        "final_mass": 98.95017657168239,
+        "final_speed": 9.62853264899476,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 6,
+        "exhaust_velocity": 940.7603956758976,
+        "mass_flow": 0.5249117141589522
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1b16092004173d1a5ff999d8",
+      "elapsed_seconds": 0.03580784999940079,
+      "error": null,
+      "index": 26,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.911637247074395,
+        "final_mass": 98.95017657168239,
+        "final_speed": 10.931393812200053,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 6,
+        "exhaust_velocity": 1064.2106797546148,
+        "mass_flow": 0.5249117141589522
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "65095074c4b01d212a7dd388",
+      "elapsed_seconds": 0.021252225000353064,
+      "error": null,
+      "index": 27,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.394008079194464,
+        "final_mass": 98.86755833923786,
+        "final_speed": 10.41434673242327,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 6,
+        "exhaust_velocity": 940.7603956758976,
+        "mass_flow": 0.5662208303809166
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "df57c35032750e2caddc0a4e",
+      "elapsed_seconds": 0.027149240999278845,
+      "error": null,
+      "index": 28,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.681261292425916,
+        "final_mass": 99.1683669107033,
+        "final_speed": 7.692386254504579,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 7,
+        "exhaust_velocity": 957.045229151845,
+        "mass_flow": 0.4158165446482599
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3c7a0430be714ba8813a4588",
+      "elapsed_seconds": 0.021642856998369098,
+      "error": null,
+      "index": 29,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.233660475583747,
+        "final_mass": 99.27365406788908,
+        "final_speed": 7.242825680177155,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 7,
+        "exhaust_velocity": 1034.6856946125627,
+        "mass_flow": 0.36317296605557203
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "764a54a8f0223eabf4a976a8",
+      "elapsed_seconds": 0.023052750999340788,
+      "error": null,
+      "index": 30,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.668351695407182,
+        "final_mass": 99.27365406788908,
+        "final_speed": 6.676829161229445,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 7,
+        "exhaust_velocity": 957.045229151845,
+        "mass_flow": 0.36317296605557203
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "caeb15b554a94033cf10dd5b",
+      "elapsed_seconds": 0.03453996700045536,
+      "error": null,
+      "index": 31,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.328742545796558,
+        "final_mass": 99.1683669107033,
+        "final_speed": 8.340770024359403,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 7,
+        "exhaust_velocity": 1034.6856946125627,
+        "mass_flow": 0.4158165446482599
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8308d64e1d2aab0d4800b3c1",
+      "elapsed_seconds": 0.03664965000280063,
+      "error": null,
+      "index": 32,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.998126880615018,
+        "final_mass": 99.19466238208088,
+        "final_speed": 8.009325839735489,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 8,
+        "exhaust_velocity": 1027.6211999356747,
+        "mass_flow": 0.4026688089594245
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2ce13c087485c1b551e813aa",
+      "elapsed_seconds": 0.02864423800201621,
+      "error": null,
+      "index": 33,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.454972603125498,
+        "final_mass": 98.98037254214245,
+        "final_speed": 10.47337563802225,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 8,
+        "exhaust_velocity": 1051.2031147256494,
+        "mass_flow": 0.509813728928566
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4a96018d7a6306cc6201c246",
+      "elapsed_seconds": 0.026266544999089092,
+      "error": null,
+      "index": 34,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.213703484972939,
+        "final_mass": 98.98037254214245,
+        "final_speed": 10.231693679367693,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 8,
+        "exhaust_velocity": 1027.6211999356747,
+        "mass_flow": 0.509813728928566
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e9247f42cdd105951f74c1a0",
+      "elapsed_seconds": 0.034479025001928676,
+      "error": null,
+      "index": 35,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.188552810577676,
+        "final_mass": 99.19466238208088,
+        "final_speed": 8.200008763892422,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 8,
+        "exhaust_velocity": 1051.2031147256494,
+        "mass_flow": 0.4026688089594245
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "21f9fe5ab7a8718cdc02022c",
+      "elapsed_seconds": 0.019589119001466315,
+      "error": null,
+      "index": 36,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.160850815009326,
+        "final_mass": 98.89604802187506,
+        "final_speed": 10.180241819134045,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 9,
+        "exhaust_velocity": 944.0885618329048,
+        "mass_flow": 0.551975989062339
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "27a898aefc70148c2adbc015",
+      "elapsed_seconds": 0.020557433999783825,
+      "error": null,
+      "index": 37,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.012354651349597,
+        "final_mass": 99.2481403067714,
+        "final_speed": 7.0215646549147,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 9,
+        "exhaust_velocity": 970.1284371316433,
+        "mass_flow": 0.3759298466145992
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "000268508b041c2bf80d8179",
+      "elapsed_seconds": 0.034556031998363324,
+      "error": null,
+      "index": 38,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.8160787804517895,
+        "final_mass": 99.2481403067714,
+        "final_speed": 6.825041571093472,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 9,
+        "exhaust_velocity": 944.0885618329048,
+        "mass_flow": 0.3759298466145992
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "81bf7bb5050f4fe2b277e088",
+      "elapsed_seconds": 0.022167330997035606,
+      "error": null,
+      "index": 39,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.449382275342941,
+        "final_mass": 98.89604802187506,
+        "final_speed": 10.469308123573649,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 9,
+        "exhaust_velocity": 970.1284371316433,
+        "mass_flow": 0.551975989062339
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "63e13f5fc27888de2dce8551",
+      "elapsed_seconds": 0.02068961500117439,
+      "error": null,
+      "index": 40,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.672561978688464,
+        "final_mass": 98.7256525615237,
+        "final_speed": 13.702494450019,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 10,
+        "exhaust_velocity": 1091.7808117344975,
+        "mass_flow": 0.6371737192384899
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ffd19273a52d78ddd35a515a",
+      "elapsed_seconds": 0.032976189999317285,
+      "error": null,
+      "index": 41,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.12600135942921,
+        "final_mass": 98.81911253202702,
+        "final_speed": 12.150653044291127,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 10,
+        "exhaust_velocity": 1048.1092672795057,
+        "mass_flow": 0.5904437339864671
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d44e500508697cef4a9a51b4",
+      "elapsed_seconds": 0.03427897200162988,
+      "error": null,
+      "index": 42,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.643755269702524,
+        "final_mass": 98.81911253202702,
+        "final_speed": 12.66943411751626,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 10,
+        "exhaust_velocity": 1091.7808117344975,
+        "mass_flow": 0.5904437339864671
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8348c247c107fa6d6d0b0cae",
+      "elapsed_seconds": 0.02478604399948381,
+      "error": null,
+      "index": 43,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.113655504654162,
+        "final_mass": 98.7256525615237,
+        "final_speed": 13.142390668288204,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 10,
+        "exhaust_velocity": 1048.1092672795057,
+        "mass_flow": 0.6371737192384899
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1dfa4c53ae11e06a8dbf8fac",
+      "elapsed_seconds": 0.022502218002045993,
+      "error": null,
+      "index": 44,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.353959949454293,
+        "final_mass": 99.02426201775683,
+        "final_speed": 9.369763337061666,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 11,
+        "exhaust_velocity": 986.1775169149041,
+        "mass_flow": 0.4878689911216497
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "cb55b2298eb7210ae9f28883",
+      "elapsed_seconds": 0.03246385500096949,
+      "error": null,
+      "index": 45,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.047351408749819,
+        "final_mass": 99.10471695978202,
+        "final_speed": 8.059882470833955,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 11,
+        "exhaust_velocity": 929.5833943411708,
+        "mass_flow": 0.44764152010902764
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7d1e509fb363dfb9e78bc9f8",
+      "elapsed_seconds": 0.020768564001627965,
+      "error": null,
+      "index": 46,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.555547912488692,
+        "final_mass": 99.10471695978202,
+        "final_speed": 8.568841881610215,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 11,
+        "exhaust_velocity": 986.1775169149041,
+        "mass_flow": 0.44764152010902764
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "83e1028b0f17bb13c4dcd7c8",
+      "elapsed_seconds": 0.022975803996814648,
+      "error": null,
+      "index": 47,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.799944689380936,
+        "final_mass": 99.02426201775683,
+        "final_speed": 8.814841159700128,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 11,
+        "exhaust_velocity": 929.5833943411708,
+        "mass_flow": 0.4878689911216497
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "04bc41043f9168b0c460f98c",
+      "elapsed_seconds": 0.03475867800079868,
+      "error": null,
+      "index": 48,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.089284687070176,
+        "final_mass": 99.1185580462215,
+        "final_speed": 9.103160716095775,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 12,
+        "exhaust_velocity": 1062.0842376723886,
+        "mass_flow": 0.4407209768891335
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4781128683f70f0e73d05e1a",
+      "elapsed_seconds": 0.023256799002410844,
+      "error": null,
+      "index": 49,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.867877983953804,
+        "final_mass": 99.2143665751442,
+        "final_speed": 6.877313666329722,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 12,
+        "exhaust_velocity": 909.9767554551363,
+        "mass_flow": 0.3928167124278843
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "89f54bcab96497cd9979de7e",
+      "elapsed_seconds": 0.019034598997677676,
+      "error": null,
+      "index": 50,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.066027136519551,
+        "final_mass": 99.2143665751442,
+        "final_speed": 8.077040047744443,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 12,
+        "exhaust_velocity": 1062.0842376723886,
+        "mass_flow": 0.3928167124278843
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e67cb4b129b1483be17dfc1e",
+      "elapsed_seconds": 0.03286534200015012,
+      "error": null,
+      "index": 51,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.7445886568166316,
+        "final_mass": 99.1185580462215,
+        "final_speed": 7.756477411889658,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 12,
+        "exhaust_velocity": 909.9767554551363,
+        "mass_flow": 0.4407209768891335
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "eb0853303f0459ef81c71198",
+      "elapsed_seconds": 0.03413395299867261,
+      "error": null,
+      "index": 52,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.163740278920159,
+        "final_mass": 98.81775790024534,
+        "final_speed": 11.186509247381805,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 13,
+        "exhaust_velocity": 965.832063741982,
+        "mass_flow": 0.5911210498772561
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "56dd499d5c501cba5b80b429",
+      "elapsed_seconds": 0.025398046000191243,
+      "error": null,
+      "index": 53,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.30883433809504,
+        "final_mass": 98.86180265899753,
+        "final_speed": 11.331025946998096,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 13,
+        "exhaust_velocity": 1016.0545086488128,
+        "mass_flow": 0.569098670501262
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d302a9c8e658ee8e41751bfd",
+      "elapsed_seconds": 0.026592579000862315,
+      "error": null,
+      "index": 54,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.735022558947094,
+        "final_mass": 98.86180265899753,
+        "final_speed": 10.756117260630443,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 13,
+        "exhaust_velocity": 965.832063741982,
+        "mass_flow": 0.569098670501262
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a4c596651a89e2be20ab9870",
+      "elapsed_seconds": 0.03240003799874103,
+      "error": null,
+      "index": 55,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.759845013963059,
+        "final_mass": 98.81775790024534,
+        "final_speed": 11.783797950580876,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 13,
+        "exhaust_velocity": 1016.0545086488128,
+        "mass_flow": 0.5911210498772561
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8377494880e3fa3f00cd5e7c",
+      "elapsed_seconds": 0.02740471799916122,
+      "error": null,
+      "index": 56,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.427565566380508,
+        "final_mass": 98.9517522839833,
+        "final_speed": 10.446440553474105,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 14,
+        "exhaust_velocity": 1019.7985395789146,
+        "mass_flow": 0.5241238580085337
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "33d90772ee4160d40dee7cba",
+      "elapsed_seconds": 0.02691245299865841,
+      "error": null,
+      "index": 57,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.915048375027254,
+        "final_mass": 99.07035714425092,
+        "final_speed": 8.929416229416132,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 14,
+        "exhaust_velocity": 988.1695227697492,
+        "mass_flow": 0.4648214278742671
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "33a426bdf7bc6b6de8d4d356",
+      "elapsed_seconds": 0.0336633399965649,
+      "error": null,
+      "index": 58,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.210000723483972,
+        "final_mass": 99.07035714425092,
+        "final_speed": 9.224828460040301,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 14,
+        "exhaust_velocity": 1019.7985395789146,
+        "mass_flow": 0.4648214278742671
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b5a781a3cc28231cb8a79a38",
+      "elapsed_seconds": 0.03386037900054362,
+      "error": null,
+      "index": 59,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.094850486610085,
+        "final_mass": 98.9517522839833,
+        "final_speed": 10.11314006557384,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 14,
+        "exhaust_velocity": 988.1695227697492,
+        "mass_flow": 0.5241238580085337
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "aaa8fb91c28ecb91fb7f286d",
+      "elapsed_seconds": 0.020937938999850303,
+      "error": null,
+      "index": 60,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.457797603332438,
+        "final_mass": 99.25255675278635,
+        "final_speed": 6.466258889573185,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 15,
+        "exhaust_velocity": 901.8663339316845,
+        "mass_flow": 0.3737216236069798
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "bbee860e38e62230653d2f5c",
+      "elapsed_seconds": 0.024278224998852238,
+      "error": null,
+      "index": 61,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.811102465726435,
+        "final_mass": 98.70112845785854,
+        "final_speed": 13.841918536748219,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 15,
+        "exhaust_velocity": 1081.6984236240387,
+        "mass_flow": 0.6494357710704208
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "388e0d0ce73232e9eed8560a",
+      "elapsed_seconds": 0.03419512500113342,
+      "error": null,
+      "index": 62,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.465135239996016,
+        "final_mass": 98.70112845785854,
+        "final_speed": 11.490828142267851,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 15,
+        "exhaust_velocity": 901.8663339316845,
+        "mass_flow": 0.6494357710704208
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6cc57d2644c6ab1041a9839f",
+      "elapsed_seconds": 0.030514635000145063,
+      "error": null,
+      "index": 63,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.80530202249065,
+        "final_mass": 99.25255675278635,
+        "final_speed": 7.815450494270276,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 15,
+        "exhaust_velocity": 1081.6984236240387,
+        "mass_flow": 0.3737216236069798
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "47246b08fd23415aaa32d97c",
+      "elapsed_seconds": 0.034853662000386976,
+      "error": null,
+      "index": 64,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.536167112994008,
+        "final_mass": 99.23024278655674,
+        "final_speed": 7.546273005910498,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 16,
+        "exhaust_velocity": 1015.3895085677505,
+        "mass_flow": 0.38487860672175883
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "db7991d7ebd79349f9774a80",
+      "elapsed_seconds": 0.03239846600263263,
+      "error": null,
+      "index": 65,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.905042107682675,
+        "final_mass": 99.23852145541474,
+        "final_speed": 6.91423363203952,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 16,
+        "exhaust_velocity": 943.7862556427717,
+        "mass_flow": 0.3807392722927034
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "924623717ba4d6abd000f9d9",
+      "elapsed_seconds": 0.03443143299955409,
+      "error": null,
+      "index": 66,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.451674835057929,
+        "final_mass": 99.23852145541474,
+        "final_speed": 7.461563704523449,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 16,
+        "exhaust_velocity": 1015.3895085677505,
+        "mass_flow": 0.3807392722927034
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1a7e2bdb456cddb553442648",
+      "elapsed_seconds": 0.03328652999698534,
+      "error": null,
+      "index": 67,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.983576158294454,
+        "final_mass": 99.23024278655674,
+        "final_speed": 6.992969401613291,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 16,
+        "exhaust_velocity": 943.7862556427717,
+        "mass_flow": 0.38487860672175883
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "795a3b398da3185686013a3d",
+      "elapsed_seconds": 0.03292631399745005,
+      "error": null,
+      "index": 68,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.426266134250909,
+        "final_mass": 98.93107310626591,
+        "final_speed": 9.44371935542206,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 17,
+        "exhaust_velocity": 906.6614044830203,
+        "mass_flow": 0.5344634468667209
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9db3e44b41743c40f326f5ef",
+      "elapsed_seconds": 0.03246693899927777,
+      "error": null,
+      "index": 69,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.089629641966894,
+        "final_mass": 98.98999582249672,
+        "final_speed": 10.107238612632756,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 17,
+        "exhaust_velocity": 1025.2027807757258,
+        "mass_flow": 0.5050020887516439
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3895804e8e28312595f06788",
+      "elapsed_seconds": 0.03258681099759997,
+      "error": null,
+      "index": 70,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.888305354397744,
+        "final_mass": 98.98999582249672,
+        "final_speed": 8.903878244525828,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 17,
+        "exhaust_velocity": 906.6614044830203,
+        "mass_flow": 0.5050020887516439
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "76ec9972a1bdfe51b09a07d3",
+      "elapsed_seconds": 0.03269623699816293,
+      "error": null,
+      "index": 71,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.697926062974147,
+        "final_mass": 98.93107310626591,
+        "final_speed": 10.71766120846742,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 17,
+        "exhaust_velocity": 1025.2027807757258,
+        "mass_flow": 0.5344634468667209
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a775cfe082d8d08e717a6151",
+      "elapsed_seconds": 0.032820074000483146,
+      "error": null,
+      "index": 72,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.97735866822768,
+        "final_mass": 98.84006673451466,
+        "final_speed": 12.001279911063284,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 18,
+        "exhaust_velocity": 1054.3533708900213,
+        "mass_flow": 0.5799666327424348
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e03d3fd3a50971244e119658",
+      "elapsed_seconds": 0.03401064599893289,
+      "error": null,
+      "index": 73,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.528301581274718,
+        "final_mass": 99.07667130231914,
+        "final_speed": 8.541972362912638,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 18,
+        "exhaust_velocity": 953.1911382451653,
+        "mass_flow": 0.4616643488407135
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "fb4dd98a4a45b0863d390fdc",
+      "elapsed_seconds": 0.03388901200014516,
+      "error": null,
+      "index": 74,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.465249760309234,
+        "final_mass": 99.07667130231914,
+        "final_speed": 9.480371426222497,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 18,
+        "exhaust_velocity": 1054.3533708900213,
+        "mass_flow": 0.4616643488407135
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "92caf9d2ca8f559cd107b06a",
+      "elapsed_seconds": 0.03320061400154373,
+      "error": null,
+      "index": 75,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.799380722921342,
+        "final_mass": 98.84006673451466,
+        "final_speed": 10.821006787632887,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 18,
+        "exhaust_velocity": 953.1911382451653,
+        "mass_flow": 0.5799666327424348
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7917bb939a2a93b7f4e49aa1",
+      "elapsed_seconds": 0.0323068420002528,
+      "error": null,
+      "index": 76,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.107471841853112,
+        "final_mass": 99.13924239166079,
+        "final_speed": 8.119603649867804,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 19,
+        "exhaust_velocity": 973.9459235221148,
+        "mass_flow": 0.43037880416959523
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "39cce910108c1ae0334558b9",
+      "elapsed_seconds": 0.032156940000277245,
+      "error": null,
+      "index": 77,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.10808527120389,
+        "final_mass": 98.84715433269804,
+        "final_speed": 12.132112359806479,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 19,
+        "exhaust_velocity": 1072.1565149724483,
+        "mass_flow": 0.5764228336513042
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0793a6c9c92b246e43e1b70b",
+      "elapsed_seconds": 0.027826891997392522,
+      "error": null,
+      "index": 78,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.971492451964878,
+        "final_mass": 98.84715433269804,
+        "final_speed": 10.993318632702985,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 19,
+        "exhaust_velocity": 973.9459235221148,
+        "mass_flow": 0.5764228336513042
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8d38309c1335008d5fab8be9",
+      "elapsed_seconds": 0.03463457999896491,
+      "error": null,
+      "index": 79,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.955263044452295,
+        "final_mass": 99.13924239166079,
+        "final_speed": 8.96861820001022,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 19,
+        "exhaust_velocity": 1072.1565149724483,
+        "mass_flow": 0.43037880416959523
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "52c288cf73e3e39655820dc5",
+      "elapsed_seconds": 0.03414020300260745,
+      "error": null,
+      "index": 80,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.639117524959147,
+        "final_mass": 99.00856273435039,
+        "final_speed": 10.657314722951906,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 20,
+        "exhaust_velocity": 1099.706994369626,
+        "mass_flow": 0.49571863282471895
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9f69b31048aeca5195f5de20",
+      "elapsed_seconds": 0.020821363999857567,
+      "error": null,
+      "index": 81,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.068126816418953,
+        "final_mass": 98.8712610069669,
+        "final_speed": 12.091571946305404,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 20,
+        "exhaust_velocity": 1091.6166679933667,
+        "mass_flow": 0.5643694965168834
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "85b2592014780070aba568a9",
+      "elapsed_seconds": 0.022411826001189183,
+      "error": null,
+      "index": 82,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.159791029873304,
+        "final_mass": 98.8712610069669,
+        "final_speed": 12.183409919089383,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 20,
+        "exhaust_velocity": 1099.706994369626,
+        "mass_flow": 0.5643694965168834
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ffa06b5caf42956e197d399a",
+      "elapsed_seconds": 0.03092343900061678,
+      "error": null,
+      "index": 83,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.558640604605898,
+        "final_mass": 99.00856273435039,
+        "final_speed": 10.576703930026893,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 20,
+        "exhaust_velocity": 1091.6166679933667,
+        "mass_flow": 0.49571863282471895
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d826dba3bdcf0f8f861489af",
+      "elapsed_seconds": 0.019828540996968513,
+      "error": null,
+      "index": 84,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.407375740585849,
+        "final_mass": 98.70714775901348,
+        "final_speed": 12.434996606651822,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 21,
+        "exhaust_velocity": 978.6495979875326,
+        "mass_flow": 0.6464261204935611
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "058d59e5a4a3e6103ec0c52d",
+      "elapsed_seconds": 0.03541847199812764,
+      "error": null,
+      "index": 85,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.554023797973059,
+        "final_mass": 99.2049123812464,
+        "final_speed": 7.5644877861267155,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 21,
+        "exhaust_velocity": 985.1970672607422,
+        "mass_flow": 0.397543809376657
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "bd96f5f2a0fe7912ce90e50a",
+      "elapsed_seconds": 0.024575936997280223,
+      "error": null,
+      "index": 86,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.501827155123465,
+        "final_mass": 99.2049123812464,
+        "final_speed": 7.5122216007784965,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 21,
+        "exhaust_velocity": 978.6495979875326,
+        "mass_flow": 0.397543809376657
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1ba1ec51192f4d67a18dd702",
+      "elapsed_seconds": 0.03473085599762271,
+      "error": null,
+      "index": 87,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.492392024258152,
+        "final_mass": 98.70714775901348,
+        "final_speed": 12.52019768325841,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 21,
+        "exhaust_velocity": 985.1970672607422,
+        "mass_flow": 0.6464261204935611
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "94cd0a6f21eb2ee7183128a7",
+      "elapsed_seconds": 0.02053705399885075,
+      "error": null,
+      "index": 88,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.978419807972386,
+        "final_mass": 98.91175132859473,
+        "final_speed": 10.999026771126388,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 22,
+        "exhaust_velocity": 1032.6161665841937,
+        "mass_flow": 0.5441243357025087
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8ef2cdc54ca08231440feb05",
+      "elapsed_seconds": 0.035462001997075276,
+      "error": null,
+      "index": 89,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.557420214638114,
+        "final_mass": 98.7290056010707,
+        "final_speed": 12.584890701153146,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 22,
+        "exhaust_velocity": 1007.3081780225039,
+        "mass_flow": 0.6354971994645894
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f1613cc50966627c383f6d64",
+      "elapsed_seconds": 0.0351128449983662,
+      "error": null,
+      "index": 90,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.880454863538034,
+        "final_mass": 98.7290056010707,
+        "final_speed": 12.90861553047131,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 22,
+        "exhaust_velocity": 1032.6161665841937,
+        "mass_flow": 0.6354971994645894
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "56ca16a7e5ef9406118724db",
+      "elapsed_seconds": 0.03357750000213855,
+      "error": null,
+      "index": 91,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.702001396450214,
+        "final_mass": 98.91175132859473,
+        "final_speed": 10.722103311032084,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 22,
+        "exhaust_velocity": 1007.3081780225039,
+        "mass_flow": 0.5441243357025087
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "dce936e723c1b90ebc7b6fda",
+      "elapsed_seconds": 0.033476617998530855,
+      "error": null,
+      "index": 92,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.111709300312214,
+        "final_mass": 99.2131631970409,
+        "final_speed": 7.1214809815840665,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 23,
+        "exhaust_velocity": 939.4888019189239,
+        "mass_flow": 0.39341840147972107
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1a0f15da8ef923c70a8e0238",
+      "elapsed_seconds": 0.03286966900122934,
+      "error": null,
+      "index": 93,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.473492188728414,
+        "final_mass": 99.04247641917294,
+        "final_speed": 8.487584449297016,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 23,
+        "exhaust_velocity": 913.3397733792663,
+        "mass_flow": 0.4787617904134095
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "01601259a6dc2f4b890374cc",
+      "elapsed_seconds": 0.03362721600205987,
+      "error": null,
+      "index": 94,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.724678335594945,
+        "final_mass": 99.04247641917294,
+        "final_speed": 8.739174060113703,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 23,
+        "exhaust_velocity": 939.4888019189239,
+        "mass_flow": 0.4787617904134095
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "76d57e52ebc7296e250edab3",
+      "elapsed_seconds": 0.03418789499846753,
+      "error": null,
+      "index": 95,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.905417327885516,
+        "final_mass": 99.2131631970409,
+        "final_speed": 6.914917029819788,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 23,
+        "exhaust_velocity": 913.3397733792663,
+        "mass_flow": 0.39341840147972107
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0e5508925be2cc80476d9da0",
+      "elapsed_seconds": 0.032756356999016134,
+      "error": null,
+      "index": 96,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.458656670060009,
+        "final_mass": 99.18320961948552,
+        "final_speed": 8.470646160343138,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 24,
+        "exhaust_velocity": 1069.402484036982,
+        "mass_flow": 0.4083951902575791
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4c4f739ef0727ced1cc42260",
+      "elapsed_seconds": 0.03717942200091784,
+      "error": null,
+      "index": 97,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.313450273359194,
+        "final_mass": 98.74099691826787,
+        "final_speed": 12.340143104574308,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 24,
+        "exhaust_velocity": 997.6467033848166,
+        "mass_flow": 0.6295015408657492
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "82bee688c08fa2f62e026482",
+      "elapsed_seconds": 0.03571066799850087,
+      "error": null,
+      "index": 98,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.220673210220411,
+        "final_mass": 98.74099691826787,
+        "final_speed": 13.249285927629483,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 24,
+        "exhaust_velocity": 1069.402484036982,
+        "mass_flow": 0.6295015408657492
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "52acafbbbcb9893db9a9a1c8",
+      "elapsed_seconds": 0.0390892530012934,
+      "error": null,
+      "index": 99,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.870960028027184,
+        "final_mass": 99.18320961948552,
+        "final_speed": 7.88214503400575,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 24,
+        "exhaust_velocity": 997.6467033848166,
+        "mass_flow": 0.4083951902575791
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "fe6d127c1149d847cc64dc56",
+      "elapsed_seconds": 0.03514240900040022,
+      "error": null,
+      "index": 100,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.37573161360342,
+        "final_mass": 98.88399006016613,
+        "final_speed": 10.39573869940717,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 25,
+        "exhaust_velocity": 953.0329318717122,
+        "mass_flow": 0.5580049699172378
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d36c4cd23fd7d707e304670d",
+      "elapsed_seconds": 0.03279803099940182,
+      "error": null,
+      "index": 101,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.140963665908203,
+        "final_mass": 99.03517761100034,
+        "final_speed": 10.157862935198596,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 25,
+        "exhaust_velocity": 1078.6782745271921,
+        "mass_flow": 0.48241119449958203
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "24e9973800d64dd20f599243",
+      "elapsed_seconds": 0.03327777700178558,
+      "error": null,
+      "index": 102,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.924791530240327,
+        "final_mass": 99.03517761100034,
+        "final_speed": 8.939722354727966,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 25,
+        "exhaust_velocity": 953.0329318717122,
+        "mass_flow": 0.48241119449958203
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "63bbf567a77a927d963fa24e",
+      "elapsed_seconds": 0.03271721800047089,
+      "error": null,
+      "index": 103,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.783191854483448,
+        "final_mass": 98.88399006016613,
+        "final_speed": 11.805836626177658,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 25,
+        "exhaust_velocity": 1078.6782745271921,
+        "mass_flow": 0.5580049699172378
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "c9d08523cab513cc85a6a6f7",
+      "elapsed_seconds": 0.033443047002947424,
+      "error": null,
+      "index": 104,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.339389824657701,
+        "final_mass": 98.75585415735772,
+        "final_speed": 12.365819273937678,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 26,
+        "exhaust_velocity": 1011.6870030760765,
+        "mass_flow": 0.6220729213207961
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a9cbae03a3d99bdf7659c65c",
+      "elapsed_seconds": 0.032738870999310166,
+      "error": null,
+      "index": 105,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.671193081070669,
+        "final_mass": 98.89701802879642,
+        "final_speed": 9.689660058372075,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 26,
+        "exhaust_velocity": 900.6914421916008,
+        "mass_flow": 0.5514909856021404
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8c1e8fdc7624949d90d2e7cf",
+      "elapsed_seconds": 0.026906342998699984,
+      "error": null,
+      "index": 106,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.899980344227515,
+        "final_mass": 98.89701802879642,
+        "final_speed": 10.920723079448154,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 26,
+        "exhaust_velocity": 1011.6870030760765,
+        "mass_flow": 0.5514909856021404
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a57b99053c4f8eaeacbba655",
+      "elapsed_seconds": 0.025458347001404036,
+      "error": null,
+      "index": 107,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.952680138754658,
+        "final_mass": 98.75585415735772,
+        "final_speed": 10.976209921683004,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 26,
+        "exhaust_velocity": 900.6914421916008,
+        "mass_flow": 0.6220729213207961
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e8f40ea6f914ac920d980362",
+      "elapsed_seconds": 0.03502107600070303,
+      "error": null,
+      "index": 108,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.392390079679899,
+        "final_mass": 99.05507118199068,
+        "final_speed": 8.40616726780465,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 27,
+        "exhaust_velocity": 916.9967941939831,
+        "mass_flow": 0.4724644090048969
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "28d95719a57be719cee4c724",
+      "elapsed_seconds": 0.026041483997687465,
+      "error": null,
+      "index": 109,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.137696119723842,
+        "final_mass": 99.17446514368038,
+        "final_speed": 8.149370586139423,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 27,
+        "exhaust_velocity": 1019.2718656733632,
+        "mass_flow": 0.41276742815971373
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "63abd447778a252ab92b1f38",
+      "elapsed_seconds": 0.034499336001317715,
+      "error": null,
+      "index": 110,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.291046658181585,
+        "final_mass": 99.17446514368038,
+        "final_speed": 7.301549689780609,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 27,
+        "exhaust_velocity": 916.9967941939831,
+        "mass_flow": 0.41276742815971373
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a3e0f9216147d22d23e2dcf2",
+      "elapsed_seconds": 0.020983915001124842,
+      "error": null,
+      "index": 111,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.3618752801558,
+        "final_mass": 99.05507118199068,
+        "final_speed": 9.377189076603642,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 27,
+        "exhaust_velocity": 1019.2718656733632,
+        "mass_flow": 0.4724644090048969
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d3bc5039be24aff48bad2e07",
+      "elapsed_seconds": 0.03308997199928854,
+      "error": null,
+      "index": 112,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.977377047995105,
+        "final_mass": 99.11177222002294,
+        "final_speed": 8.99119386878446,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 28,
+        "exhaust_velocity": 1041.3845919072628,
+        "mass_flow": 0.4441138899885118
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d43ab0f125929a2df2bb618e",
+      "elapsed_seconds": 0.020995355997001752,
+      "error": null,
+      "index": 113,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.612252392340451,
+        "final_mass": 99.14453742988343,
+        "final_speed": 8.625033028829746,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 28,
+        "exhaust_velocity": 1038.8299621641636,
+        "mass_flow": 0.42773128505796193
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2554b45c4d9732bc03dd1ad9",
+      "elapsed_seconds": 0.02884644499863498,
+      "error": null,
+      "index": 114,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.634168880758807,
+        "final_mass": 99.14453742988343,
+        "final_speed": 8.646980946985023,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 28,
+        "exhaust_velocity": 1041.3845919072628,
+        "mass_flow": 0.42773128505796193
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "227c6fb94c3c10651fef2592",
+      "elapsed_seconds": 0.03271311199932825,
+      "error": null,
+      "index": 115,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.954618632560596,
+        "final_mass": 99.11177222002294,
+        "final_speed": 8.968401558869578,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 28,
+        "exhaust_velocity": 1038.8299621641636,
+        "mass_flow": 0.4441138899885118
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d17ec880492c04da74b3235b",
+      "elapsed_seconds": 0.018698641000810312,
+      "error": null,
+      "index": 116,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.895054579596035,
+        "final_mass": 98.81040800213867,
+        "final_speed": 10.917429227420266,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 29,
+        "exhaust_velocity": 937.3443320393562,
+        "mass_flow": 0.594795998930931
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f8c819d7513297e6864e48e4",
+      "elapsed_seconds": 0.03353544600031455,
+      "error": null,
+      "index": 117,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.08922856755089,
+        "final_mass": 98.78398099578902,
+        "final_speed": 11.112501091435865,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 29,
+        "exhaust_velocity": 932.7953154221177,
+        "mass_flow": 0.6080095021054148
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "372bcd5e528d941ce3471c69",
+      "elapsed_seconds": 0.021224363998044282,
+      "error": null,
+      "index": 118,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.144771073828451,
+        "final_mass": 98.78398099578902,
+        "final_speed": 11.168157092836912,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 29,
+        "exhaust_velocity": 937.3443320393562,
+        "mass_flow": 0.6080095021054148
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6e2b973856960dcaa133131a",
+      "elapsed_seconds": 0.020140557000559056,
+      "error": null,
+      "index": 119,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.840723970090039,
+        "final_mass": 98.81040800213867,
+        "final_speed": 10.862990030972522,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 29,
+        "exhaust_velocity": 932.7953154221177,
+        "mass_flow": 0.594795998930931
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2c166152d5768b12a0fa94b5",
+      "elapsed_seconds": 0.03173560800132691,
+      "error": null,
+      "index": 120,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.75465906446334,
+        "final_mass": 98.97728701494657,
+        "final_speed": 10.773632531626465,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 30,
+        "exhaust_velocity": 1077.223795838654,
+        "mass_flow": 0.5113564925268292
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "97eb3fb4fe17a7c06a2131f6",
+      "elapsed_seconds": 0.02380642099888064,
+      "error": null,
+      "index": 121,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.3208132898435,
+        "final_mass": 99.28323886748416,
+        "final_speed": 7.329961600720981,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 30,
+        "exhaust_velocity": 1060.6857312843204,
+        "mass_flow": 0.3583805662579834
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "43f805401f21f0374bd74c0b",
+      "elapsed_seconds": 0.027801659001852386,
+      "error": null,
+      "index": 122,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.439635952236131,
+        "final_mass": 99.28323886748416,
+        "final_speed": 7.448926902855416,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 30,
+        "exhaust_velocity": 1077.223795838654,
+        "mass_flow": 0.3583805662579834
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e348045ee4e4bfa519a9ff09",
+      "elapsed_seconds": 0.027488304000144126,
+      "error": null,
+      "index": 123,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.584942551795393,
+        "final_mass": 98.97728701494657,
+        "final_speed": 10.603624728829677,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 30,
+        "exhaust_velocity": 1060.6857312843204,
+        "mass_flow": 0.5113564925268292
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "219ebc4e88d1ca32a6ffbcc4",
+      "elapsed_seconds": 0.038822559003165225,
+      "error": null,
+      "index": 124,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.896509083569981,
+        "final_mass": 99.27865778189187,
+        "final_speed": 6.905203520120162,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 31,
+        "exhaust_velocity": 995.2535042539239,
+        "mass_flow": 0.3606711090542376
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "c8e364e4e539427aa5e557b6",
+      "elapsed_seconds": 0.03142958999887924,
+      "error": null,
+      "index": 125,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.981973446323536,
+        "final_mass": 98.94058790411862,
+        "final_speed": 10.000258460213217,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 31,
+        "exhaust_velocity": 967.1022798866034,
+        "mass_flow": 0.5297060479409993
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d94e3a120a09afa1707f44b2",
+      "elapsed_seconds": 0.021288682000886183,
+      "error": null,
+      "index": 126,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.28126975428313,
+        "final_mass": 98.94058790411862,
+        "final_speed": 10.30008702506509,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 31,
+        "exhaust_velocity": 995.2535042539239,
+        "mass_flow": 0.5297060479409993
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1fbc6fb74a15cc0a9cee085d",
+      "elapsed_seconds": 0.035007145001145545,
+      "error": null,
+      "index": 127,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.692952359793708,
+        "final_mass": 99.27865778189187,
+        "final_speed": 6.701400869108165,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 31,
+        "exhaust_velocity": 967.1022798866034,
+        "mass_flow": 0.3606711090542376
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9806dd6ad9d0c9732f4575db",
+      "elapsed_seconds": 0.024602596000477206,
+      "error": null,
+      "index": 128,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.340143510489725,
+        "final_mass": 99.27081324923819,
+        "final_speed": 7.349474787101564,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 32,
+        "exhaust_velocity": 1045.212330110371,
+        "mass_flow": 0.3645933753810823
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0a712b09687ef5cfda454269",
+      "elapsed_seconds": 0.019665654999698745,
+      "error": null,
+      "index": 129,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.468014376587234,
+        "final_mass": 98.83096649944747,
+        "final_speed": 10.489160694049101,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 32,
+        "exhaust_velocity": 917.5075445324183,
+        "mass_flow": 0.5845167502760887
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8c31ba0fb1c4c0d17c7473ff",
+      "elapsed_seconds": 0.03256316500119283,
+      "error": null,
+      "index": 130,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.966778042842634,
+        "final_mass": 98.83096649944747,
+        "final_speed": 11.99086764879796,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 32,
+        "exhaust_velocity": 1045.212330110371,
+        "mass_flow": 0.5845167502760887
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8e9c36f86dbb42e6fb3b5672",
+      "elapsed_seconds": 0.03314911199777271,
+      "error": null,
+      "index": 131,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.406665341346525,
+        "final_mass": 99.27081324923819,
+        "final_speed": 6.414856511952894,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 32,
+        "exhaust_velocity": 917.5075445324183,
+        "mass_flow": 0.3645933753810823
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "210519a999a8d48c12b20f19",
+      "elapsed_seconds": 0.021125945000676438,
+      "error": null,
+      "index": 132,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.2849093566183,
+        "final_mass": 98.96989724636143,
+        "final_speed": 9.30147992608567,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 33,
+        "exhaust_velocity": 927.2803271189332,
+        "mass_flow": 0.5150513768196106
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b3317fccd79cb824e2441dbf",
+      "elapsed_seconds": 0.018827115000021877,
+      "error": null,
+      "index": 133,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.851732130977325,
+        "final_mass": 99.09754633158485,
+        "final_speed": 8.865581430437965,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 33,
+        "exhaust_velocity": 1011.039119027555,
+        "mass_flow": 0.4512268342077732
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "540f6d962fa68b371bd0fd86",
+      "elapsed_seconds": 0.02786189900143654,
+      "error": null,
+      "index": 134,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.093563612899743,
+        "final_mass": 99.09754633158485,
+        "final_speed": 8.106265575759316,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 33,
+        "exhaust_velocity": 927.2803271189332,
+        "mass_flow": 0.4512268342077732
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "bed5850ec11004d1c71b5f2e",
+      "elapsed_seconds": 0.026524755998252658,
+      "error": null,
+      "index": 135,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.150688999332488,
+        "final_mass": 98.96989724636143,
+        "final_speed": 10.168756347948866,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 33,
+        "exhaust_velocity": 1011.039119027555,
+        "mass_flow": 0.5150513768196106
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0f75394ea3cad7a6da0acee9",
+      "elapsed_seconds": 0.025603415997466072,
+      "error": null,
+      "index": 136,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.808020390104502,
+        "final_mass": 98.7994962360716,
+        "final_speed": 12.834460569762015,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 34,
+        "exhaust_velocity": 1087.4984212219715,
+        "mass_flow": 0.6002518819645047
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "67bd35202538abb331342a50",
+      "elapsed_seconds": 0.02718367800116539,
+      "error": null,
+      "index": 137,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.87613002769649,
+        "final_mass": 98.96853686738751,
+        "final_speed": 9.89374610589455,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 34,
+        "exhaust_velocity": 983.174348063767,
+        "mass_flow": 0.5157315663062036
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "5c4fae882c6d15f745a08b07",
+      "elapsed_seconds": 0.0216523809976934,
+      "error": null,
+      "index": 138,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.955913424142636,
+        "final_mass": 98.96853686738751,
+        "final_speed": 10.97539873735217,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 34,
+        "exhaust_velocity": 1087.4984212219715,
+        "mass_flow": 0.5157315663062036
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e136eab9c275ebed0b5bdd51",
+      "elapsed_seconds": 0.03540815100132022,
+      "error": null,
+      "index": 139,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.550563776749186,
+        "final_mass": 98.7994962360716,
+        "final_speed": 11.574467539068445,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 34,
+        "exhaust_velocity": 983.174348063767,
+        "mass_flow": 0.6002518819645047
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "08090bc6c100e3c256b25e99",
+      "elapsed_seconds": 0.03491020799992839,
+      "error": null,
+      "index": 140,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.643925259704702,
+        "final_mass": 99.10041828732972,
+        "final_speed": 8.657416754285267,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 35,
+        "exhaust_velocity": 991.2456631660461,
+        "mass_flow": 0.44979085633531213
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "312cb16866ca6e9d5f9fa589",
+      "elapsed_seconds": 0.027568895999138476,
+      "error": null,
+      "index": 141,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.831973228370771,
+        "final_mass": 99.25529260654002,
+        "final_speed": 7.842117642496683,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 35,
+        "exhaust_velocity": 1089.2547741532326,
+        "mass_flow": 0.37235369672998786
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b56fd875e999fd58fc76f3e2",
+      "elapsed_seconds": 0.023793001000740333,
+      "error": null,
+      "index": 142,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.10027345654089,
+        "final_mass": 99.25529260654002,
+        "final_speed": 7.109505092605378,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 35,
+        "exhaust_velocity": 991.2456631660461,
+        "mass_flow": 0.37235369672998786
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "72146ee9422956c6118a4e9f",
+      "elapsed_seconds": 0.021762668002338614,
+      "error": null,
+      "index": 143,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.528253129217774,
+        "final_mass": 99.10041828732972,
+        "final_speed": 9.5430785950687,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 35,
+        "exhaust_velocity": 1089.2547741532326,
+        "mass_flow": 0.44979085633531213
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b1431dc1c9eaf978267911a3",
+      "elapsed_seconds": 0.029452342001604848,
+      "error": null,
+      "index": 144,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.951687989989296,
+        "final_mass": 99.04240632411074,
+        "final_speed": 9.968155793847297,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 36,
+        "exhaust_velocity": 1067.144826054573,
+        "mass_flow": 0.4787968379445374
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6d85f5d5f70b18faf8f77743",
+      "elapsed_seconds": 0.027399940001487266,
+      "error": null,
+      "index": 145,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.760259403730743,
+        "final_mass": 99.06379091050468,
+        "final_speed": 9.77605657146321,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 36,
+        "exhaust_velocity": 1071.215214766562,
+        "mass_flow": 0.4681045447476208
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "32e24901acb8efbc97120782",
+      "elapsed_seconds": 0.018405627000902314,
+      "error": null,
+      "index": 146,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.722032570047304,
+        "final_mass": 99.06379091050468,
+        "final_speed": 9.737769711261246,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 36,
+        "exhaust_velocity": 1067.144826054573,
+        "mass_flow": 0.4681045447476208
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "895d239bf95b1a914950222f",
+      "elapsed_seconds": 0.020775589997356292,
+      "error": null,
+      "index": 147,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.990790794370696,
+        "final_mass": 99.04240632411074,
+        "final_speed": 10.007321410978095,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 36,
+        "exhaust_velocity": 1071.215214766562,
+        "mass_flow": 0.4787968379445374
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6b50cc712f754c85afbd8e37",
+      "elapsed_seconds": 0.01790249599798699,
+      "error": null,
+      "index": 148,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.82872924383264,
+        "final_mass": 98.74390956647687,
+        "final_speed": 11.854336419387305,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 37,
+        "exhaust_velocity": 961.5421153604984,
+        "mass_flow": 0.6280452167615295
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8911661895d295ed1e51a5d0",
+      "elapsed_seconds": 0.018048106001515407,
+      "error": null,
+      "index": 149,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.019914953038096,
+        "final_mass": 98.71237830575552,
+        "final_speed": 12.046584355500087,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 37,
+        "exhaust_velocity": 952.6805646717548,
+        "mass_flow": 0.6438108471222221
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6dacee382d5b2f8fe3b188d4",
+      "elapsed_seconds": 0.023138681001000805,
+      "error": null,
+      "index": 150,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.1345111313276,
+        "final_mass": 98.71237830575552,
+        "final_speed": 12.161428604126344,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 37,
+        "exhaust_velocity": 961.5421153604984,
+        "mass_flow": 0.6438108471222221
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d0f44b7587d864e689cba97d",
+      "elapsed_seconds": 0.01976187000036589,
+      "error": null,
+      "index": 151,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.716951145906933,
+        "final_mass": 98.74390956647687,
+        "final_speed": 11.742322325486155,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 37,
+        "exhaust_velocity": 952.6805646717548,
+        "mass_flow": 0.6280452167615295
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8fc95af214a1cc2d2eb8b02f",
+      "elapsed_seconds": 0.018793585000821622,
+      "error": null,
+      "index": 152,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.996757405926473,
+        "final_mass": 98.87790777459742,
+        "final_speed": 11.018044588305763,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 38,
+        "exhaust_velocity": 1002.9856080189347,
+        "mass_flow": 0.5610461127012968
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "5372c8395ed235169819eb26",
+      "elapsed_seconds": 0.01804974900005618,
+      "error": null,
+      "index": 153,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.750155430752784,
+        "final_mass": 99.22095110155595,
+        "final_speed": 7.7606632582743265,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 38,
+        "exhaust_velocity": 1030.6442316621542,
+        "mass_flow": 0.3895244492217898
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6b8f2d59ef379f13de325975",
+      "elapsed_seconds": 0.027248415997746633,
+      "error": null,
+      "index": 154,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.534119466668926,
+        "final_mass": 99.22095110155595,
+        "final_speed": 7.544345302780612,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 38,
+        "exhaust_velocity": 1002.9856080189347,
+        "mass_flow": 0.3895244492217898
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "055fa33cc79131ca46a59c70",
+      "elapsed_seconds": 0.026811068997631082,
+      "error": null,
+      "index": 155,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.308280083583668,
+        "final_mass": 98.87790777459742,
+        "final_speed": 11.330154288386405,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 38,
+        "exhaust_velocity": 1030.6442316621542,
+        "mass_flow": 0.5610461127012968
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f17e63de6e2cf99e90b2bcec",
+      "elapsed_seconds": 0.02081127900237334,
+      "error": null,
+      "index": 156,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.293476585648023,
+        "final_mass": 99.17640135381306,
+        "final_speed": 7.303958203755394,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 39,
+        "exhaust_velocity": 919.4527672603726,
+        "mass_flow": 0.4117993230931461
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "daecb59a89228acd9b12e859",
+      "elapsed_seconds": 0.024577819000114687,
+      "error": null,
+      "index": 157,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.65693770092912,
+        "final_mass": 98.85053448267342,
+        "final_speed": 10.678092088830295,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 39,
+        "exhaust_velocity": 949.560777656734,
+        "mass_flow": 0.5747327586635947
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "676bd2a59b9bc3647b13e16e",
+      "elapsed_seconds": 0.025927942999260267,
+      "error": null,
+      "index": 158,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.309522766852751,
+        "final_mass": 98.85053448267342,
+        "final_speed": 10.330006405084777,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 39,
+        "exhaust_velocity": 919.4527672603726,
+        "mass_flow": 0.5747327586635947
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "bef7626f814a01c7f73b5094",
+      "elapsed_seconds": 0.019621897998149507,
+      "error": null,
+      "index": 159,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.542129350360483,
+        "final_mass": 99.17640135381306,
+        "final_speed": 7.552954196383142,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 39,
+        "exhaust_velocity": 949.560777656734,
+        "mass_flow": 0.4117993230931461
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "36d51026c83666433871024b",
+      "elapsed_seconds": 0.03418260600301437,
+      "error": null,
+      "index": 160,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.176544209592976,
+        "final_mass": 99.22408225201025,
+        "final_speed": 8.18756390399292,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 40,
+        "exhaust_velocity": 1089.624678902328,
+        "mass_flow": 0.38795887399464846
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "afa19f4c90251c6aca991daf",
+      "elapsed_seconds": 0.03329812700030743,
+      "error": null,
+      "index": 161,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.84597863315139,
+        "final_mass": 99.15783788412824,
+        "final_speed": 7.85747775172308,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 40,
+        "exhaust_velocity": 964.5504144951701,
+        "mass_flow": 0.42108105793595313
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "353881d29c12e010f9514cbe",
+      "elapsed_seconds": 0.025314238999271765,
+      "error": null,
+      "index": 162,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.90227623458486,
+        "final_mass": 99.15783788412824,
+        "final_speed": 8.915266459689468,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 40,
+        "exhaust_velocity": 1089.624678902328,
+        "mass_flow": 0.42108105793595313
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "50e7ec5ba3b950331fc2f003",
+      "elapsed_seconds": 0.03467320900017512,
+      "error": null,
+      "index": 163,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.2035508883418515,
+        "final_mass": 99.22408225201025,
+        "final_speed": 7.2133056663095525,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 40,
+        "exhaust_velocity": 964.5504144951701,
+        "mass_flow": 0.38795887399464846
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1231deed9792de5308de0d2b",
+      "elapsed_seconds": 0.03398592799931066,
+      "error": null,
+      "index": 164,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.318307251902297,
+        "final_mass": 98.92309796791494,
+        "final_speed": 10.337504374111703,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 41,
+        "exhaust_velocity": 982.4590256437659,
+        "mass_flow": 0.5384510160423815
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "73a307d1c7a2bc12c99ed88a",
+      "elapsed_seconds": 0.03464583700042567,
+      "error": null,
+      "index": 165,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.190599222085439,
+        "final_mass": 98.91833248436512,
+        "final_speed": 11.21146597981493,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 41,
+        "exhaust_velocity": 1058.466936275363,
+        "mass_flow": 0.5408337578177452
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3db7ad1b239c3a54b3d5605a",
+      "elapsed_seconds": 0.03329326999664772,
+      "error": null,
+      "index": 166,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.365465803770348,
+        "final_mass": 98.91833248436512,
+        "final_speed": 10.384834129537063,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 41,
+        "exhaust_velocity": 982.4590256437659,
+        "mass_flow": 0.5408337578177452
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9dc2c9cfde63c4736c678049",
+      "elapsed_seconds": 0.028829564002080588,
+      "error": null,
+      "index": 167,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.139792250702158,
+        "final_mass": 98.92309796791494,
+        "final_speed": 11.160474559397258,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 41,
+        "exhaust_velocity": 1058.466936275363,
+        "mass_flow": 0.5384510160423815
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "514a180a77850d944e0abaaf",
+      "elapsed_seconds": 0.0349897369997052,
+      "error": null,
+      "index": 168,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.974555321852677,
+        "final_mass": 98.71498156059602,
+        "final_speed": 13.00323267611657,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 42,
+        "exhaust_velocity": 1028.590014949441,
+        "mass_flow": 0.6425092197023332
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d1aaa5c0ee17f9367d0771eb",
+      "elapsed_seconds": 0.032791960999020375,
+      "error": null,
+      "index": 169,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.958489061216824,
+        "final_mass": 99.01445105094524,
+        "final_speed": 8.97379846067396,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 42,
+        "exhaust_velocity": 936.3332323729992,
+        "mass_flow": 0.49277447452768686
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8c39605bde096dd6a575bb86",
+      "elapsed_seconds": 0.02611596700080554,
+      "error": null,
+      "index": 170,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.8707266979618,
+        "final_mass": 99.01445105094524,
+        "final_speed": 9.887544533329809,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 42,
+        "exhaust_velocity": 1028.590014949441,
+        "mass_flow": 0.49277447452768686
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9d56152dcd5f398f6bb6ea4c",
+      "elapsed_seconds": 0.02388961800170364,
+      "error": null,
+      "index": 171,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.783927618991584,
+        "final_mass": 98.71498156059602,
+        "final_speed": 11.810032827528323,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 42,
+        "exhaust_velocity": 936.3332323729992,
+        "mass_flow": 0.6425092197023332
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "adc32d4c12e968d0e562ecd8",
+      "elapsed_seconds": 0.03347426400068798,
+      "error": null,
+      "index": 172,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.076649227179587,
+        "final_mass": 99.01596323847741,
+        "final_speed": 9.092130064848076,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 43,
+        "exhaust_velocity": 949.7451167553663,
+        "mass_flow": 0.49201838076114657
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7db40c78399039555e0096cb",
+      "elapsed_seconds": 0.03366569400168373,
+      "error": null,
+      "index": 173,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.715654948842712,
+        "final_mass": 98.75703567434044,
+        "final_speed": 12.74284512191208,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 43,
+        "exhaust_velocity": 1042.798606492579,
+        "mass_flow": 0.6214821628294885
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "493b90bf6f098433f48c0bce",
+      "elapsed_seconds": 0.0331249660011963,
+      "error": null,
+      "index": 174,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.554211013717577,
+        "final_mass": 98.75703567434044,
+        "final_speed": 11.578974885876075,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 43,
+        "exhaust_velocity": 949.7451167553663,
+        "mass_flow": 0.6214821628294885
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "17441d0557e85fa3f09a25fd",
+      "elapsed_seconds": 0.03332973600117839,
+      "error": null,
+      "index": 175,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.995348275988363,
+        "final_mass": 99.01596323847741,
+        "final_speed": 10.012345887770403,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 43,
+        "exhaust_velocity": 1042.798606492579,
+        "mass_flow": 0.49201838076114657
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6d5c471db69dbb85606560fb",
+      "elapsed_seconds": 0.0332963849978114,
+      "error": null,
+      "index": 176,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.476109428913333,
+        "final_mass": 99.14531366005548,
+        "final_speed": 8.488683344833504,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 44,
+        "exhaust_velocity": 1023.8925885409117,
+        "mass_flow": 0.4273431699723005
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ec4240d9fed5512fa3d75e92",
+      "elapsed_seconds": 0.03408460799983004,
+      "error": null,
+      "index": 177,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.380553298979066,
+        "final_mass": 98.96146289762129,
+        "final_speed": 10.399170276614115,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 44,
+        "exhaust_velocity": 1024.8564153909683,
+        "mass_flow": 0.5192685511894524
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b2c799b7b5b1e6b6b9d805f3",
+      "elapsed_seconds": 0.03300877000219771,
+      "error": null,
+      "index": 178,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.370508765452541,
+        "final_mass": 98.96146289762129,
+        "final_speed": 10.389108235250202,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 44,
+        "exhaust_velocity": 1023.8925885409117,
+        "mass_flow": 0.5192685511894524
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "28d8aa04c26e9a136a00aba2",
+      "elapsed_seconds": 0.034311581002839375,
+      "error": null,
+      "index": 179,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.484370695776306,
+        "final_mass": 99.14531366005548,
+        "final_speed": 8.496956448025202,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 44,
+        "exhaust_velocity": 1024.8564153909683,
+        "mass_flow": 0.4273431699723005
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "bf61b74c07355bbe6aa8f54a",
+      "elapsed_seconds": 0.0350831690011546,
+      "error": null,
+      "index": 180,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.16905444895383,
+        "final_mass": 98.84688602183047,
+        "final_speed": 10.189331536743417,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 45,
+        "exhaust_velocity": 904.3976429849863,
+        "mass_flow": 0.5765569890849293
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0ea2c527b6d43771c7b93ab1",
+      "elapsed_seconds": 0.03488889499931247,
+      "error": null,
+      "index": 181,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.356337299337611,
+        "final_mass": 99.26705106999663,
+        "final_speed": 6.364509149567762,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 45,
+        "exhaust_velocity": 905.9368180111051,
+        "mass_flow": 0.3664744650013745
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f21cbe9838002cbe22791f8c",
+      "elapsed_seconds": 0.032581131999904756,
+      "error": null,
+      "index": 182,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.345028268289752,
+        "final_mass": 99.26705106999663,
+        "final_speed": 6.353186233959571,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 45,
+        "exhaust_velocity": 904.3976429849863,
+        "mass_flow": 0.3664744650013745
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f39b99fe1048a619506298d4",
+      "elapsed_seconds": 0.03475603499828139,
+      "error": null,
+      "index": 183,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.18687150964979,
+        "final_mass": 98.84688602183047,
+        "final_speed": 10.207183106083063,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 45,
+        "exhaust_velocity": 905.9368180111051,
+        "mass_flow": 0.5765569890849293
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4eb8b8a054fd0f535e12514b",
+      "elapsed_seconds": 0.03177184699961799,
+      "error": null,
+      "index": 184,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.902042924193665,
+        "final_mass": 98.943745539151,
+        "final_speed": 10.921904357015118,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 46,
+        "exhaust_velocity": 1056.8032404407859,
+        "mass_flow": 0.528127230424434
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "064ba88df96d22692de5bcf8",
+      "elapsed_seconds": 0.033274671997787664,
+      "error": null,
+      "index": 185,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.67957911756821,
+        "final_mass": 98.80075218267734,
+        "final_speed": 12.705732608228697,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 46,
+        "exhaust_velocity": 1077.97467764467,
+        "mass_flow": 0.5996239086613059
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b656dd905b127622b89c585d",
+      "elapsed_seconds": 0.033152947999042226,
+      "error": null,
+      "index": 186,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.424660008284263,
+        "final_mass": 98.80075218267734,
+        "final_speed": 12.450299843261604,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 46,
+        "exhaust_velocity": 1056.8032404407859,
+        "mass_flow": 0.5996239086613059
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b04dd7414e2d32800437fe84",
+      "elapsed_seconds": 0.029580316000647144,
+      "error": null,
+      "index": 187,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.12645872856956,
+        "final_mass": 98.943745539151,
+        "final_speed": 11.146718055138571,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 46,
+        "exhaust_velocity": 1077.97467764467,
+        "mass_flow": 0.528127230424434
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "204507f16ca4d340fc1b1a60",
+      "elapsed_seconds": 0.033247381001274334,
+      "error": null,
+      "index": 188,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.033320424263366,
+        "final_mass": 99.24217979796168,
+        "final_speed": 7.042630424723434,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 47,
+        "exhaust_velocity": 965.238424949348,
+        "mass_flow": 0.37891010101884604
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "38a8924ff7f6a714971dbe54",
+      "elapsed_seconds": 0.033026045999577036,
+      "error": null,
+      "index": 189,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.464235316030681,
+        "final_mass": 99.1230784390126,
+        "final_speed": 8.477120797973058,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 47,
+        "exhaust_velocity": 996.5062756091356,
+        "mass_flow": 0.43846078049391507
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0f01d883764c164ad632a5bc",
+      "elapsed_seconds": 0.03290605399888591,
+      "error": null,
+      "index": 190,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.189235741854645,
+        "final_mass": 99.1230784390126,
+        "final_speed": 8.2017169084774,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 47,
+        "exhaust_velocity": 965.238424949348,
+        "mass_flow": 0.43846078049391507
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4aabffcdf2a1bf35b5fa7124",
+      "elapsed_seconds": 0.03383121399747324,
+      "error": null,
+      "index": 191,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.2708753779297695,
+        "final_mass": 99.24217979796168,
+        "final_speed": 7.280486966186831,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 47,
+        "exhaust_velocity": 996.5062756091356,
+        "mass_flow": 0.37891010101884604
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b678cc611b7be4e5e38c2bb7",
+      "elapsed_seconds": 0.03528236000056495,
+      "error": null,
+      "index": 192,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.509388428297825,
+        "final_mass": 99.25936166346077,
+        "final_speed": 7.51907693505857,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 48,
+        "exhaust_velocity": 1051.8067508935928,
+        "mass_flow": 0.37031916826963424
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7d154821f7d885a785ce023f",
+      "elapsed_seconds": 0.034879210998042254,
+      "error": null,
+      "index": 193,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.212434319546446,
+        "final_mass": 98.890400654264,
+        "final_speed": 11.233884598362964,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 48,
+        "exhaust_velocity": 1033.6860291659832,
+        "mass_flow": 0.5547996728681028
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "5f71e159ac1156f3979c044a",
+      "elapsed_seconds": 0.03453335700032767,
+      "error": null,
+      "index": 194,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.414249583729543,
+        "final_mass": 98.890400654264,
+        "final_speed": 11.436075890916982,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 48,
+        "exhaust_velocity": 1051.8067508935928,
+        "mass_flow": 0.5547996728681028
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a4a070c0d8694826b3987c0c",
+      "elapsed_seconds": 0.03482278500086977,
+      "error": null,
+      "index": 195,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.374846835853532,
+        "final_mass": 99.25936166346077,
+        "final_speed": 7.38436842679539,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 48,
+        "exhaust_velocity": 1033.6860291659832,
+        "mass_flow": 0.37031916826963424
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "954fcfd3705ee5d85769b081",
+      "elapsed_seconds": 0.033569237999472534,
+      "error": null,
+      "index": 196,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.842564915656112,
+        "final_mass": 98.95783807206868,
+        "final_speed": 9.860306274180488,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 49,
+        "exhaust_velocity": 969.8366619646549,
+        "mass_flow": 0.5210809639655054
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "076556b35895183a361d083b",
+      "elapsed_seconds": 0.029249164002976613,
+      "error": null,
+      "index": 197,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.375493445782922,
+        "final_mass": 99.1857738571241,
+        "final_speed": 7.385967056440691,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 49,
+        "exhaust_velocity": 940.1113489642739,
+        "mass_flow": 0.4071130714379251
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4557042fb826b147eb5cde04",
+      "elapsed_seconds": 0.0276480159991479,
+      "error": null,
+      "index": 198,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.61818432121072,
+        "final_mass": 99.1857738571241,
+        "final_speed": 7.628989096859856,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 49,
+        "exhaust_velocity": 969.8366619646549,
+        "mass_flow": 0.4071130714379251
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d47f62e57d8f838cf0140d6d",
+      "elapsed_seconds": 0.03332805299942265,
+      "error": null,
+      "index": 199,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.531697189668193,
+        "final_mass": 98.95783807206868,
+        "final_speed": 9.548894777990068,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 49,
+        "exhaust_velocity": 940.1113489642739,
+        "mass_flow": 0.5210809639655054
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3c98148cfe9795fc5490eab8",
+      "elapsed_seconds": 0.019577171002310934,
+      "error": null,
+      "index": 200,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.636540049803443,
+        "final_mass": 98.8296989886095,
+        "final_speed": 11.660006745694028,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 50,
+        "exhaust_velocity": 1015.9679407253861,
+        "mass_flow": 0.585150505695492
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2a2ef1e10b6514680bf99197",
+      "elapsed_seconds": 0.023711238001851598,
+      "error": null,
+      "index": 201,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.131491923122667,
+        "final_mass": 98.74759596437173,
+        "final_speed": 13.159765678478747,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 50,
+        "exhaust_velocity": 1067.9701058194041,
+        "mass_flow": 0.6262020178139209
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8922e6281ae03150058b9fbd",
+      "elapsed_seconds": 0.030465119998552836,
+      "error": null,
+      "index": 202,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.47747861489188,
+        "final_mass": 98.74759596437173,
+        "final_speed": 12.504375648136522,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 50,
+        "exhaust_velocity": 1015.9679407253861,
+        "mass_flow": 0.6262020178139209
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0d097864b7851d0584743f1e",
+      "elapsed_seconds": 0.0315964619985607,
+      "error": null,
+      "index": 203,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.247510044951923,
+        "final_mass": 98.8296989886095,
+        "final_speed": 12.272177881714146,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 50,
+        "exhaust_velocity": 1067.9701058194041,
+        "mass_flow": 0.585150505695492
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3f255cc1380dce8237dad6e4",
+      "elapsed_seconds": 0.01842883300196263,
+      "error": null,
+      "index": 204,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.64562720770482,
+        "final_mass": 99.13122625909807,
+        "final_speed": 7.657199973095567,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 51,
+        "exhaust_velocity": 911.9270967319608,
+        "mass_flow": 0.43438687045127156
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1d3956dc4012fe5f7108bd74",
+      "elapsed_seconds": 0.026870980000239797,
+      "error": null,
+      "index": 205,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.120362971210852,
+        "final_mass": 99.02388719022213,
+        "final_speed": 9.1357899258345,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 51,
+        "exhaust_velocity": 961.9442295283079,
+        "mass_flow": 0.4880564048886299
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6b309c9e44314701b09bc117",
+      "elapsed_seconds": 0.028929519998200703,
+      "error": null,
+      "index": 206,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.630542945466004,
+        "final_mass": 99.02388719022213,
+        "final_speed": 8.645167760565524,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 51,
+        "exhaust_velocity": 911.9270967319608,
+        "mass_flow": 0.4880564048886299
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "973d72462c9c1a076760b7f3",
+      "elapsed_seconds": 0.023849547000281746,
+      "error": null,
+      "index": 207,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.081426839460619,
+        "final_mass": 99.13122625909807,
+        "final_speed": 8.093634346159078,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 51,
+        "exhaust_velocity": 961.9442295283079,
+        "mass_flow": 0.43438687045127156
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "68a88432e7d386b2838fae0b",
+      "elapsed_seconds": 0.03462268200019025,
+      "error": null,
+      "index": 208,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.72632353368681,
+        "final_mass": 99.03562160320547,
+        "final_speed": 9.742544167837073,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 52,
+        "exhaust_velocity": 1036.3193528726697,
+        "mass_flow": 0.48218919839709995
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ad68b1d6623755fb5f624ccc",
+      "elapsed_seconds": 0.021017840997956228,
+      "error": null,
+      "index": 209,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.623700856347568,
+        "final_mass": 99.29511536546016,
+        "final_speed": 6.631873966056992,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 52,
+        "exhaust_velocity": 979.9352472648025,
+        "mass_flow": 0.35244231726974246
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "c1c36e317c7bda2c6f63bc41",
+      "elapsed_seconds": 0.033016110999597004,
+      "error": null,
+      "index": 210,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.0220809354214,
+        "final_mass": 99.29511536546016,
+        "final_speed": 7.030724316869509,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 52,
+        "exhaust_velocity": 1036.3193528726697,
+        "mass_flow": 0.35244231726974246
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "fa2a36e5bec520f870291f36",
+      "elapsed_seconds": 0.021316833001037594,
+      "error": null,
+      "index": 211,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.180810912745073,
+        "final_mass": 99.03562160320547,
+        "final_speed": 9.19614901199687,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 52,
+        "exhaust_velocity": 979.9352472648025,
+        "mass_flow": 0.48218919839709995
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e67420a6e15d944a237f523b",
+      "elapsed_seconds": 0.026565366999420803,
+      "error": null,
+      "index": 212,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.64736422803253,
+        "final_mass": 98.73655852731248,
+        "final_speed": 11.672737360987583,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 53,
+        "exhaust_velocity": 941.6297281160951,
+        "mass_flow": 0.6317207363434136
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a2c5d73a0e1ffb6a164db007",
+      "elapsed_seconds": 0.034040260998153826,
+      "error": null,
+      "index": 213,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.458587678847834,
+        "final_mass": 98.93340304233078,
+        "final_speed": 11.479641469894084,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 53,
+        "exhaust_velocity": 1098.5130030661821,
+        "mass_flow": 0.533298478834331
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3ca2a366ed85a71b68645086",
+      "elapsed_seconds": 0.03544991499802563,
+      "error": null,
+      "index": 214,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.779294176027179,
+        "final_mass": 98.93340304233078,
+        "final_speed": 9.797341182336021,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 53,
+        "exhaust_velocity": 941.6297281160951,
+        "mass_flow": 0.533298478834331
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e03e8ea5dd0b72c06b03d9e4",
+      "elapsed_seconds": 0.02985985399936908,
+      "error": null,
+      "index": 215,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.637893601204269,
+        "final_mass": 98.73655852731248,
+        "final_speed": 13.667494111579154,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 53,
+        "exhaust_velocity": 1098.5130030661821,
+        "mass_flow": 0.6317207363434136
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "fe1c5b51b4b3ee804053c34f",
+      "elapsed_seconds": 0.0336421079991851,
+      "error": null,
+      "index": 216,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.740806830464862,
+        "final_mass": 98.9034435907385,
+        "final_speed": 11.762975942591225,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 54,
+        "exhaust_velocity": 1094.0352268517017,
+        "mass_flow": 0.5482782046310604
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "26a235d661a000c11628ede2",
+      "elapsed_seconds": 0.024954939999588532,
+      "error": null,
+      "index": 217,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.707686080480926,
+        "final_mass": 99.13264260347887,
+        "final_speed": 7.719330110284685,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 54,
+        "exhaust_velocity": 920.5547779798508,
+        "mass_flow": 0.4336786982603371
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2acbbde272ef2099253dda0a",
+      "elapsed_seconds": 0.03496385800099233,
+      "error": null,
+      "index": 218,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.21675106335897,
+        "final_mass": 99.13264260347887,
+        "final_speed": 9.23058944092784,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 54,
+        "exhaust_velocity": 1094.0352268517017,
+        "mass_flow": 0.4336786982603371
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e39ee5bcc141f1f493619a02",
+      "elapsed_seconds": 0.018749838000076124,
+      "error": null,
+      "index": 219,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.831503978348337,
+        "final_mass": 98.9034435907385,
+        "final_speed": 9.850157744151476,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 54,
+        "exhaust_velocity": 920.5547779798508,
+        "mass_flow": 0.5482782046310604
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "6ec3de957df799e7f7aabb3c",
+      "elapsed_seconds": 0.022457454997493187,
+      "error": null,
+      "index": 220,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.517680243472569,
+        "final_mass": 99.20250126197914,
+        "final_speed": 7.528127562885488,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 55,
+        "exhaust_velocity": 977.6654720306396,
+        "mass_flow": 0.3987493690103292
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3b62706d4cb74a81375b0f81",
+      "elapsed_seconds": 0.03455033299906063,
+      "error": null,
+      "index": 221,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.856385496328585,
+        "final_mass": 98.79118415024095,
+        "final_speed": 11.88107728172089,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 55,
+        "exhaust_velocity": 1001.5836821869016,
+        "mass_flow": 0.6044079248793424
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1b842b6cd39c7e586a341310",
+      "elapsed_seconds": 0.01989909799885936,
+      "error": null,
+      "index": 222,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.566086253267713,
+        "final_mass": 98.79118415024095,
+        "final_speed": 11.590188389489542,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 55,
+        "exhaust_velocity": 977.6654720306396,
+        "mass_flow": 0.6044079248793424
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2384bfc947b0397143847b33",
+      "elapsed_seconds": 0.024593483001808636,
+      "error": null,
+      "index": 223,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.70893678732682,
+        "final_mass": 99.20250126197914,
+        "final_speed": 7.719639697629344,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 55,
+        "exhaust_velocity": 1001.5836821869016,
+        "mass_flow": 0.3987493690103292
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9d7fc5d4e16cd0ef6b89b376",
+      "elapsed_seconds": 0.030096050999418367,
+      "error": null,
+      "index": 224,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.220366822206415,
+        "final_mass": 99.1564356951045,
+        "final_speed": 8.23241457823368,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 56,
+        "exhaust_velocity": 1007.1993183344603,
+        "mass_flow": 0.4217821524478495
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "61c1c9f3906ea745198ab902",
+      "elapsed_seconds": 0.018308871000044746,
+      "error": null,
+      "index": 225,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.648265856667422,
+        "final_mass": 99.08794353771953,
+        "final_speed": 9.663481717444306,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 56,
+        "exhaust_velocity": 1087.4298395588994,
+        "mass_flow": 0.4560282311402261
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "acdcf185380a1ffb94aa09df",
+      "elapsed_seconds": 0.025653292999777477,
+      "error": null,
+      "index": 226,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.914283278980292,
+        "final_mass": 99.08794353771953,
+        "final_speed": 8.928376511450058,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 56,
+        "exhaust_velocity": 1007.1993183344603,
+        "mass_flow": 0.4560282311402261
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "77ae986172feafbf20496a05",
+      "elapsed_seconds": 0.02974876499865786,
+      "error": null,
+      "index": 227,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.899074066895992,
+        "final_mass": 99.1564356951045,
+        "final_speed": 8.912081513333884,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 56,
+        "exhaust_velocity": 1087.4298395588994,
+        "mass_flow": 0.4217821524478495
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4ba02b18cb2fdbb0c3aa2a99",
+      "elapsed_seconds": 0.01954045399907045,
+      "error": null,
+      "index": 228,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.207401574472897,
+        "final_mass": 98.85488024912803,
+        "final_speed": 10.227610764716669,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 57,
+        "exhaust_velocity": 914.0717510133982,
+        "mass_flow": 0.5725598754361272
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "97692e126c4ac0c0d4586f59",
+      "elapsed_seconds": 0.03353574699940509,
+      "error": null,
+      "index": 229,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.263198874541558,
+        "final_mass": 98.84057372231041,
+        "final_speed": 11.28571872029451,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 57,
+        "exhaust_velocity": 993.4587672352791,
+        "mass_flow": 0.5797131388448179
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3bfd25b5501773612aeab879",
+      "elapsed_seconds": 0.026833954001631355,
+      "error": null,
+      "index": 230,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.339186837314628,
+        "final_mass": 98.84057372231041,
+        "final_speed": 10.359907126411,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 57,
+        "exhaust_velocity": 914.0717510133982,
+        "mass_flow": 0.5797131388448179
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7564e8e59c4644b7dedb00e6",
+      "elapsed_seconds": 0.02443080699958955,
+      "error": null,
+      "index": 231,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.119968078215607,
+        "final_mass": 98.85488024912803,
+        "final_speed": 11.14193243628255,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 57,
+        "exhaust_velocity": 993.4587672352791,
+        "mass_flow": 0.5725598754361272
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0ba6490577c79f3b262bdc6d",
+      "elapsed_seconds": 0.032810379001602996,
+      "error": null,
+      "index": 232,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.034577932790853,
+        "final_mass": 98.76387921273704,
+        "final_speed": 13.062279705736852,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 58,
+        "exhaust_velocity": 1074.289753101766,
+        "mass_flow": 0.6180603936314584
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e9ce9cd6c09ea67fa443fe19",
+      "elapsed_seconds": 0.03100361500037252,
+      "error": null,
+      "index": 233,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.568152978084981,
+        "final_mass": 99.22726751267845,
+        "final_speed": 7.578339542071969,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 58,
+        "exhaust_velocity": 1015.5984852463007,
+        "mass_flow": 0.38636624366044997
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ba8125be94726cd7cfba3303",
+      "elapsed_seconds": 0.03141375500126742,
+      "error": null,
+      "index": 234,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.022852233494632,
+        "final_mass": 99.22726751267845,
+        "final_speed": 8.033627479734362,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 58,
+        "exhaust_velocity": 1074.289753101766,
+        "mass_flow": 0.38636624366044997
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4ee43de6dca228a96d7d3e32",
+      "elapsed_seconds": 0.022467355000117095,
+      "error": null,
+      "index": 235,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.306074952124618,
+        "final_mass": 98.76387921273704,
+        "final_speed": 12.332263303156067,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 58,
+        "exhaust_velocity": 1015.5984852463007,
+        "mass_flow": 0.6180603936314584
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f0ebd3a07f891d6613239a60",
+      "elapsed_seconds": 0.039254141000128584,
+      "error": null,
+      "index": 236,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.63651449768804,
+        "final_mass": 99.0654298262669,
+        "final_speed": 8.650522378136017,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 59,
+        "exhaust_velocity": 953.2329408451915,
+        "mass_flow": 0.4672850868664682
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "ac350efe7dd128114fbd5b8f",
+      "elapsed_seconds": 0.024233297997852787,
+      "error": null,
+      "index": 237,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.853724835440516,
+        "final_mass": 98.9965581044558,
+        "final_speed": 8.86913764093334,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 59,
+        "exhaust_velocity": 909.1762175783515,
+        "mass_flow": 0.5017209477722645
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "4ddfea41b2d4f42415acc11a",
+      "elapsed_seconds": 0.03452921099960804,
+      "error": null,
+      "index": 238,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.297294646385126,
+        "final_mass": 98.9965581044558,
+        "final_speed": 9.313454325064013,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 59,
+        "exhaust_velocity": 953.2329408451915,
+        "mass_flow": 0.5017209477722645
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "163083a1b667686e438559b9",
+      "elapsed_seconds": 0.0239576810017752,
+      "error": null,
+      "index": 239,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.223484763992019,
+        "final_mass": 99.0654298262669,
+        "final_speed": 8.23684522404988,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 59,
+        "exhaust_velocity": 909.1762175783515,
+        "mass_flow": 0.4672850868664682
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8944bb59d548006e03f3e1db",
+      "elapsed_seconds": 0.027971815998171223,
+      "error": null,
+      "index": 240,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.631520757451653,
+        "final_mass": 99.0823706606406,
+        "final_speed": 9.646804388075802,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 60,
+        "exhaust_velocity": 1078.9863107725978,
+        "mass_flow": 0.45881466967985035
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "c73ef8906d4deab7d197be04",
+      "elapsed_seconds": 0.022333266999339685,
+      "error": null,
+      "index": 241,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.60007907752879,
+        "final_mass": 98.7218572173262,
+        "final_speed": 11.625648381018076,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 60,
+        "exhaust_velocity": 927.0692940801382,
+        "mass_flow": 0.6390713913366199
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "180cdfc53c8fd87323b76a30",
+      "elapsed_seconds": 0.03343132499867352,
+      "error": null,
+      "index": 242,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 13.550121570704505,
+        "final_mass": 98.7218572173262,
+        "final_speed": 13.579880869190031,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 60,
+        "exhaust_velocity": 1078.9863107725978,
+        "mass_flow": 0.6390713913366199
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "230f998fc5067e4429b44458",
+      "elapsed_seconds": 0.02398399999947287,
+      "error": null,
+      "index": 243,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.23320180317387,
+        "final_mass": 99.0823706606406,
+        "final_speed": 8.246333555141279,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 60,
+        "exhaust_velocity": 927.0692940801382,
+        "mass_flow": 0.45881466967985035
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "7e6246e5ae1d9410f4c6ee74",
+      "elapsed_seconds": 0.02964694100228371,
+      "error": null,
+      "index": 244,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.898880085442215,
+        "final_mass": 98.78333974555176,
+        "final_speed": 11.923820289406944,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 61,
+        "exhaust_velocity": 998.5782792791724,
+        "mass_flow": 0.6083301272243262
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "95dd7f79d03674a6a8131a75",
+      "elapsed_seconds": 0.03354386999853887,
+      "error": null,
+      "index": 245,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.62359629443381,
+        "final_mass": 99.05431615300415,
+        "final_speed": 9.63933755926706,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 61,
+        "exhaust_velocity": 1046.043442003429,
+        "mass_flow": 0.4728419234976172
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b967fe9584d31fd468665625",
+      "elapsed_seconds": 0.03494764399874839,
+      "error": null,
+      "index": 246,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.173304179101251,
+        "final_mass": 99.05431615300415,
+        "final_speed": 9.18833116839913,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 61,
+        "exhaust_velocity": 998.5782792791724,
+        "mass_flow": 0.4728419234976172
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d62979d43871162734962f0d",
+      "elapsed_seconds": 0.03416297600051621,
+      "error": null,
+      "index": 247,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 12.478726294939406,
+        "final_mass": 98.78333974555176,
+        "final_speed": 12.504851976190853,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 61,
+        "exhaust_velocity": 1046.043442003429,
+        "mass_flow": 0.6083301272243262
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "2e22e3a09dad868765337af9",
+      "elapsed_seconds": 0.03519489799873554,
+      "error": null,
+      "index": 248,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.261340720928274,
+        "final_mass": 98.98793970532722,
+        "final_speed": 10.27927740428086,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 62,
+        "exhaust_velocity": 1040.0220546871424,
+        "mass_flow": 0.5060301473364234
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8aae321bb99dd9000e0a622d",
+      "elapsed_seconds": 0.03577518699967186,
+      "error": null,
+      "index": 249,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.665188206010498,
+        "final_mass": 98.87842768337549,
+        "final_speed": 10.685840945475967,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 62,
+        "exhaust_velocity": 974.000140465796,
+        "mass_flow": 0.5607861583121121
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d34ad75c4600b3234a3bca81",
+      "elapsed_seconds": 0.03203663900058018,
+      "error": null,
+      "index": 250,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.408455775119364,
+        "final_mass": 98.87842768337549,
+        "final_speed": 11.430508448464714,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 62,
+        "exhaust_velocity": 1040.0220546871424,
+        "mass_flow": 0.5607861583121121
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "982e0187db24dc443ef376f4",
+      "elapsed_seconds": 0.03538377400036552,
+      "error": null,
+      "index": 251,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.590893465094268,
+        "final_mass": 98.98793970532722,
+        "final_speed": 9.607691502692024,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 62,
+        "exhaust_velocity": 974.000140465796,
+        "mass_flow": 0.5060301473364234
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "41935af4d322b5aa9ec625ac",
+      "elapsed_seconds": 0.025303832997451536,
+      "error": null,
+      "index": 252,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.356200956157409,
+        "final_mass": 99.2869748717169,
+        "final_speed": 6.36414946215113,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "A",
+        "_sobol_row": 63,
+        "exhaust_velocity": 931.2941532582045,
+        "mass_flow": 0.3565125641413033
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e0c5a000a7310509c84cc815",
+      "elapsed_seconds": 0.03322594800192746,
+      "error": null,
+      "index": 253,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.239712083130144,
+        "final_mass": 99.19305431898664,
+        "final_speed": 8.251260215397037,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": -1,
+        "_sobol_role": "B",
+        "_sobol_row": 63,
+        "exhaust_velocity": 1055.4254360496998,
+        "mass_flow": 0.40347284050658344
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d8befa3898c9f6fd9b840b4a",
+      "elapsed_seconds": 0.01987807600016822,
+      "error": null,
+      "index": 254,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.235334717086516,
+        "final_mass": 99.19305431898664,
+        "final_speed": 7.2455246407073535,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 0,
+        "_sobol_role": "AB",
+        "_sobol_row": 63,
+        "exhaust_velocity": 931.2941532582045,
+        "mass_flow": 0.40347284050658344
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e9afb2eeeefd6abb708ec629",
+      "elapsed_seconds": 0.026759180997032672,
+      "error": null,
+      "index": 255,
+      "kind": "sobol",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.243399446713738,
+        "final_mass": 99.2869748717169,
+        "final_speed": 7.25240740514766,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_sobol_dim": 1,
+        "_sobol_role": "AB",
+        "_sobol_row": 63,
+        "exhaust_velocity": 1055.4254360496998,
+        "mass_flow": 0.3565125641413033
+      },
+      "status": "completed"
+    }
+  ]
+}

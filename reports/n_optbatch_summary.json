@@ -1,0 +1,113 @@
+{
+  "execution": {
+    "campaign_id": "nereid-n-analysis.optbatch.multistart",
+    "elapsed_seconds": 2.358838186999492,
+    "executed_cases": 3,
+    "failed_cases": 0,
+    "kind": "optimization_batch",
+    "requested_cases": 3,
+    "resumed_cases": 0,
+    "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+    "workers": 3
+  },
+  "export": "/mnt/data/milestone_n_python/reports/n_optbatch.json",
+  "statistics": {
+    "design.mass_flow": {
+      "max": 0.41385340240123614,
+      "mean": 0.41385339211355876,
+      "median": 0.4138533937907022,
+      "min": 0.41385338014873796,
+      "p05": 0.4138533815129344,
+      "p95": 0.41385340154018274,
+      "std": 9.161623812881587e-09
+    },
+    "evaluations": {
+      "max": 8.0,
+      "mean": 5.333333333333333,
+      "median": 5.0,
+      "min": 3.0,
+      "p05": 3.2,
+      "p95": 7.699999999999999,
+      "std": 2.0548046676563256
+    },
+    "iterations": {
+      "max": 7.0,
+      "mean": 5.0,
+      "median": 5.0,
+      "min": 3.0,
+      "p05": 3.2,
+      "p95": 6.8,
+      "std": 1.632993161855452
+    },
+    "max_constraint_violation": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p05": 0.0,
+      "p95": 0.0,
+      "std": 0.0
+    },
+    "metric.final_altitude": {
+      "max": 8.000000447267666,
+      "mean": 8.00000024055286,
+      "median": 8.000000274158083,
+      "min": 8.00000000023283,
+      "p05": 8.000000027625356,
+      "p95": 8.000000429956708,
+      "std": 1.8404169701960978e-07
+    },
+    "metric.final_mass": {
+      "max": 99.17229323970247,
+      "mean": 99.17229321577281,
+      "median": 99.17229321241905,
+      "min": 99.17229319519691,
+      "p05": 99.17229319691913,
+      "p95": 99.17229323697413,
+      "std": 1.8323425628929442e-08
+    },
+    "metric.final_speed": {
+      "max": 8.011514776068765,
+      "mean": 8.011514568597905,
+      "median": 8.011514602420712,
+      "min": 8.01151432730424,
+      "p05": 8.011514354815887,
+      "p95": 8.01151475870396,
+      "std": 1.8476180381887945e-07
+    },
+    "metric.mission_success": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "std": 0.0
+    },
+    "objective": {
+      "max": -0.9917229319519691,
+      "mean": -0.9917229321577281,
+      "median": -0.9917229321241905,
+      "min": -0.9917229323970247,
+      "p05": -0.9917229323697413,
+      "p95": -0.9917229319691913,
+      "std": 1.832342562892944e-10
+    }
+  },
+  "store": {
+    "campaign_id": "nereid-n-analysis.optbatch.multistart",
+    "case_counts": {
+      "completed": 3
+    },
+    "created_unix": 1787851641.4353452,
+    "kind": "optimization_batch",
+    "metadata": {
+      "analysis_id": "multistart",
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "total_cases": 3,
+    "updated_unix": 1787851643.3989117
+  }
+}

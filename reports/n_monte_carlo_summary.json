@@ -1,0 +1,77 @@
+{
+  "execution": {
+    "campaign_id": "nereid-n-analysis.monte_carlo",
+    "elapsed_seconds": 2.6534397789982904,
+    "executed_cases": 32,
+    "failed_cases": 0,
+    "kind": "monte_carlo",
+    "requested_cases": 32,
+    "resumed_cases": 0,
+    "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+    "workers": 4
+  },
+  "export": "/mnt/data/milestone_n_python/reports/n_monte_carlo.json",
+  "statistics": {
+    "end_time": {
+      "max": 2.0,
+      "mean": 2.0,
+      "median": 2.0,
+      "min": 2.0,
+      "p05": 2.0,
+      "p95": 2.0,
+      "std": 0.0
+    },
+    "final_altitude": {
+      "max": 11.220298249158077,
+      "mean": 9.542798624694115,
+      "median": 9.484136366285384,
+      "min": 6.709144422318786,
+      "p05": 7.827201596862869,
+      "p95": 11.025601005338832,
+      "std": 1.1100455581081135
+    },
+    "final_mass": {
+      "max": 99.25084624481144,
+      "mean": 99.00451335820715,
+      "median": 99.00348407203268,
+      "min": 98.81947656460852,
+      "p05": 98.87015973775796,
+      "p95": 99.2187171666783,
+      "std": 0.10867965603881842
+    },
+    "final_speed": {
+      "max": 11.241239107259199,
+      "mean": 9.559419333812546,
+      "median": 9.499492884317437,
+      "min": 6.717940597777775,
+      "p05": 7.837832006636355,
+      "p95": 11.046835998283306,
+      "std": 1.113378401561274
+    },
+    "final_vehicle_count": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "std": 0.0
+    }
+  },
+  "store": {
+    "campaign_id": "nereid-n-analysis.monte_carlo",
+    "case_counts": {
+      "completed": 32
+    },
+    "created_unix": 1787851630.6658478,
+    "kind": "monte_carlo",
+    "metadata": {
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "seed": 20260827,
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "total_cases": 32,
+    "updated_unix": 1787851632.806287
+  }
+}

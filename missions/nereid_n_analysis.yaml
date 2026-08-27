@@ -1,0 +1,140 @@
+format_version: "1.0"
+mission:
+  id: nereid-n-analysis
+  title: Nereid-N integrated analysis/HPC reference mission
+  t_span: [0.0, 2.0]
+  default_solver: campaign
+  seed: 20260827
+
+bodies:
+  nereid:
+    type: spherical
+    mu: 1.5e11
+    radius: 1000000.0
+    rotation_vector_i: [0.0, 0.0, 0.0]
+    name: Nereid-N
+
+atmospheres:
+  vacuum:
+    type: vacuum
+
+environments:
+  nereid_vacuum:
+    body: nereid
+    atmosphere: vacuum
+
+solvers:
+  campaign:
+    type: rk4
+    step: 0.02
+    save_every_step: false
+
+vehicles:
+  vehicle:
+    body: nereid
+    environment: nereid_vacuum
+    solver: campaign
+    initial:
+      dof: 3
+      mode: powered
+      state:
+        position: [1000000.0, 0.0, 0.0]
+        velocity: [0.0, 0.0, 0.0]
+        mass: 100.0
+    phases:
+      - name: powered
+        dof: 3
+        dynamics:
+          gravity: true
+          ideal_rocket:
+            exhaust_velocity: 1000.0
+            mass_flow: 0.5
+            direction_i: [1.0, 0.0, 0.0]
+
+outputs:
+  - name: final_altitude
+    type: altitude
+    vehicle: vehicle
+    body: nereid
+  - name: final_speed
+    type: speed
+    vehicle: vehicle
+  - name: final_mass
+    type: state
+    vehicle: vehicle
+    field: mass
+
+optimization:
+  method: SLSQP
+  max_iterations: 40
+  design_variables:
+    - name: mass_flow
+      pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/mass_flow
+      lower: 0.25
+      upper: 1.0
+      initial: 0.5
+      scale: 0.5
+  objective:
+    metric: final_mass
+    sense: maximize
+    scale: 100.0
+  constraints:
+    - metric: final_altitude
+      lower: 8.0
+      scale: 10.0
+
+monte_carlo:
+  cases: 32
+  seed: 20260827
+  workers: 0
+  dispersions:
+    - name: mass_flow
+      pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/mass_flow
+      distribution: normal
+      mean: 0.5
+      std: 0.05
+    - name: exhaust_velocity
+      pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/exhaust_velocity
+      distribution: uniform
+      low: 900.0
+      high: 1100.0
+
+analysis:
+  execution:
+    backend: process
+    workers: 0
+    chunksize: 1
+    store: ../reports/n_analysis.sqlite
+  sweeps:
+    - id: propulsion-grid
+      mode: cartesian
+      variables:
+        - name: mass_flow
+          pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/mass_flow
+          values: [0.35, 0.5, 0.65]
+        - name: exhaust_velocity
+          pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/exhaust_velocity
+          values: [900.0, 1100.0]
+  sobol:
+    - id: propulsion-sensitivity
+      metric: final_altitude
+      base_samples: 64
+      seed: 20260827
+      variables:
+        - name: mass_flow
+          pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/mass_flow
+          lower: 0.35
+          upper: 0.65
+        - name: exhaust_velocity
+          pointer: /vehicles/vehicle/phases/0/dynamics/ideal_rocket/exhaust_velocity
+          lower: 900.0
+          upper: 1100.0
+  optimization_batches:
+    - id: multistart
+      starts:
+        - name: low
+          values: {mass_flow: 0.30}
+        - name: nominal
+          values: {mass_flow: 0.50}
+        - name: high
+          values: {mass_flow: 0.90}

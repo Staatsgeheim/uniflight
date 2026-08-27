@@ -3,6 +3,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
+    "analysis": {
+      "type": "object"
+    },
     "bodies": {
       "minProperties": 1,
       "type": "object"

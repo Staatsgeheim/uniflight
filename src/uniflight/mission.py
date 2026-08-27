@@ -380,7 +380,7 @@ def load_mission(path: str | Path) -> MissionDocument:
 def validate_mission_dict(raw: Mapping[str, Any]) -> None:
     _strict_keys(raw, {
         "format_version", "mission", "datasets", "bodies", "atmospheres", "environments",
-        "plugins", "models", "solvers", "vehicles", "vehicle_templates", "events", "outputs", "optimization", "monte_carlo", "metadata",
+        "plugins", "models", "solvers", "vehicles", "vehicle_templates", "events", "outputs", "optimization", "monte_carlo", "analysis", "metadata",
     }, "root")
     version = _require(raw, "format_version", "root")
     if str(version) != MISSION_FORMAT_VERSION:
@@ -636,6 +636,72 @@ def validate_mission_dict(raw: Mapping[str, Any]) -> None:
             if dist not in ("normal", "uniform"):
                 raise MissionValidationError("Monte Carlo distribution must be normal or uniform")
 
+    # Milestone N integrated analysis declarations. These are orchestration
+    # metadata only: the underlying mission dynamics remain unchanged.
+    analysis = raw.get("analysis")
+    if analysis is not None:
+        a = _as_mapping(analysis, "analysis")
+        _strict_keys(a, {"execution", "sweeps", "sobol", "optimization_batches"}, "analysis")
+        execution = _as_mapping(a.get("execution", {}), "analysis.execution")
+        _strict_keys(execution, {"backend", "workers", "chunksize", "store"}, "analysis.execution")
+        if str(execution.get("backend", "process")) not in ("serial", "process"):
+            raise MissionValidationError("analysis.execution.backend must be serial or process")
+        if int(execution.get("workers", 0)) < 0 or int(execution.get("chunksize", 1)) <= 0:
+            raise MissionValidationError("analysis execution workers/chunksize are invalid")
+
+        seen=set()
+        for i, entry in enumerate(a.get("sweeps", [])):
+            e=_as_mapping(entry,f"analysis.sweeps[{i}]")
+            _strict_keys(e,{"id","mode","variables"},f"analysis.sweeps[{i}]")
+            aid=str(_require(e,"id",f"analysis.sweeps[{i}]"))
+            if not aid or aid in seen: raise MissionValidationError("analysis IDs must be unique and non-empty")
+            seen.add(aid)
+            if str(e.get("mode","cartesian")) not in ("cartesian","zip"):
+                raise MissionValidationError("sweep mode must be cartesian or zip")
+            variables=_as_sequence(_require(e,"variables",f"analysis.sweeps[{i}]"),f"analysis.sweeps[{i}].variables")
+            for j,var in enumerate(variables):
+                v=_as_mapping(var,f"analysis.sweeps[{i}].variables[{j}]")
+                _strict_keys(v,{"name","pointer","values"},f"analysis.sweeps[{i}].variables[{j}]")
+                pointer_get(raw,str(_require(v,"pointer",f"analysis.sweeps[{i}].variables[{j}]")))
+                vals=_as_sequence(_require(v,"values",f"analysis.sweeps[{i}].variables[{j}]"),f"analysis.sweeps[{i}].variables[{j}].values")
+                if not vals: raise MissionValidationError("sweep values cannot be empty")
+                for k,value in enumerate(vals): _finite_float(value,f"analysis.sweeps[{i}].variables[{j}].values[{k}]")
+
+        for i, entry in enumerate(a.get("sobol", [])):
+            e=_as_mapping(entry,f"analysis.sobol[{i}]")
+            _strict_keys(e,{"id","metric","base_samples","seed","variables"},f"analysis.sobol[{i}]")
+            aid=str(_require(e,"id",f"analysis.sobol[{i}]"))
+            if not aid or aid in seen: raise MissionValidationError("analysis IDs must be unique and non-empty")
+            seen.add(aid)
+            if str(_require(e,"metric",f"analysis.sobol[{i}]")) not in output_names:
+                raise MissionValidationError("Sobol metric references undefined output")
+            if int(e.get("base_samples",128)) < 2: raise MissionValidationError("Sobol base_samples must be >= 2")
+            variables=_as_sequence(_require(e,"variables",f"analysis.sobol[{i}]"),f"analysis.sobol[{i}].variables")
+            for j,var in enumerate(variables):
+                v=_as_mapping(var,f"analysis.sobol[{i}].variables[{j}]")
+                _strict_keys(v,{"name","pointer","lower","upper"},f"analysis.sobol[{i}].variables[{j}]")
+                pointer_get(raw,str(_require(v,"pointer",f"analysis.sobol[{i}].variables[{j}]")))
+                lo=_finite_float(_require(v,"lower",f"analysis.sobol[{i}].variables[{j}]"),f"analysis.sobol[{i}].variables[{j}].lower")
+                hi=_finite_float(_require(v,"upper",f"analysis.sobol[{i}].variables[{j}]"),f"analysis.sobol[{i}].variables[{j}].upper")
+                if hi <= lo: raise MissionValidationError("Sobol upper bound must exceed lower bound")
+
+        opt_names=set() if optimization is None else {str(d["name"]) for d in optimization.get("design_variables",[])}
+        for i, entry in enumerate(a.get("optimization_batches", [])):
+            e=_as_mapping(entry,f"analysis.optimization_batches[{i}]")
+            _strict_keys(e,{"id","starts"},f"analysis.optimization_batches[{i}]")
+            aid=str(_require(e,"id",f"analysis.optimization_batches[{i}]"))
+            if not aid or aid in seen: raise MissionValidationError("analysis IDs must be unique and non-empty")
+            seen.add(aid)
+            if optimization is None: raise MissionValidationError("optimization batch requires an optimization declaration")
+            starts=_as_sequence(_require(e,"starts",f"analysis.optimization_batches[{i}]"),f"analysis.optimization_batches[{i}].starts")
+            for j,start in enumerate(starts):
+                st=_as_mapping(start,f"analysis.optimization_batches[{i}].starts[{j}]")
+                _strict_keys(st,{"name","values"},f"analysis.optimization_batches[{i}].starts[{j}]")
+                values=_as_mapping(_require(st,"values",f"analysis.optimization_batches[{i}].starts[{j}]"),f"analysis.optimization_batches[{i}].starts[{j}].values")
+                unknown=set(values)-opt_names
+                if unknown: raise MissionValidationError(f"optimization batch references unknown design variables {sorted(unknown)}")
+                for name,value in values.items(): _finite_float(value,f"analysis.optimization_batches[{i}].starts[{j}].values.{name}")
+
     # Every namespaced capability used by a declarative mission must be backed
     # by an explicit exact-version plugin requirement. Programmatic Python
     # registries remain free to register arbitrary factories without this rule.
@@ -694,6 +760,7 @@ def mission_json_schema() -> Mapping[str, Any]:
             "outputs": {"type": "array"},
             "optimization": {"type": "object"},
             "monte_carlo": {"type": "object"},
+            "analysis": {"type": "object"},
         },
         "additionalProperties": False,
     }

@@ -1,0 +1,95 @@
+{
+  "execution": {
+    "campaign_id": "nereid-n-analysis.sobol.propulsion-sensitivity",
+    "elapsed_seconds": 4.31334515799972,
+    "executed_cases": 256,
+    "failed_cases": 0,
+    "kind": "sobol",
+    "requested_cases": 256,
+    "resumed_cases": 0,
+    "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+    "workers": 4
+  },
+  "export": "/mnt/data/milestone_n_python/reports/n_sobol.json",
+  "sobol": {
+    "base_samples": 64,
+    "first_order": [
+      0.9412654346898994,
+      0.09995660079355559
+    ],
+    "names": [
+      "mass_flow",
+      "exhaust_velocity"
+    ],
+    "total_order": [
+      0.8900094401424528,
+      0.09856927728379412
+    ],
+    "variance": 3.4314001306993798
+  },
+  "statistics": {
+    "end_time": {
+      "max": 2.0,
+      "mean": 2.0,
+      "median": 2.0,
+      "min": 2.0,
+      "p05": 2.0,
+      "p95": 2.0,
+      "std": 0.0
+    },
+    "final_altitude": {
+      "max": 13.811102465726435,
+      "mean": 9.723604398548105,
+      "median": 9.71256674930919,
+      "min": 6.345028268289752,
+      "p05": 6.905323522834806,
+      "p95": 12.73874630915816,
+      "std": 1.8465276795902121
+    },
+    "final_mass": {
+      "max": 99.2978904286403,
+      "mean": 99.0011718752794,
+      "median": 99.00327598862404,
+      "min": 98.70112845785854,
+      "p05": 98.7290056010707,
+      "p95": 99.27081324923819,
+      "std": 0.17326304979183899
+    },
+    "final_speed": {
+      "max": 13.841918536748219,
+      "mean": 9.740919280250683,
+      "median": 9.728766372707511,
+      "min": 6.353186233959571,
+      "p05": 6.914746180374721,
+      "p95": 12.765748983874563,
+      "std": 1.8524277821555588
+    },
+    "final_vehicle_count": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "std": 0.0
+    }
+  },
+  "store": {
+    "campaign_id": "nereid-n-analysis.sobol.propulsion-sensitivity",
+    "case_counts": {
+      "completed": 256
+    },
+    "created_unix": 1787851635.215751,
+    "kind": "sobol",
+    "metadata": {
+      "analysis_id": "propulsion-sensitivity",
+      "base_samples": 64,
+      "metric": "final_altitude",
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "total_cases": 256,
+    "updated_unix": 1787851639.0775266
+  }
+}

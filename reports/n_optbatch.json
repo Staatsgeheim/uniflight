@@ -1,0 +1,88 @@
+{
+  "campaign": {
+    "campaign_id": "nereid-n-analysis.optbatch.multistart",
+    "created_unix": 1787851641.4353452,
+    "kind": "optimization_batch",
+    "metadata": {
+      "analysis_id": "multistart",
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "updated_unix": 1787851643.3989117
+  },
+  "cases": [
+    {
+      "case_id": "ccca76af0664b180d79aee62",
+      "elapsed_seconds": 0.19026500999825657,
+      "error": null,
+      "index": 0,
+      "kind": "optimization_batch",
+      "metrics": {
+        "design.mass_flow": 0.4138533937907022,
+        "evaluations": 3,
+        "iterations": 3,
+        "max_constraint_violation": 0.0,
+        "metric.final_altitude": 8.000000274158083,
+        "metric.final_mass": 99.17229321241905,
+        "metric.final_speed": 8.011514602420712,
+        "metric.mission_success": 1.0,
+        "objective": -0.9917229321241905,
+        "success": true
+      },
+      "parameters": {
+        "mass_flow": 0.3,
+        "start": "low"
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "50b9208f9f8ac7b48d614384",
+      "elapsed_seconds": 0.3067770389970974,
+      "error": null,
+      "index": 1,
+      "kind": "optimization_batch",
+      "metrics": {
+        "design.mass_flow": 0.41385340240123614,
+        "evaluations": 5,
+        "iterations": 5,
+        "max_constraint_violation": 0.0,
+        "metric.final_altitude": 8.000000447267666,
+        "metric.final_mass": 99.17229319519691,
+        "metric.final_speed": 8.011514776068765,
+        "metric.mission_success": 1.0,
+        "objective": -0.9917229319519691,
+        "success": true
+      },
+      "parameters": {
+        "mass_flow": 0.5,
+        "start": "nominal"
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "655cc21dea63ff8db9851e12",
+      "elapsed_seconds": 0.40735039499850245,
+      "error": null,
+      "index": 2,
+      "kind": "optimization_batch",
+      "metrics": {
+        "design.mass_flow": 0.41385338014873796,
+        "evaluations": 8,
+        "iterations": 7,
+        "max_constraint_violation": 0.0,
+        "metric.final_altitude": 8.00000000023283,
+        "metric.final_mass": 99.17229323970247,
+        "metric.final_speed": 8.01151432730424,
+        "metric.mission_success": 1.0,
+        "objective": -0.9917229323970247,
+        "success": true
+      },
+      "parameters": {
+        "mass_flow": 0.9,
+        "start": "high"
+      },
+      "status": "completed"
+    }
+  ]
+}

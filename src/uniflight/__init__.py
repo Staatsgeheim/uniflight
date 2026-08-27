@@ -1,4 +1,4 @@
-"""UniFlight 0.13.0 Milestone M: POST2-class research flight dynamics with engineering-data infrastructure."""
+"""UniFlight 0.14.0 Milestone N: POST2-class research flight dynamics with integrated analysis/HPC."""
 
 from ._version import __version__
 
@@ -267,4 +267,25 @@ __all__ += [
     "PluginError", "PluginDiscoveryError", "PluginCompatibilityError", "PluginRequirementError",
     "PluginDescriptor", "CapabilityRegistration", "PluginRegistrar", "PluginRequirement",
     "LoadedPlugin", "PluginManager", "installed_plugin_summary",
+]
+
+# Milestone N: integrated analysis/HPC campaigns
+from .hpc import ExecutionBackend, SerialBackend, ProcessBackend, ExternalExecutorBackend
+from .result_store import StoredCase, SQLiteResultStore
+from .analysis import (
+    AnalysisCase, CampaignExecution, MissionCampaignRunner,
+    SweepVariable, ParameterSweep, MonteCarloVariable, MissionMonteCarlo,
+    SobolVariable, SobolIndices, SobolSensitivity,
+    OptimizationStart, OptimizationBatch, summarize_numeric_metrics,
+    mission_case_worker, optimization_case_worker,
+)
+
+__all__ += [
+    "ExecutionBackend", "SerialBackend", "ProcessBackend", "ExternalExecutorBackend",
+    "StoredCase", "SQLiteResultStore",
+    "AnalysisCase", "CampaignExecution", "MissionCampaignRunner",
+    "SweepVariable", "ParameterSweep", "MonteCarloVariable", "MissionMonteCarlo",
+    "SobolVariable", "SobolIndices", "SobolSensitivity",
+    "OptimizationStart", "OptimizationBatch", "summarize_numeric_metrics",
+    "mission_case_worker", "optimization_case_worker",
 ]

@@ -1,0 +1,688 @@
+{
+  "campaign": {
+    "campaign_id": "nereid-n-analysis.monte_carlo",
+    "created_unix": 1787851630.6658478,
+    "kind": "monte_carlo",
+    "metadata": {
+      "mission_path": "/mnt/data/milestone_n_python/missions/nereid_n_analysis.yaml",
+      "seed": 20260827,
+      "uniflight_version": "0.14.0"
+    },
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "updated_unix": 1787851632.806287
+  },
+  "cases": [
+    {
+      "case_id": "dc24e6795591b426e6a05b8d",
+      "elapsed_seconds": 0.03285960300127044,
+      "error": null,
+      "index": 0,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.783663641894236,
+        "final_mass": 99.2159679605976,
+        "final_speed": 7.794283050529674,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 2074685541747091923,
+        "exhaust_velocity": 1028.3392237562662,
+        "mass_flow": 0.3920160197014404
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e0166dea8c9ce4f429e1b893",
+      "elapsed_seconds": 0.035575854999478906,
+      "error": null,
+      "index": 1,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 6.709144422318786,
+        "final_mass": 99.25084624481144,
+        "final_speed": 6.717940597777775,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 3208394267650110382,
+        "exhaust_velocity": 933.2688630002227,
+        "mass_flow": 0.374576877594081
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f1ded69f951d43c009f851fe",
+      "elapsed_seconds": 0.034057756998663535,
+      "error": null,
+      "index": 2,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.309113403549418,
+        "final_mass": 98.91193531745301,
+        "final_speed": 10.328494164909753,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 662895319855691624,
+        "exhaust_velocity": 971.5014564996014,
+        "mass_flow": 0.5440323412732347
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "dd8329522246439f99765c1f",
+      "elapsed_seconds": 0.023047361999488203,
+      "error": null,
+      "index": 3,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.510107342037372,
+        "final_mass": 98.81947656460852,
+        "final_speed": 10.531546621445683,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 3287365020995297066,
+        "exhaust_velocity": 912.094008163958,
+        "mass_flow": 0.5902617176958186
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "76f70c3a42226ca67ab9cfb1",
+      "elapsed_seconds": 0.03159701199911069,
+      "error": null,
+      "index": 4,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.199969737324864,
+        "final_mass": 99.1287230916356,
+        "final_speed": 8.212385777996035,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 9118434188636987759,
+        "exhaust_velocity": 972.738603965112,
+        "mass_flow": 0.43563845418230895
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "c12d6a2d1067b5546b28354a",
+      "elapsed_seconds": 0.024724275997868972,
+      "error": null,
+      "index": 5,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 7.862823560019024,
+        "final_mass": 99.22207730744361,
+        "final_speed": 7.87346297072364,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 14297284521563575967,
+        "exhaust_velocity": 1046.5857972139893,
+        "mass_flow": 0.38896134627806367
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "1350c970c6c88558c2101462",
+      "elapsed_seconds": 0.023952777999511454,
+      "error": null,
+      "index": 6,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.373845520429313,
+        "final_mass": 98.89898422798211,
+        "final_speed": 10.39357833655488,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 11525650194286246061,
+        "exhaust_velocity": 965.8897654712059,
+        "mass_flow": 0.550507886009056
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "67c2ee02418a8886d6c864bd",
+      "elapsed_seconds": 0.02021904199864366,
+      "error": null,
+      "index": 7,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.687940355273895,
+        "final_mass": 98.90551823121712,
+        "final_speed": 10.708132408829819,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 12122763483126286404,
+        "exhaust_velocity": 1000.2705483768169,
+        "mass_flow": 0.5472408843914088
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a91825a5fac073baf5382821",
+      "elapsed_seconds": 0.03758755899980315,
+      "error": null,
+      "index": 8,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.862895806087181,
+        "final_mass": 98.91954677034533,
+        "final_speed": 9.881330602696051,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 4636020596331667198,
+        "exhaust_velocity": 937.2202815153361,
+        "mass_flow": 0.5402266148271782
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9b98235fa11c8ee259c26413",
+      "elapsed_seconds": 0.0344474560006347,
+      "error": null,
+      "index": 9,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.11245652276557,
+        "final_mass": 99.0001231992295,
+        "final_speed": 9.128248292473991,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 6701007450054281467,
+        "exhaust_velocity": 938.2187980749504,
+        "mass_flow": 0.4999384003849516
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9de9839d53ef59108c1f6226",
+      "elapsed_seconds": 0.02062289400055306,
+      "error": null,
+      "index": 10,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.220298249158077,
+        "final_mass": 98.91729723819509,
+        "final_speed": 11.241239107259199,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 16376444003316223026,
+        "exhaust_velocity": 1060.1843153581112,
+        "mass_flow": 0.5413513809027946
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b2a9d8bb7961b5c40dc0ecb3",
+      "elapsed_seconds": 0.022739296000509057,
+      "error": null,
+      "index": 11,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.672528088907711,
+        "final_mass": 98.9616523532959,
+        "final_speed": 10.691650487017695,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 198912479950816384,
+        "exhaust_velocity": 1053.0657391276777,
+        "mass_flow": 0.5191738233521791
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "b0175e8577f7e21821c0fcbf",
+      "elapsed_seconds": 0.023728374002530472,
+      "error": null,
+      "index": 12,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.321108839707449,
+        "final_mass": 98.90236775745933,
+        "final_speed": 10.340683377108617,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 3137987291437775824,
+        "exhaust_velocity": 964.091223608686,
+        "mass_flow": 0.5488161212704858
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "304f84967e23311c32798be4",
+      "elapsed_seconds": 0.025078746999497525,
+      "error": null,
+      "index": 13,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.944897322566248,
+        "final_mass": 98.86422409602744,
+        "final_speed": 10.966347144278146,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 7675130697229898089,
+        "exhaust_velocity": 986.307501144707,
+        "mass_flow": 0.5678879519860487
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "3cc1dd47626902e1eef58460",
+      "elapsed_seconds": 0.022976219002885045,
+      "error": null,
+      "index": 14,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.328957631718367,
+        "final_mass": 99.05720831071392,
+        "final_speed": 9.344184521547296,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 2658212315629410614,
+        "exhaust_velocity": 1018.1091661653302,
+        "mass_flow": 0.4713958446429656
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "9bb9f100eb6cb8f9dcc2dc92",
+      "elapsed_seconds": 0.022945627999433782,
+      "error": null,
+      "index": 15,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.922526199603453,
+        "final_mass": 99.01752225969602,
+        "final_speed": 8.937728297964515,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 10440064255761917751,
+        "exhaust_velocity": 935.6214558659452,
+        "mass_flow": 0.49123887015211715
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "56d3b45173a758bff5e87d0b",
+      "elapsed_seconds": 0.025209765997715294,
+      "error": null,
+      "index": 16,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.169446133077145,
+        "final_mass": 99.01051662954075,
+        "final_speed": 9.185167283211591,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 17043624918008303965,
+        "exhaust_velocity": 953.847319796575,
+        "mass_flow": 0.4947416852297022
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "bf260ab94d35dc8f946095c4",
+      "elapsed_seconds": 0.03410268500010716,
+      "error": null,
+      "index": 17,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.223699366440997,
+        "final_mass": 99.0184614526811,
+        "final_speed": 10.241029587987343,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 9809668998122162826,
+        "exhaust_velocity": 1068.6498663689429,
+        "mass_flow": 0.49076927365975687
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8a9a46ef7de6db6cba7c837f",
+      "elapsed_seconds": 0.033391568998922594,
+      "error": null,
+      "index": 18,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.698695661616512,
+        "final_mass": 99.1002939795834,
+        "final_speed": 8.712271662405875,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 13703750203937740253,
+        "exhaust_velocity": 997.1775985458892,
+        "mass_flow": 0.4498530102081025
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0620629e11d24d1d1bb00535",
+      "elapsed_seconds": 0.030148114998155506,
+      "error": null,
+      "index": 19,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.028061701101251,
+        "final_mass": 99.00684494483585,
+        "final_speed": 9.043605970407754,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 18365117543951533926,
+        "exhaust_velocity": 936.1205679414277,
+        "mass_flow": 0.4965775275818233
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "601a6b9558c9e76226bee4c7",
+      "elapsed_seconds": 0.035616185999970185,
+      "error": null,
+      "index": 20,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.6393151008524,
+        "final_mass": 99.07101101221087,
+        "final_speed": 9.654801247087576,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 9988906612419311588,
+        "exhaust_velocity": 1066.5883049725549,
+        "mass_flow": 0.4644944938947073
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "8a99520a3ff9dcd9d0004a26",
+      "elapsed_seconds": 0.035189561000152025,
+      "error": null,
+      "index": 21,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.205158420256339,
+        "final_mass": 99.12568058251736,
+        "final_speed": 9.219091525843835,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 14813988064196934092,
+        "exhaust_velocity": 1083.9762867048546,
+        "mass_flow": 0.43715970874140814
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "53dde3124c2a4ea69bb88c10",
+      "elapsed_seconds": 0.03550869300306658,
+      "error": null,
+      "index": 22,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.746212445897982,
+        "final_mass": 99.08793555748758,
+        "final_speed": 8.760048735564462,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 948354630636175315,
+        "exhaust_velocity": 988.8190724101864,
+        "mass_flow": 0.4560322212564429
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "f87ad0cfd10573df2c295f66",
+      "elapsed_seconds": 0.03374119799991604,
+      "error": null,
+      "index": 23,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.640221090288833,
+        "final_mass": 98.876132574037,
+        "final_speed": 10.660869288320253,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 10171948315050976572,
+        "exhaust_velocity": 969.7903933808586,
+        "mass_flow": 0.5619337129816834
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a5b7d7fee3b555aecb35067e",
+      "elapsed_seconds": 0.035132854001858504,
+      "error": null,
+      "index": 24,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.094456354505382,
+        "final_mass": 98.87501617190111,
+        "final_speed": 10.11409412742274,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 17238790798660411793,
+        "exhaust_velocity": 920.4935191607173,
+        "mass_flow": 0.562491914049478
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "298d6044c4b4a644e4a398e8",
+      "elapsed_seconds": 0.019947550998040242,
+      "error": null,
+      "index": 25,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.738600736134686,
+        "final_mass": 98.97460253427823,
+        "final_speed": 10.757596712148949,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 7415224258914270200,
+        "exhaust_velocity": 1072.833257370558,
+        "mass_flow": 0.5126987328606207
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "597cc06d6bb15627e3bf5f5a",
+      "elapsed_seconds": 0.0334924119997595,
+      "error": null,
+      "index": 26,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 11.124238839838654,
+        "final_mass": 98.9066256341772,
+        "final_speed": 11.145211264289616,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 9296643419792609570,
+        "exhaust_velocity": 1041.0455246617332,
+        "mass_flow": 0.5466871829111465
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "0b2f05d74c4c7c633240e051",
+      "elapsed_seconds": 0.022491742001875537,
+      "error": null,
+      "index": 27,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.447265163064003,
+        "final_mass": 99.04987619018755,
+        "final_speed": 8.461206030222966,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 14841788051423673409,
+        "exhaust_velocity": 917.7242885757612,
+        "mass_flow": 0.4750619049065262
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "a4a3be8ccfb78ceca9221656",
+      "elapsed_seconds": 0.026117108998732874,
+      "error": null,
+      "index": 28,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 10.685282234568149,
+        "final_mass": 98.95210858913686,
+        "final_speed": 10.704604053910648,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 16110928324690978216,
+        "exhaust_velocity": 1044.6542872587308,
+        "mass_flow": 0.5239457054315922
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "926df4c2e76c0d7b4816b62f",
+      "elapsed_seconds": 0.03581962300086161,
+      "error": null,
+      "index": 29,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.713031294289976,
+        "final_mass": 99.00805309236205,
+        "final_speed": 8.728032205084016,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 9504192062733140731,
+        "exhaust_velocity": 905.6109116424954,
+        "mass_flow": 0.4959734538189027
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "d73c7a5d6d1d8d3635837490",
+      "elapsed_seconds": 0.026027643001725664,
+      "error": null,
+      "index": 30,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 9.128355084103532,
+        "final_mass": 98.97608585471005,
+        "final_speed": 9.1445564047396,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 8412143699680461401,
+        "exhaust_velocity": 917.6667418484768,
+        "mass_flow": 0.5119570726450904
+      },
+      "status": "completed"
+    },
+    {
+      "case_id": "e655a61d4d1e88ffcf30e4e5",
+      "elapsed_seconds": 0.030222703000617912,
+      "error": null,
+      "index": 31,
+      "kind": "monte_carlo",
+      "metrics": {
+        "end_time": 2.0,
+        "final_altitude": 8.265239720814861,
+        "final_mass": 99.1117117322702,
+        "final_speed": 8.27799682424144,
+        "final_vehicle_count": 1,
+        "success": true
+      },
+      "parameters": {
+        "_case_seed": 14873016467844519185,
+        "exhaust_velocity": 961.3815879488571,
+        "mass_flow": 0.44414413386457763
+      },
+      "status": "completed"
+    }
+  ]
+}

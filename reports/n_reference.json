@@ -1,0 +1,229 @@
+{
+  "campaigns": {
+    "monte_carlo": {
+      "campaign_id": "nereid-n-analysis.monte_carlo",
+      "elapsed_seconds": 2.6534397789982904,
+      "executed_cases": 32,
+      "failed_cases": 0,
+      "kind": "monte_carlo",
+      "requested_cases": 32,
+      "resumed_cases": 0,
+      "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+      "workers": 4
+    },
+    "optbatch": {
+      "campaign_id": "nereid-n-analysis.optbatch.multistart",
+      "elapsed_seconds": 2.358838186999492,
+      "executed_cases": 3,
+      "failed_cases": 0,
+      "kind": "optimization_batch",
+      "requested_cases": 3,
+      "resumed_cases": 0,
+      "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+      "workers": 3
+    },
+    "resume": {
+      "campaign_id": "nereid-n-analysis.sweep.propulsion-grid",
+      "elapsed_seconds": 2.4066001060418785e-05,
+      "executed_cases": 0,
+      "failed_cases": 0,
+      "kind": "sweep",
+      "requested_cases": 6,
+      "resumed_cases": 6,
+      "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+      "workers": 4
+    },
+    "sobol": {
+      "campaign_id": "nereid-n-analysis.sobol.propulsion-sensitivity",
+      "elapsed_seconds": 4.31334515799972,
+      "executed_cases": 256,
+      "failed_cases": 0,
+      "kind": "sobol",
+      "requested_cases": 256,
+      "resumed_cases": 0,
+      "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+      "workers": 4
+    },
+    "sweep": {
+      "campaign_id": "nereid-n-analysis.sweep.propulsion-grid",
+      "elapsed_seconds": 2.576763645000028,
+      "executed_cases": 6,
+      "failed_cases": 0,
+      "kind": "sweep",
+      "requested_cases": 6,
+      "resumed_cases": 0,
+      "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+      "workers": 4
+    }
+  },
+  "checkpoint_restart": {
+    "campaign_id": "nereid-n-analysis.sweep.propulsion-grid",
+    "elapsed_seconds": 2.4066001060418785e-05,
+    "executed_cases": 0,
+    "failed_cases": 0,
+    "kind": "sweep",
+    "requested_cases": 6,
+    "resumed_cases": 6,
+    "store_path": "/mnt/data/milestone_n_python/reports/n_analysis.sqlite",
+    "workers": 4
+  },
+  "metadata": {
+    "logical_cpus": 5,
+    "mission": "missions/nereid_n_analysis.yaml",
+    "mission_sha256": "9488bd5e0d8b5236d5eeb5bc0c198fc28c3c135e2cc9fae0a2c1fab23c2181b5",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "store": "reports/n_analysis.sqlite",
+    "uniflight_version": "0.14.0"
+  },
+  "monte_carlo_statistics": {
+    "end_time": {
+      "max": 2.0,
+      "mean": 2.0,
+      "median": 2.0,
+      "min": 2.0,
+      "p05": 2.0,
+      "p95": 2.0,
+      "std": 0.0
+    },
+    "final_altitude": {
+      "max": 11.220298249158077,
+      "mean": 9.542798624694115,
+      "median": 9.484136366285384,
+      "min": 6.709144422318786,
+      "p05": 7.827201596862869,
+      "p95": 11.025601005338832,
+      "std": 1.1100455581081135
+    },
+    "final_mass": {
+      "max": 99.25084624481144,
+      "mean": 99.00451335820715,
+      "median": 99.00348407203268,
+      "min": 98.81947656460852,
+      "p05": 98.87015973775796,
+      "p95": 99.2187171666783,
+      "std": 0.10867965603881842
+    },
+    "final_speed": {
+      "max": 11.241239107259199,
+      "mean": 9.559419333812546,
+      "median": 9.499492884317437,
+      "min": 6.717940597777775,
+      "p05": 7.837832006636355,
+      "p95": 11.046835998283306,
+      "std": 1.113378401561274
+    },
+    "final_vehicle_count": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "std": 0.0
+    }
+  },
+  "optimization_statistics": {
+    "design.mass_flow": {
+      "max": 0.41385340240123614,
+      "mean": 0.41385339211355876,
+      "median": 0.4138533937907022,
+      "min": 0.41385338014873796,
+      "p05": 0.4138533815129344,
+      "p95": 0.41385340154018274,
+      "std": 9.161623812881587e-09
+    },
+    "evaluations": {
+      "max": 8.0,
+      "mean": 5.333333333333333,
+      "median": 5.0,
+      "min": 3.0,
+      "p05": 3.2,
+      "p95": 7.699999999999999,
+      "std": 2.0548046676563256
+    },
+    "iterations": {
+      "max": 7.0,
+      "mean": 5.0,
+      "median": 5.0,
+      "min": 3.0,
+      "p05": 3.2,
+      "p95": 6.8,
+      "std": 1.632993161855452
+    },
+    "max_constraint_violation": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p05": 0.0,
+      "p95": 0.0,
+      "std": 0.0
+    },
+    "metric.final_altitude": {
+      "max": 8.000000447267666,
+      "mean": 8.00000024055286,
+      "median": 8.000000274158083,
+      "min": 8.00000000023283,
+      "p05": 8.000000027625356,
+      "p95": 8.000000429956708,
+      "std": 1.8404169701960978e-07
+    },
+    "metric.final_mass": {
+      "max": 99.17229323970247,
+      "mean": 99.17229321577281,
+      "median": 99.17229321241905,
+      "min": 99.17229319519691,
+      "p05": 99.17229319691913,
+      "p95": 99.17229323697413,
+      "std": 1.8323425628929442e-08
+    },
+    "metric.final_speed": {
+      "max": 8.011514776068765,
+      "mean": 8.011514568597905,
+      "median": 8.011514602420712,
+      "min": 8.01151432730424,
+      "p05": 8.011514354815887,
+      "p95": 8.01151475870396,
+      "std": 1.8476180381887945e-07
+    },
+    "metric.mission_success": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "min": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "std": 0.0
+    },
+    "objective": {
+      "max": -0.9917229319519691,
+      "mean": -0.9917229321577281,
+      "median": -0.9917229321241905,
+      "min": -0.9917229323970247,
+      "p05": -0.9917229323697413,
+      "p95": -0.9917229319691913,
+      "std": 1.832342562892944e-10
+    }
+  },
+  "sobol": {
+    "base_samples": 64,
+    "first_order": [
+      0.9412654346898994,
+      0.09995660079355559
+    ],
+    "names": [
+      "mass_flow",
+      "exhaust_velocity"
+    ],
+    "total_order": [
+      0.8900094401424528,
+      0.09856927728379412
+    ],
+    "variance": 3.4314001306993798
+  },
+  "verification": {
+    "execution": "bounded groups",
+    "passed": 155,
+    "total": 155
+  }
+}
