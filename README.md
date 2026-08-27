@@ -3,7 +3,7 @@
 **A planet-agnostic 3-DOF / 6-DOF research flight-dynamics engine with declarative missions, plugins, campaign analysis, and formal numerical verification.**
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
-[![PyPI](https://img.shields.io/pypi/v/uniflight.svg)](https://pypi.org/project/uniflight/)
+[![PyPI](https://img.shields.io/pypi/v/uniflight.svg?style=flat&label=PyPI)](https://pypi.org/project/uniflight/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![NumPy](https://img.shields.io/badge/numpy-2.0%2B-013243.svg)](https://numpy.org/)
 [![SciPy](https://img.shields.io/badge/scipy-1.13%2B-8caae6.svg)](https://scipy.org/)
