@@ -6,7 +6,7 @@ from typing import Mapping
 import json
 import numpy as np
 
-from .units import DIMENSIONLESS, LENGTH, VELOCITY, MASS, ANGULAR_RATE, UnitDimension
+from .units import DIMENSIONLESS, LENGTH, VELOCITY, MASS, ANGULAR_RATE, TEMPERATURE, AREAL_ENERGY, UnitDimension
 
 @dataclass(frozen=True, slots=True)
 class StateField:
@@ -117,4 +117,14 @@ def core_6dof_schema() -> StateSchema:
         StateField("attitude", (4,), DIMENSIONLESS, "I<-B", owner="attitude"),
         StateField("angular_rate", (3,), ANGULAR_RATE, "B", owner="rotation"),
         StateField("mass", (), MASS, None, owner="mass"),
+    ])
+
+
+def entry_6dof_schema() -> StateSchema:
+    """Milestone-D 6-DOF entry state with a minimal thermal/TPS extension."""
+    return StateSchema([
+        *core_6dof_schema().fields,
+        StateField("tps_temperature", (), TEMPERATURE, None, owner="tps"),
+        StateField("heat_load", (), AREAL_ENERGY, None, owner="tps"),
+        StateField("tps_mass", (), MASS, None, owner="tps"),
     ])

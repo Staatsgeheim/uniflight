@@ -92,8 +92,11 @@ class RocketEngine:
             raise ValueError("rocket mass must remain positive")
         return self.evaluate(state).force_i / m
 
+    def mass_rate(self, state: StateView) -> float:
+        return -self.evaluate(state).mass_flow
+
     def derivatives(self, state: StateView) -> dict[str, float]:
-        return {"mass": -self.evaluate(state).mass_flow}
+        return {"mass": self.mass_rate(state)}
 
 # ---------------------------------------------------------------------------
 # Milestone C: body-mounted / thrust-vector-controlled propulsion
@@ -214,5 +217,8 @@ class GimballedRocketEngine:
         e = self.evaluate(state)
         return Wrench(e.force_i, e.moment_b_about_cg, self.source)
 
+    def mass_rate(self, state: StateView) -> float:
+        return -self.evaluate(state).mass_flow
+
     def derivatives(self, state: StateView) -> dict[str, float]:
-        return {"mass": -self.evaluate(state).mass_flow}
+        return {"mass": self.mass_rate(state)}
