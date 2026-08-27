@@ -1,10 +1,10 @@
-# Milestone D verification record
+# Milestone E verification record
 
-Milestone D is accepted when every Milestone A/B/C regression and the new entry/re-entry cases pass.
+Milestone E is accepted when every Milestone A/B/C/D regression and the new entry-descent-landing cases pass.
 
 ## Result
 
-**37 tests passed.**
+**47 tests passed.**
 
 ### Existing regression coverage
 
@@ -19,7 +19,7 @@ Milestone D is accepted when every Milestone A/B/C regression and the new entry/
 9. gas-mixture thermodynamic closure
 10. exact spherical hydrostatic pressure integral
 11. body rotation + wind environment velocity
-12. atmospheric ceiling → vacuum
+12. atmospheric ceiling -> vacuum
 13. relative-flow Mach/Re/Kn/q calculation
 14. continuum point-mass drag magnitude/direction
 15. Mach-table drag interpolation
@@ -34,51 +34,60 @@ Milestone D is accepted when every Milestone A/B/C regression and the new entry/
 24. torque-free asymmetric rigid body: rotational energy and inertial angular-momentum conservation
 25. two-axis TVC: body/inertial force and mounting-arm moment
 26. end-to-end fictional-world 6-DOF atmospheric flight
+27. entry-state schema extension
+28. Knudsen regime-dispatch endpoints/midpoint
+29. free-molecular reference drag
+30. low/high-Mach blend
+31. Newtonian-inspired hypersonic incidence behavior
+32. generalized Sutton-Graves velocity scaling
+33. bounded thermochemical heating correction
+34. lumped TPS heating / heat-load integration
+35. ablation mass coupling
+36. canonical mass-flow aggregation
+37. end-to-end rarefied-to-continuum heated entry
 
-### Milestone D verification cases
+### Milestone E verification cases
 
-27. entry-state schema extends canonical 6-DOF state with TPS temperature, heat load, and TPS mass
-28. Knudsen dispatcher endpoints and log-space midpoint smoothness
-29. free-molecular reference drag magnitude and direction
-30. low/high Mach coefficient blend endpoint and midpoint behavior
-31. Newtonian-inspired hypersonic reference model incidence behavior
-32. generalized Sutton–Graves velocity-cubed scaling
-33. thermochemical hook boundedness and endothermic heating correction
-34. lumped TPS sub-ablation heating and heat-load integration
-35. TPS ablation coupled consistently to TPS mass and total vehicle mass
-36. mass-flow aggregator combines propulsion and an independent mass-loss source
-37. end-to-end post-deorbit 6-DOF entry crossing free-molecular → transitional → continuum flow with heating and ablation
+38. first-order deployable rate and state ownership
+39. parachute drag direction and deployment-area scaling
+40. radial terrain AGL / normal / surface-point query
+41. landing-gear spring-damper normal contact force
+42. regularized Coulomb friction opposes tangential foot motion and respects the friction bound
+43. two-body separation conserves linear momentum and prescribed daughter relative velocity
+44. jettison jump removes canonical mass and resets deployable state
+45. powered-descent throttle includes local-gravity feedforward
+46. hybrid mode engine sequences terminal events and mode intervals
+47. end-to-end parachute -> jettison -> powered descent -> gear deployment -> touchdown -> first contact-compression stop
 
-## End-to-end case observations
+## End-to-end EDL observations
 
-The verification trajectory uses the fictional body **Nereid-D** and is intentionally not Earth calibrated.
+The verification trajectory uses fictional body **Nereid-E** and is intentionally not calibrated to Earth or any operational vehicle.
 
-Representative results from the checked configuration:
+Representative checked results:
 
-- initial altitude: 450 km
-- terminating altitude: 30 km
-- entry time to termination: ~1811 s
-- initial speed: ~1394 m/s
-- final speed: ~313 m/s
-- initial Knudsen number: ~75
-- final Knudsen number: ~7.6e-7
-- maximum dynamic pressure: ~2.1 kPa
-- maximum reference heat flux: ~79 kW/m²
-- integrated heat load: ~21.7 MJ/m²
-- maximum TPS temperature: 900 K
-- TPS / vehicle mass loss: ~2.8 kg
-- quaternion norm error: below displayed precision
+- initial AGL: 3000 m
+- initial radial speed: -120 m/s
+- parachute maximum area: 80 m^2
+- powered-descent transition / parachute jettison: ~185.764 s at 500 m
+- touchdown: ~301.202 s
+- first zero-radial-speed compression point: ~301.271 s
+- final CG altitude: ~1.975 m
+- final radial speed: numerically zero at the first compression maximum
+- final vehicle mass: ~364.228 kg
+- gear deployment fraction: 1.0
+- quaternion norm: 1.0 to displayed precision
+- landing-gear contact active at termination
 
-The test specifically checks that the start state selects the free-molecular branch, the final state selects the continuum branch, heat load grows, TPS mass decreases, total vehicle mass decreases by the same ablated amount, and velocity decreases through the entry.
+The powered engine is removed from the contact-mode RHS at touchdown, representing an immediate engine cutoff. The contact phase then evolves under gravity and landing-gear forces until the first compression stop.
 
 ## Current numerical thresholds
 
-- Milestone A/B/C thresholds remain unchanged
-- Kn transition midpoint: machine-precision agreement with 0.5 for the declared log-space bridge
-- Sutton–Graves velocity scaling: relative agreement with exact V^3 ratio to ~1e-12 in the reference case
-- final 30 km event altitude: < 1e-5 m error
-- ablation mass bookkeeping: < 1e-6 kg mismatch between TPS loss and canonical vehicle loss
-- quaternion norm in re-entry test: < 2e-8 error without explicit post-step normalization
+- all Milestone A-D thresholds remain unchanged
+- two-body separation momentum residual: < 1e-12 in the reference test
+- hybrid synthetic event timing: < 1e-9 s
+- final EDL radial speed at first compression stop: < 1e-5 m/s
+- gear deployment at landing: > 0.95
+- quaternion norm error in EDL: < 1e-7
 
 ## Command
 

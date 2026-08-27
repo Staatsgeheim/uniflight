@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
-version = "0.4.0"
-description = "Milestone D entry/re-entry kernel for a celestial-body-agnostic hybrid flight dynamics engine"
+version = "0.5.0"
+description = "Milestone E entry-descent-landing kernel for a celestial-body-agnostic hybrid flight dynamics engine"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13"]
 readme = "README.md"

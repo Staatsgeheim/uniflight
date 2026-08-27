@@ -128,3 +128,17 @@ def entry_6dof_schema() -> StateSchema:
         StateField("heat_load", (), AREAL_ENERGY, None, owner="tps"),
         StateField("tps_mass", (), MASS, None, owner="tps"),
     ])
+
+
+def edl_6dof_schema() -> StateSchema:
+    """Milestone-E 6-DOF entry/descent/landing state.
+
+    Adds parachute and landing-gear deployment fractions to the Milestone-D
+    thermal/TPS state. Discrete mission mode remains outside the continuous
+    numeric state and is owned by ``HybridModeEngine``.
+    """
+    return StateSchema([
+        *entry_6dof_schema().fields,
+        StateField("parachute_deployment", (), DIMENSIONLESS, None, owner="parachute"),
+        StateField("gear_deployment", (), DIMENSIONLESS, None, owner="gear"),
+    ])

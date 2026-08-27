@@ -1,35 +1,59 @@
-# UniFlight — Milestone D
+# UniFlight — Milestone E
 
-Milestone D extends the Milestone C planet-agnostic 6-DOF atmospheric-flight kernel into a first **entry / re-entry physics stack**. The goal remains architectural: implement physically meaningful reference closures behind stable interfaces so higher-fidelity CFD, DSMC, chemistry, radiation, and TPS models can later replace them without redesigning the trusted dynamics kernel.
+Milestone E extends the Milestone D planet-agnostic entry/re-entry kernel through **entry, descent, powered terminal descent, touchdown, and first-contact dynamics**. The milestone keeps mission phase discrete while the physical vehicle state remains numeric, and it preserves the one-owner-per-state-derivative rule introduced in Milestone A.
 
-## Implemented in D
+## Implemented in E
 
-- `entry_6dof_schema()` with thermal-protection state:
-  - TPS temperature
-  - integrated heat load
-  - TPS remaining mass
-- Smooth **continuum → transitional → free-molecular** aerodynamic dispatch in log10(Kn)
-- Replaceable free-molecular 6-DOF coefficient closure
-- Low-order Newtonian-inspired hypersonic coefficient model
-- Smooth low-/high-Mach coefficient blending
-- Generalized Sutton–Graves stagnation-point convective heating
-  - no embedded Earth constant: the heating coefficient is supplied by the atmosphere/model
-- Optional empirical radiative-heating hook
-- Thermochemical correction interface
-- Frozen-chemistry closure
-- Smooth dissociation/ionization reference hook for proving chemistry coupling
-- Lumped radiating thermal-protection model
-- Heat-load integration
-- Ablation/recession mass-loss closure
-- Ablation coupled back into canonical vehicle mass
-- `MassFlowAggregator` allowing propulsion, venting, ablation, ingestion, etc. to share one canonical mass derivative owner
-- `RocketEngine` and `GimballedRocketEngine` now expose signed `mass_rate()` in addition to their backward-compatible derivative API
-- Full regression coverage for Milestones A, B, and C
-- End-to-end fictional-world **post-deorbit → free-molecular → transitional → continuum entry** example
+- `edl_6dof_schema()` extending the Milestone-D entry state with:
+  - parachute deployment fraction
+  - landing-gear deployment fraction
+- Generic `FirstOrderDeployable`
+  - deploy/retract time constants
+  - irreversible deployment option
+  - callable command support
+- 6-DOF `InflatingParachute`
+  - deployment-dependent effective area
+  - atmosphere-relative drag
+  - body attachment point and resulting moment about CG
+- `RadialTerrain`
+  - arbitrary spherical body
+  - constant or callable radial elevation
+  - AGL, surface normal, surface point, and local rotating-surface velocity
+- `LandingGearContact`
+  - multiple gear legs
+  - stowed/deployed foot locations
+  - spring-damper normal contact
+  - regularized Coulomb friction
+  - 6-DOF force and moment output
+- `VerticalDescentThrottle`
+  - local-gravity feedforward
+  - altitude-dependent descent-speed schedule
+  - arbitrary planetary atmosphere and gravity
+- `JettisonJump`
+  - hybrid state jump for mass removal
+  - optional state resets, e.g. parachute deployment -> 0
+- Momentum-conserving `separate_two_body()` utility
+  - produces retained and detached daughter initial states
+  - supports a prescribed relative separation velocity
+- `HybridModeEngine`
+  - phase-specific RHS and event sets
+  - discrete mode remains outside continuous `X`
+  - transition by terminal event name
+  - concatenated state/event/mode history
+- Full regression coverage for Milestones A-D
+- End-to-end fictional-world EDL example:
+  - parachute inflation and descent
+  - parachute jettison
+  - powered terminal descent
+  - gear deployment
+  - touchdown
+  - spring/damper first-contact compression
 
 ## Important fidelity note
 
-The new chemistry, free-molecular, hypersonic, and thermal closures are **reference implementations**, not claims of universally accurate entry physics. They establish the software contracts and the coupled state flow. In production work they should be replaced by validated atmosphere-specific correlations, experimental/CFD databases, DSMC/Sentman models, finite-rate chemistry, radiation solvers, and material-response/TPS models as mission fidelity requires.
+Milestone E establishes the **EDL software contracts**. Its parachute and contact models are engineering reference closures, not substitutes for validated canopy CFD/FSI, line dynamics, flexible landing-gear models, soil mechanics, crushable structures, or high-fidelity multibody impact simulation.
+
+`separate_two_body()` establishes momentum-consistent daughter initialization. Milestone E does **not** yet provide a single solver that automatically changes the dimension of the global state and concurrently integrates an arbitrary number of newly created daughter vehicles; each daughter can already be initialized and integrated independently with the existing kernel.
 
 ## Numerical dependencies
 
@@ -56,109 +80,129 @@ python -m pip install -e . --no-build-isolation
 PYTHONPATH=src pytest -q
 ```
 
-The project currently passes **37 tests**.
+The project currently passes **47 tests**.
 
-## Run the re-entry example
+## Run the full EDL example
 
 ```bash
-PYTHONPATH=src python examples/reentry_6dof.py
+PYTHONPATH=src python examples/full_edl.py
 ```
 
-The reference example uses the fictional world **Nereid-D**. It begins immediately after a deorbit impulse at 450 km altitude and terminates at 30 km. In the current reference configuration it:
+The reference example uses the fictional body **Nereid-E**. The checked configuration begins at 3 km AGL with a 120 m/s downward speed and then executes:
 
-- begins at Kn ≈ 75 in the free-molecular branch
-- ends at Kn ≈ 7.6e-7 in continuum flow
-- decelerates from about 1394 m/s to 313 m/s
-- reaches about 2.1 kPa maximum dynamic pressure
-- reaches about 79 kW/m² maximum reference heat flux
-- accumulates about 21.7 MJ/m² heat load
-- reaches the 900 K reference ablation threshold
-- loses about 2.8 kg of TPS, identically reflected in total vehicle mass
+1. parachute inflation and descent
+2. parachute jettison / powered-descent transition at 500 m
+3. closed-loop powered vertical descent
+4. landing-gear deployment
+5. first foot contact
+6. engine-off landing-gear compression to the first zero-radial-speed point
 
-No Earth radius, mass, gravity, atmospheric pressure, or composition is embedded in the dynamics.
+Representative checked output:
 
-## Core Milestone D assembly
+- powered-descent event: ~185.76 s
+- touchdown event: ~301.20 s
+- first compression stop: ~301.27 s
+- final CG altitude: ~1.975 m
+- final radial speed: ~0 m/s at maximum first compression
+- final vehicle mass: ~364.23 kg
+- landing gear deployment: 1.0
+- quaternion norm: 1.0 to displayed precision
+- gear contact active at termination
+
+The example is intentionally a reference architecture case, not a tuned operational landing guidance law.
+
+## Core Milestone E assembly
 
 ```python
-continuum = ContinuumAerodynamics6DOF(
-    environment, geometry, continuum_coefficients, mass_properties
+chute_deploy = FirstOrderDeployable(
+    "parachute_deployment", command=1.0, deploy_time_constant=1.5
 )
-free_molecular = FreeMolecularAerodynamics6DOF(
-    environment, geometry, free_molecular_coefficients, mass_properties
-)
-aerodynamics = RegimeBlendedAerodynamics6DOF(
-    continuum, free_molecular,
-    continuum_knudsen=0.01,
-    free_molecular_knudsen=10.0,
+parachute = InflatingParachute(
+    environment, mass_properties,
+    maximum_area=80.0,
+    drag_coefficient=1.5,
+    deployment=chute_deploy,
 )
 
-heating = SuttonGravesHeating(
-    environment,
-    reference_length=3.0,
-    nose_radius=1.0,
-    coefficient=user_supplied_k,
-    chemistry=chemistry_model,
+gear_deploy = FirstOrderDeployable(
+    "gear_deployment", command=1.0, deploy_time_constant=0.5
+)
+landing_gear = LandingGearContact(
+    terrain, mass_properties, legs=(gear_leg,)
 )
 
-tps = LumpedAblatingTPS(
-    heating,
-    heated_area=5.0,
-    thermal_mass=100.0,
-    specific_heat=1000.0,
-    emissivity=0.8,
-    ablation_temperature=900.0,
-    effective_heat_of_ablation=5e6,
+guidance = VerticalDescentThrottle(
+    environment, terrain,
+    exhaust_velocity=2000.0,
+    mdot_exhaust=3.0,
+)
+engine = GimballedRocketEngine(
+    environment, mass_properties,
+    exhaust_velocity=2000.0,
+    mdot_exhaust=3.0,
+    base_direction_b=np.array([1.0, 0.0, 0.0]),
+    throttle=guidance,
 )
 
-mass_flow = MassFlowAggregator((tps,))
-
-rigid_body = RigidBody6DOFDynamics(
-    mass_properties,
-    gravity=body.gravity,
-    wrench_models=(aerodynamics,),
-)
-
-rhs = DynamicsAssembler(
-    entry_6dof_schema(),
-    [rigid_body, QuaternionKinematics(), tps, mass_flow],
-).rhs
+modes = {
+    "parachute": ModeDefinition("parachute", parachute_rhs, (to_power_event,)),
+    "powered": ModeDefinition("powered", powered_rhs, (touchdown_event,)),
+    "contact": ModeDefinition("contact", contact_rhs, (compression_stop_event,)),
+}
+mission = HybridModeEngine(modes, transition_function, integrator)
 ```
 
-## Mass ownership in D
+## State and mode ownership
 
-The one-writer-per-state invariant remains intact. A TPS model owns its own `tps_mass`, `tps_temperature`, and `heat_load` derivatives. The canonical vehicle `mass` state has exactly one owner: `MassFlowAggregator`. Individual subsystems expose signed `mass_rate(state)` contributions.
+Continuous physical state remains in the packed schema:
 
-This allows, for example:
-
-```python
-mass_flow = MassFlowAggregator((rocket_engine, tps, vent_model))
+```text
+[position, velocity, attitude, angular_rate, mass,
+ tps_temperature, heat_load, tps_mass,
+ parachute_deployment, gear_deployment]
 ```
 
-without allowing several subsystems to overwrite `dm/dt` independently.
+Mission mode is intentionally **not** stored as a floating-point state. `HybridModeEngine` owns discrete phase selection and records mode intervals separately. This preserves clear semantics for ODE integration and event root finding.
 
-## Knudsen transition convention
+## Separation convention
 
-The reference dispatcher uses:
+For two daughters with masses `m1` and `m2`, parent velocity `V`, and prescribed relative separation velocity
 
-- continuum branch: Kn <= 0.01
-- free-molecular branch: Kn >= 10
-- smooth cubic blend in `log10(Kn)` between those limits
+```text
+dv = v_detached - v_retained
+```
 
-This is explicitly a numerical bridging law. It is intentionally replaceable by a validated bridging relation or a direct regime database.
+Milestone E initializes
+
+```text
+v_retained = V - (m2 / (m1 + m2)) * dv
+v_detached = V + (m1 / (m1 + m2)) * dv
+```
+
+which conserves parent linear momentum exactly up to floating-point roundoff.
+
+## Contact convention
+
+For a deployed foot below terrain by penetration `delta` and normal relative speed `v_n` (positive outward), the reference normal-force closure is
+
+```text
+F_n = max(0, k * delta - c * v_n)
+```
+
+with regularized tangential friction bounded by `mu * F_n`. This is a penalty formulation; rigid complementarity contact remains a later high-fidelity option.
 
 ## Intentionally deferred
 
-Milestone D does **not** yet implement:
+Milestone E does **not** yet implement:
 
-- finite-rate species kinetics as integrated state equations
-- multi-temperature vibrational/electron energy equations
-- shock-layer CFD
-- DSMC particle simulation
-- validated radiative transport
-- multi-node / through-thickness TPS conduction
-- geometry recession feeding aerodynamic shape changes
-- parachutes / ballutes / multi-body EDL
-- bank-angle entry guidance and closed-loop GNC
-- rigid landing contact
+- flexible/parachute canopy multibody or FSI models
+- automatic variable-dimension concurrent multi-vehicle integration
+- rigid complementarity/impulse contact and wheel/leg kinematic constraints
+- deformable terrain / regolith / soil mechanics
+- closed-loop attitude guidance for arbitrary 3-D powered landing
+- state estimation and sensor models
+- Monte Carlo dispersion runner
+- trajectory optimization / optimal control
+- finite-rate chemistry and higher-fidelity TPS models deferred from D
 
 Those remain compatible with the architecture and are natural later milestones.

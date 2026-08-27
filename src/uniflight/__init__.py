@@ -1,6 +1,6 @@
-"""UniFlight Milestone D: planet-agnostic entry/re-entry dynamics kernel."""
+"""UniFlight Milestone E: planet-agnostic entry, descent, and landing kernel."""
 
-from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema
+from .state import StateField, StateSchema, StateView, core_3dof_schema, core_6dof_schema, entry_6dof_schema, edl_6dof_schema
 from .frames import (
     FrameGraph, Transform, quat_normalize, quat_to_matrix, quat_multiply, matrix_to_quat,
     body_to_inertial_matrix, inertial_to_body_matrix,
@@ -48,8 +48,17 @@ from .events import Event, EventOccurrence, EventAction
 from .integrators import ScipyIVPIntegrator, SolverConfig
 from .simulation import SimulationEngine, SimulationResult
 
+from .deployables import FirstOrderDeployable, ParachuteEvaluation, InflatingParachute
+from .terrain import TerrainSample, TerrainModel, RadialTerrain
+from .contact import GearLeg, LegContactEvaluation, LandingGearEvaluation, LandingGearContact
+from .separation import (
+    SeparatedBodyState, TwoBodySeparationResult, separate_two_body, JettisonJump,
+)
+from .guidance import DescentGuidanceEvaluation, VerticalDescentThrottle
+from .modes import ModeDefinition, ModeInterval, HybridMissionResult, HybridModeEngine
+
 __all__ = [
-    "StateField", "StateSchema", "StateView", "core_3dof_schema", "core_6dof_schema", "entry_6dof_schema",
+    "StateField", "StateSchema", "StateView", "core_3dof_schema", "core_6dof_schema", "entry_6dof_schema", "edl_6dof_schema",
     "FrameGraph", "Transform", "quat_normalize", "quat_to_matrix", "quat_multiply", "matrix_to_quat",
     "body_to_inertial_matrix", "inertial_to_body_matrix", "rotate_body_to_inertial", "rotate_inertial_to_body",
     "PointMassGravity", "SphericalBody",
@@ -71,4 +80,10 @@ __all__ = [
     "DynamicsAssembler", "TranslationalKinematics", "QuaternionKinematics", "IdealRocket", "RigidBody6DOFDynamics",
     "Event", "EventOccurrence", "EventAction", "ScipyIVPIntegrator", "SolverConfig",
     "SimulationEngine", "SimulationResult",
+    "FirstOrderDeployable", "ParachuteEvaluation", "InflatingParachute",
+    "TerrainSample", "TerrainModel", "RadialTerrain",
+    "GearLeg", "LegContactEvaluation", "LandingGearEvaluation", "LandingGearContact",
+    "SeparatedBodyState", "TwoBodySeparationResult", "separate_two_body", "JettisonJump",
+    "DescentGuidanceEvaluation", "VerticalDescentThrottle",
+    "ModeDefinition", "ModeInterval", "HybridMissionResult", "HybridModeEngine",
 ]
