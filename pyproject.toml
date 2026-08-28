@@ -47,7 +47,8 @@ dev = [
   "build>=1.2",
   "jsonschema>=4.23",
   "ruff>=0.6",
-  "mypy>=1.11",
+  "mypy>=1.11,<2",
+  "types-PyYAML>=6.0",
   "fastmcp[tasks]>=3.4.7,<4",
 ]
 
@@ -87,6 +88,13 @@ select = ["E9", "F63", "F7", "F82"]
 python_version = "3.11"
 check_untyped_defs = true
 ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
 warn_unused_configs = true
 warn_redundant_casts = true
 no_implicit_optional = true
+
+# NumPy 2.3+ stubs use PEP 695 `type` aliases. mypy rejects those when
+# python_version is 3.11, which is the floor we still support.
+[[tool.mypy.overrides]]
+module = ["numpy", "numpy.*", "scipy", "scipy.*", "yaml", "yaml.*"]
+follow_imports = "skip"
