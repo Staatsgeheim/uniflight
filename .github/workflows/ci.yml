@@ -28,6 +28,7 @@ jobs:
         run: ruff check src tests
 
       - name: Mypy MCP package
+        if: matrix.python-version == '3.11'
         run: python -m mypy src/uniflight_mcp
 
       - name: Tests with branch coverage
