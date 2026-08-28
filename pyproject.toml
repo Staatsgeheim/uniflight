@@ -47,8 +47,6 @@ dev = [
   "build>=1.2",
   "jsonschema>=4.23",
   "ruff>=0.6",
-  "mypy>=1.11,<2",
-  "types-PyYAML>=6.0",
   "fastmcp[tasks]>=3.4.7,<4",
 ]
 
@@ -83,12 +81,3 @@ line-length = 100
 # Start CI enforcement with correctness-oriented rules. The historical style/
 # unused-import backlog can be tightened incrementally without blocking safety fixes.
 select = ["E9", "F63", "F7", "F82"]
-
-[tool.mypy]
-python_version = "3.12"
-check_untyped_defs = true
-ignore_missing_imports = true
-disable_error_code = ["import-untyped"]
-warn_unused_configs = true
-warn_redundant_casts = true
-no_implicit_optional = true
