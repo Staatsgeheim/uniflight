@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
-version = "1.0.3"
+version = "1.0.4"
 description = "Planet-agnostic 3/6-DOF research flight-dynamics engine with missions, plugins, campaign analysis, formal verification, and a FastMCP server"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13", "PyYAML>=6.0"]

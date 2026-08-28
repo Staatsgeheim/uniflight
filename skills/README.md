@@ -1,6 +1,6 @@
 # UniFlight Framework Agent Skill
 
-A detailed agent skill for UniFlight 1.0.3.
+A detailed agent skill for UniFlight 1.0.4.
 
 ## Contents
 - `SKILL.md` — primary routing, operating procedure, safety/scientific boundaries, and core usage.
@@ -11,4 +11,4 @@ A detailed agent skill for UniFlight 1.0.3.
 ## Use
 Install/extract the skill in the agent platform's skill directory, or provide the folder to an agent and instruct it to read `SKILL.md`.
 
-The live UniFlight checkout always overrides this bundled 1.0.3 reference if versions differ.
+The live UniFlight checkout always overrides this bundled 1.0.4 reference if versions differ.

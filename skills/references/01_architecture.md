@@ -28,4 +28,4 @@ Continuous propagation and discrete transitions are separate. An event consists 
 Use public model interfaces first; use `MissionRegistry`/Plugin API for MDL-visible extensions. Avoid adding special-case branches to the mission compiler for one mission unless the capability is truly core.
 
 ## Fidelity boundary
-Current 1.0.3 core is broad but not a universal highest-fidelity solver. Notable boundaries include point-mass built-in gravity, compliant contact rather than a general complementarity DAE solver, engineering-order flex/slosh/engine/gear, and surrogate chemistry options. Higher-fidelity implementations belong behind the same interfaces.
+Current 1.0.4 core is broad but not a universal highest-fidelity solver. Notable boundaries include point-mass built-in gravity, compliant contact rather than a general complementarity DAE solver, engineering-order flex/slosh/engine/gear, and surrogate chemistry options. Higher-fidelity implementations belong behind the same interfaces.

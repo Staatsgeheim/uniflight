@@ -1,13 +1,13 @@
 ---
 name: uniflight-framework
-description: Expert agent skill for using, extending, testing, verifying, debugging, and operating UniFlight 1.0.3, a Python research flight-dynamics framework covering 3/6-DOF simulation, atmospheric/space flight, hybrid events, EDL, GNC, optimization, multi-vehicle dynamics, engineering subsystems/data, declarative missions, plugins, Monte Carlo/HPC analysis, numerical verification, and the FastMCP server.
+description: Expert agent skill for using, extending, testing, verifying, debugging, and operating UniFlight 1.0.4, a Python research flight-dynamics framework covering 3/6-DOF simulation, atmospheric/space flight, hybrid events, EDL, GNC, optimization, multi-vehicle dynamics, engineering subsystems/data, declarative missions, plugins, Monte Carlo/HPC analysis, numerical verification, and the FastMCP server.
 ---
 
 # UniFlight Framework — Agent Skill
 
 Use this skill whenever a task involves the UniFlight framework: creating or modifying a mission, writing Python simulations, using MDL YAML/TOML/JSON, selecting physics models, adding events, staging vehicles, configuring GNC, optimization, Monte Carlo/HPC campaigns, engineering-data tables, plugins, verification, debugging, benchmarking, or extending the framework.
 
-This skill is grounded in UniFlight **1.0.3**. Treat the checked-out project supplied by the user as the source of truth if it differs from this skill. Never silently assume an API exists: inspect the installed version/source when uncertain.
+This skill is grounded in UniFlight **1.0.4**. Treat the checked-out project supplied by the user as the source of truth if it differs from this skill. Never silently assume an API exists: inspect the installed version/source when uncertain.
 
 ## 0. Scope and scientific claims
 
@@ -100,7 +100,7 @@ python -m pip install -e ".[dev]"
 
 Wheel install:
 ```bash
-python -m pip install uniflight-1.0.3-py3-none-any.whl
+python -m pip install uniflight-1.0.4-py3-none-any.whl
 python -m pip install "uniflight[mcp]"
 ```
 
