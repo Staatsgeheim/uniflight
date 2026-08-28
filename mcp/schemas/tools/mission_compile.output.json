@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "mission_id": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "digest_sha256": {
+          "type": "string"
+        },
+        "normalized_artifact": {
+          "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "mission_id",
+        "uri",
+        "digest_sha256",
+        "normalized_artifact",
+        "warnings"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/mission_compile.output.json"
+}

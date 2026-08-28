@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sequence": {
+                "type": "integer"
+              },
+              "time_s": {
+                "type": "number"
+              },
+              "vehicle_id": {
+                "type": "string"
+              },
+              "event_id": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "integer"
+              },
+              "direction": {
+                "type": "integer"
+              },
+              "action": {
+                "type": "string"
+              },
+              "tied_group": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pre_mode": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "post_mode": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "sequence",
+              "time_s",
+              "vehicle_id",
+              "event_id",
+              "priority",
+              "direction",
+              "action",
+              "tied_group",
+              "pre_mode",
+              "post_mode"
+            ]
+          }
+        },
+        "page": {
+          "$ref": "../common/common.schema.json#/$defs/PageInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "items",
+        "page"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_events.output.json"
+}

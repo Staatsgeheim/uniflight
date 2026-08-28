@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "summary_uri": {
+          "type": "string"
+        },
+        "manifest_uri": {
+          "type": "string"
+        },
+        "requested_outputs": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "run_id",
+        "uri",
+        "status",
+        "summary_uri",
+        "manifest_uri",
+        "requested_outputs",
+        "artifacts",
+        "provenance",
+        "warnings"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_run.output.json"
+}

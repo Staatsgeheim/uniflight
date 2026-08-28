@@ -1,7 +1,8 @@
 # Source archives are not part of the library tree
 milestones/
 _extract/
-
+workspace/
+.cursor/
 # Python
 __pycache__/
 *.py[cod]
@@ -19,3 +20,6 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+_wiki_build.py
+.coverage

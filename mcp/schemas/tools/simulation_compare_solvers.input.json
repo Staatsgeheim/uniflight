@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "solver_a": {
+      "$ref": "../common/common.schema.json#/$defs/SolverOverride"
+    },
+    "solver_b": {
+      "$ref": "../common/common.schema.json#/$defs/SolverOverride"
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sample_interval_s": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "default": 0.1
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "solver_a",
+    "solver_b"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_compare_solvers.input.json"
+}

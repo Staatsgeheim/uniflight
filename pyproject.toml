@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uniflight"
-version = "1.0.2"
-description = "Planet-agnostic 3/6-DOF research flight-dynamics engine with missions, plugins, campaign analysis, and formal verification"
+version = "1.0.3"
+description = "Planet-agnostic 3/6-DOF research flight-dynamics engine with missions, plugins, campaign analysis, formal verification, and a FastMCP server"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0", "scipy>=1.13", "PyYAML>=6.0"]
 readme = "README.md"
@@ -38,6 +38,9 @@ Repository = "https://github.com/Staatsgeheim/uniflight"
 Issues = "https://github.com/Staatsgeheim/uniflight/issues"
 
 [project.optional-dependencies]
+mcp = [
+  "fastmcp[tasks]>=3.4.7,<4",
+]
 dev = [
   "pytest>=8",
   "pytest-cov>=5",
@@ -45,6 +48,7 @@ dev = [
   "jsonschema>=4.23",
   "ruff>=0.6",
   "mypy>=1.11",
+  "fastmcp[tasks]>=3.4.7,<4",
 ]
 
 [tool.setuptools.packages.find]
@@ -58,6 +62,7 @@ testpaths = ["tests"]
 uniflight-mission = "uniflight.mission_cli:main"
 uniflight-analysis = "uniflight.analysis_cli:main"
 uniflight-verify = "uniflight.verify_cli:main"
+uniflight-mcp = "uniflight_mcp.server:main"
 
 
 [tool.coverage.run]

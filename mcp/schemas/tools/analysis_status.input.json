@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "campaign": {
+      "$ref": "../common/common.schema.json#/$defs/CampaignRef"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "campaign"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_status.input.json"
+}

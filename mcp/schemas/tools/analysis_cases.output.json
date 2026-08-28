@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "case_index": {
+                "type": "integer"
+              },
+              "case_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "parameters": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": true
+              },
+              "metrics": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": true
+              },
+              "error": {
+                "anyOf": [
+                  {
+                    "$ref": "../common/common.schema.json#/$defs/ErrorEnvelope"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "case_index",
+              "case_id",
+              "status",
+              "parameters",
+              "metrics",
+              "error"
+            ]
+          }
+        },
+        "page": {
+          "$ref": "../common/common.schema.json#/$defs/PageInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "items",
+        "page"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_cases.output.json"
+}

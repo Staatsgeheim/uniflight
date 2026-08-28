@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "overrides": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/common.schema.json#/$defs/Override"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "overrides"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/mission_apply_overrides.input.json"
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "mission": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "bodies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "vehicles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "solvers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "plugins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "mission",
+        "bodies",
+        "vehicles",
+        "events",
+        "solvers",
+        "datasets",
+        "plugins",
+        "outputs"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/mission_inspect.output.json"
+}

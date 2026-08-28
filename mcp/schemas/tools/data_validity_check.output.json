@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "inside_validity": {
+          "type": "boolean"
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "interpolation_domain": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "engineering_validity": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "inside_validity",
+        "violations",
+        "interpolation_domain",
+        "engineering_validity"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/data_validity_check.output.json"
+}

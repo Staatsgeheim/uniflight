@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "mach": {
+          "type": "number"
+        },
+        "reynolds": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "knudsen": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "dynamic_pressure_pa": {
+          "type": "number"
+        },
+        "alpha_rad": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "beta_rad": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "relative_velocity_i_mps": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "body_relative_velocity_mps": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "mach",
+        "reynolds",
+        "knudsen",
+        "dynamic_pressure_pa",
+        "alpha_rad",
+        "beta_rad",
+        "relative_velocity_i_mps",
+        "body_relative_velocity_mps"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/vehicle_flow_state.output.json"
+}

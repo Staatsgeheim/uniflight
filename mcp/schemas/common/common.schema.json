@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/common.json",
+  "$defs": {
+    "PageRequest": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 100
+        },
+        "cursor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        }
+      },
+      "additionalProperties": false
+    },
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "returned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "next_cursor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "snapshot_id": {
+          "type": "string"
+        },
+        "total_estimate": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "returned",
+        "has_more",
+        "next_cursor",
+        "snapshot_id",
+        "total_estimate"
+      ]
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "pattern": "^art_"
+        },
+        "uri": {
+          "type": "string",
+          "pattern": "^uniflight://artifacts/"
+        },
+        "media_type": {
+          "type": "string"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "expires_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "uri",
+        "media_type",
+        "size_bytes",
+        "sha256",
+        "expires_at"
+      ]
+    },
+    "ErrorEnvelope": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "recoverable": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "details": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "correlation_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "recoverable",
+        "path",
+        "details",
+        "correlation_id"
+      ]
+    },
+    "ToolFailure": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": false
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "recoverable": {
+              "type": "boolean"
+            },
+            "path": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "details": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": true
+            },
+            "correlation_id": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "message",
+            "recoverable",
+            "path",
+            "details",
+            "correlation_id"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "error"
+      ]
+    },
+    "MissionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mission_id": {
+          "type": "string",
+          "pattern": "^mis_"
+        },
+        "uri": {
+          "type": "string",
+          "pattern": "^uniflight://missions/"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "mission_id"
+          ]
+        },
+        {
+          "required": [
+            "uri"
+          ]
+        }
+      ]
+    },
+    "RunRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "pattern": "^run_"
+        },
+        "uri": {
+          "type": "string",
+          "pattern": "^uniflight://runs/"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "run_id"
+          ]
+        },
+        {
+          "required": [
+            "uri"
+          ]
+        }
+      ]
+    },
+    "CampaignRef": {
+      "type": "object",
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "campaign_id"
+      ]
+    },
+    "SolverOverride": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "scipy",
+            "rk4",
+            null
+          ]
+        },
+        "method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rtol": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "atol": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "max_step_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "step_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "Override": {
+      "type": "object",
+      "properties": {
+        "pointer": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "value": {}
+      },
+      "additionalProperties": false,
+      "required": [
+        "pointer",
+        "value"
+      ]
+    }
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "spec_version": "0.1.0-draft",
+  "component_version": "1",
+  "tools": {
+    "system_version": {
+      "description": "Return server/runtime versions.",
+      "tags": [
+        "system"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 10,
+      "input_schema": "schemas/tools/system_version.input.json",
+      "output_schema": "schemas/tools/system_version.output.json"
+    },
+    "system_capabilities": {
+      "description": "List server/UniFlight capabilities with opaque cursor pagination.",
+      "tags": [
+        "system"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 15,
+      "input_schema": "schemas/tools/system_capabilities.input.json",
+      "output_schema": "schemas/tools/system_capabilities.output.json"
+    },
+    "mission_validate": {
+      "description": "Validate MDL syntax, schema, semantic references, datasets and plugin requirements without running.",
+      "tags": [
+        "mission"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/mission_validate.input.json",
+      "output_schema": "schemas/tools/mission_validate.output.json"
+    },
+    "mission_inspect": {
+      "description": "Inspect a persisted mission in normalized semantic form.",
+      "tags": [
+        "mission"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/mission_inspect.input.json",
+      "output_schema": "schemas/tools/mission_inspect.output.json"
+    },
+    "mission_compile": {
+      "description": "Validate, normalize and compile a mission, optionally persisting immutable mission artifacts.",
+      "tags": [
+        "mission"
+      ],
+      "read_only": false,
+      "task": false,
+      "timeout_s": 45,
+      "input_schema": "schemas/tools/mission_compile.input.json",
+      "output_schema": "schemas/tools/mission_compile.output.json"
+    },
+    "mission_apply_overrides": {
+      "description": "Create a new immutable mission by JSON-Pointer overrides.",
+      "tags": [
+        "mission"
+      ],
+      "read_only": false,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/mission_apply_overrides.input.json",
+      "output_schema": "schemas/tools/mission_apply_overrides.output.json"
+    },
+    "simulation_run": {
+      "description": "Compile and execute a deterministic UniFlight mission.",
+      "tags": [
+        "simulation"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 3600,
+      "input_schema": "schemas/tools/simulation_run.input.json",
+      "output_schema": "schemas/tools/simulation_run.output.json"
+    },
+    "simulation_summary": {
+      "description": "Return compact persisted run summary.",
+      "tags": [
+        "simulation"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/simulation_summary.input.json",
+      "output_schema": "schemas/tools/simulation_summary.output.json"
+    },
+    "simulation_events": {
+      "description": "List actual event chronology with tied-event/priority metadata.",
+      "tags": [
+        "simulation",
+        "events"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/simulation_events.input.json",
+      "output_schema": "schemas/tools/simulation_events.output.json"
+    },
+    "simulation_state_at": {
+      "description": "Return named vehicle state at a time.",
+      "tags": [
+        "simulation"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/simulation_state_at.input.json",
+      "output_schema": "schemas/tools/simulation_state_at.output.json"
+    },
+    "simulation_vehicle_history": {
+      "description": "Return paginated schema-tagged trajectory rows for one vehicle.",
+      "tags": [
+        "simulation"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/simulation_vehicle_history.input.json",
+      "output_schema": "schemas/tools/simulation_vehicle_history.output.json"
+    },
+    "simulation_export_csv": {
+      "description": "Create a CSV artifact for selected trajectory channels.",
+      "tags": [
+        "simulation",
+        "export"
+      ],
+      "read_only": false,
+      "task": false,
+      "timeout_s": 120,
+      "input_schema": "schemas/tools/simulation_export_csv.input.json",
+      "output_schema": "schemas/tools/simulation_export_csv.output.json"
+    },
+    "simulation_compare_solvers": {
+      "description": "Run the same mission with two solver configurations and compare states/metrics.",
+      "tags": [
+        "simulation",
+        "verification"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 3600,
+      "input_schema": "schemas/tools/simulation_compare_solvers.input.json",
+      "output_schema": "schemas/tools/simulation_compare_solvers.output.json"
+    },
+    "environment_sample": {
+      "description": "Sample configured gravity/atmosphere/wind/terrain at a point.",
+      "tags": [
+        "physics"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/environment_sample.input.json",
+      "output_schema": "schemas/tools/environment_sample.output.json"
+    },
+    "vehicle_flow_state": {
+      "description": "Compute relative-flow diagnostics at a stored run state.",
+      "tags": [
+        "physics"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/vehicle_flow_state.input.json",
+      "output_schema": "schemas/tools/vehicle_flow_state.output.json"
+    },
+    "vehicle_forces": {
+      "description": "Break down force/moment contributions at a run state.",
+      "tags": [
+        "physics",
+        "diagnostics"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/vehicle_forces.input.json",
+      "output_schema": "schemas/tools/vehicle_forces.output.json"
+    },
+    "optimization_validate": {
+      "description": "Validate a targeting/optimization declaration without solving.",
+      "tags": [
+        "optimization"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/optimization_validate.input.json",
+      "output_schema": "schemas/tools/optimization_validate.output.json"
+    },
+    "optimization_evaluate": {
+      "description": "Evaluate one deterministic design point.",
+      "tags": [
+        "optimization"
+      ],
+      "read_only": false,
+      "task": false,
+      "timeout_s": 1800,
+      "input_schema": "schemas/tools/optimization_evaluate.input.json",
+      "output_schema": "schemas/tools/optimization_evaluate.output.json"
+    },
+    "optimization_run": {
+      "description": "Solve a constrained trajectory targeting/optimization problem.",
+      "tags": [
+        "optimization"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 7200,
+      "input_schema": "schemas/tools/optimization_run.input.json",
+      "output_schema": "schemas/tools/optimization_run.output.json"
+    },
+    "analysis_sweep": {
+      "description": "Run a deterministic parameter sweep with checkpoint/restart.",
+      "tags": [
+        "analysis"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 86400,
+      "input_schema": "schemas/tools/analysis_sweep.input.json",
+      "output_schema": "schemas/tools/analysis_sweep.output.json"
+    },
+    "analysis_monte_carlo": {
+      "description": "Run deterministic-seeded Monte Carlo/uncertainty propagation.",
+      "tags": [
+        "analysis",
+        "monte-carlo"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 86400,
+      "input_schema": "schemas/tools/analysis_monte_carlo.input.json",
+      "output_schema": "schemas/tools/analysis_monte_carlo.output.json"
+    },
+    "analysis_sobol": {
+      "description": "Run Saltelli/Sobol global sensitivity analysis.",
+      "tags": [
+        "analysis",
+        "sobol"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 86400,
+      "input_schema": "schemas/tools/analysis_sobol.input.json",
+      "output_schema": "schemas/tools/analysis_sobol.output.json"
+    },
+    "analysis_optimization_batch": {
+      "description": "Run parallel multistart optimization.",
+      "tags": [
+        "analysis",
+        "optimization"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 86400,
+      "input_schema": "schemas/tools/analysis_optimization_batch.input.json",
+      "output_schema": "schemas/tools/analysis_optimization_batch.output.json"
+    },
+    "analysis_status": {
+      "description": "Inspect persistent campaign/checkpoint status.",
+      "tags": [
+        "analysis"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/analysis_status.input.json",
+      "output_schema": "schemas/tools/analysis_status.output.json"
+    },
+    "analysis_cases": {
+      "description": "List campaign cases using snapshot/keyset pagination.",
+      "tags": [
+        "analysis"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/analysis_cases.input.json",
+      "output_schema": "schemas/tools/analysis_cases.output.json"
+    },
+    "analysis_failures": {
+      "description": "List failed campaign cases with replayable parameters.",
+      "tags": [
+        "analysis"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/analysis_failures.input.json",
+      "output_schema": "schemas/tools/analysis_failures.output.json"
+    },
+    "analysis_case_replay": {
+      "description": "Reproduce one campaign case with its exact seed/parameters.",
+      "tags": [
+        "analysis",
+        "debug"
+      ],
+      "read_only": false,
+      "task": false,
+      "timeout_s": 3600,
+      "input_schema": "schemas/tools/analysis_case_replay.input.json",
+      "output_schema": "schemas/tools/analysis_case_replay.output.json"
+    },
+    "data_catalog_list": {
+      "description": "List versioned engineering datasets.",
+      "tags": [
+        "data"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/data_catalog_list.input.json",
+      "output_schema": "schemas/tools/data_catalog_list.output.json"
+    },
+    "data_table_query": {
+      "description": "Query an exact-version N-D engineering table.",
+      "tags": [
+        "data"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 30,
+      "input_schema": "schemas/tools/data_table_query.input.json",
+      "output_schema": "schemas/tools/data_table_query.output.json"
+    },
+    "data_validity_check": {
+      "description": "Check engineering validity separately from mathematical interpolation domain.",
+      "tags": [
+        "data"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/data_validity_check.input.json",
+      "output_schema": "schemas/tools/data_validity_check.output.json"
+    },
+    "verification_builtin": {
+      "description": "Run UniFlight built-in formal mathematical/software verification.",
+      "tags": [
+        "verification"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 3600,
+      "input_schema": "schemas/tools/verification_builtin.input.json",
+      "output_schema": "schemas/tools/verification_builtin.output.json"
+    },
+    "verification_compare_csv": {
+      "description": "Compare candidate CSV against independent reference with explicit tolerances/alignment.",
+      "tags": [
+        "verification",
+        "external-benchmark"
+      ],
+      "read_only": false,
+      "task": false,
+      "timeout_s": 600,
+      "input_schema": "schemas/tools/verification_compare_csv.input.json",
+      "output_schema": "schemas/tools/verification_compare_csv.output.json"
+    },
+    "verification_compare_runs": {
+      "description": "Compare two persisted runs on a common time grid.",
+      "tags": [
+        "verification"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 3600,
+      "input_schema": "schemas/tools/verification_compare_runs.input.json",
+      "output_schema": "schemas/tools/verification_compare_runs.output.json"
+    },
+    "verification_convergence": {
+      "description": "Run solver/timestep tolerance refinement and estimate convergence.",
+      "tags": [
+        "verification"
+      ],
+      "read_only": false,
+      "task": true,
+      "timeout_s": 7200,
+      "input_schema": "schemas/tools/verification_convergence.input.json",
+      "output_schema": "schemas/tools/verification_convergence.output.json"
+    },
+    "plugin_list": {
+      "description": "List installed UniFlight plugins without installing/importing unrequired code beyond discovery policy.",
+      "tags": [
+        "plugin"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/plugin_list.input.json",
+      "output_schema": "schemas/tools/plugin_list.output.json"
+    },
+    "plugin_inspect": {
+      "description": "Inspect plugin version/API compatibility and capability ownership.",
+      "tags": [
+        "plugin"
+      ],
+      "read_only": true,
+      "task": false,
+      "timeout_s": 20,
+      "input_schema": "schemas/tools/plugin_inspect.input.json",
+      "output_schema": "schemas/tools/plugin_inspect.output.json"
+    }
+  }
+}

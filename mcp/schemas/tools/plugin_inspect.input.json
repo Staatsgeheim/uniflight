@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "plugin_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "plugin_id"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/plugin_inspect.input.json"
+}

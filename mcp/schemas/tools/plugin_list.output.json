@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "plugin_id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "api_version": {
+                "type": "string"
+              },
+              "distribution": {
+                "type": "string"
+              },
+              "capability_count": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "plugin_id",
+              "version",
+              "api_version",
+              "distribution",
+              "capability_count"
+            ]
+          }
+        },
+        "page": {
+          "$ref": "../common/common.schema.json#/$defs/PageInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "items",
+        "page"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/plugin_list.output.json"
+}

@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "dataset_id_prefix": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "kind": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "page": {
+      "$ref": "../common/common.schema.json#/$defs/PageRequest"
+    }
+  },
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/data_catalog_list.input.json"
+}

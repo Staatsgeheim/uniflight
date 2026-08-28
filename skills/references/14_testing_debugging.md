@@ -44,6 +44,7 @@ pytest
 pytest --cov=uniflight --cov-branch --cov-fail-under=80
 ruff check src tests
 mypy src/uniflight
+mypy src/uniflight_mcp
 python -m build
 ```
 Then install the wheel into a clean environment and smoke-test CLIs.

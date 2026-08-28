@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "verification_id": {
+          "type": "string"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "channel_results": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "reference_sha256": {
+          "type": "string"
+        },
+        "actual_sha256": {
+          "type": "string"
+        },
+        "alignment": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "report_artifact": {
+          "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "verification_id",
+        "passed",
+        "channel_results",
+        "reference_sha256",
+        "actual_sha256",
+        "alignment",
+        "report_artifact"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_compare_csv.output.json"
+}

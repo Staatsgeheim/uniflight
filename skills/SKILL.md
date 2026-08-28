@@ -1,13 +1,13 @@
 ---
 name: uniflight-framework
-description: Expert agent skill for using, extending, testing, verifying, debugging, and operating UniFlight 1.0.2, a Python research flight-dynamics framework covering 3/6-DOF simulation, atmospheric/space flight, hybrid events, EDL, GNC, optimization, multi-vehicle dynamics, engineering subsystems/data, declarative missions, plugins, Monte Carlo/HPC analysis, and numerical verification.
+description: Expert agent skill for using, extending, testing, verifying, debugging, and operating UniFlight 1.0.3, a Python research flight-dynamics framework covering 3/6-DOF simulation, atmospheric/space flight, hybrid events, EDL, GNC, optimization, multi-vehicle dynamics, engineering subsystems/data, declarative missions, plugins, Monte Carlo/HPC analysis, numerical verification, and the FastMCP server.
 ---
 
 # UniFlight Framework — Agent Skill
 
 Use this skill whenever a task involves the UniFlight framework: creating or modifying a mission, writing Python simulations, using MDL YAML/TOML/JSON, selecting physics models, adding events, staging vehicles, configuring GNC, optimization, Monte Carlo/HPC campaigns, engineering-data tables, plugins, verification, debugging, benchmarking, or extending the framework.
 
-This skill is grounded in UniFlight **1.0.2**. Treat the checked-out project supplied by the user as the source of truth if it differs from this skill. Never silently assume an API exists: inspect the installed version/source when uncertain.
+This skill is grounded in UniFlight **1.0.3**. Treat the checked-out project supplied by the user as the source of truth if it differs from this skill. Never silently assume an API exists: inspect the installed version/source when uncertain.
 
 ## 0. Scope and scientific claims
 
@@ -42,7 +42,8 @@ For every UniFlight task:
    - targeting/optimization;
    - Monte Carlo/sensitivity/HPC;
    - plugin development;
-   - verification/benchmarking.
+   - verification/benchmarking;
+   - MCP server tools/resources (`uniflight-mcp`).
 
 3. **Choose fidelity explicitly.**
    State which gravity, atmosphere, aero, rarefied, thermal, TPS, contact, subsystem, sensor, and solver models are active. Do not imply higher fidelity than configured.
@@ -80,6 +81,7 @@ For every UniFlight task:
 - User wants Monte Carlo/sweeps/Sobol/multistart → analysis/HPC layer, see `references/11_analysis_hpc.md`.
 - User wants confidence/correctness comparison → verification layer, see `references/12_verification.md`.
 - User wants NESC Case 04 reproduction → see `references/13_benchmarking.md`.
+- User wants an agent/MCP surface → `uniflight-mcp` / `src/uniflight_mcp/`; contracts in `mcp/`.
 
 ## 3. Installation and environment
 
@@ -98,7 +100,8 @@ python -m pip install -e ".[dev]"
 
 Wheel install:
 ```bash
-python -m pip install uniflight-1.0.2-py3-none-any.whl
+python -m pip install uniflight-1.0.3-py3-none-any.whl
+python -m pip install "uniflight[mcp]"
 ```
 
 Check:
@@ -107,6 +110,7 @@ python -c "import uniflight; print(uniflight.__version__)"
 uniflight-mission --help
 uniflight-analysis --help
 uniflight-verify --help
+uniflight-mcp --help
 ```
 
 For multiprocessing campaigns, especially on Windows:
@@ -181,6 +185,9 @@ Do not bypass layers casually. Prefer composition:
 
 ### Verification
 `verification.py`, `verification_cases.py`, `verify_cli.py`.
+
+### MCP server
+`uniflight_mcp/` (optional extra). Tools call UniFlight public APIs only. Contracts: `mcp/TOOL_POLICY.json`, `mcp/schemas/tools/`.
 
 Read the matching reference file before making nontrivial changes.
 
@@ -319,6 +326,17 @@ Do not make workers write directly to SQLite; coordinator is the writer.
 
 Restart compatibility requires matching campaign identity and mission SHA-256.
 
+## 13b. MCP rules
+
+The MCP layer is an operations API, not a second physics engine.
+- Install with `pip install "uniflight[mcp]"` and run `uniflight-mcp`.
+- Prefer the 36 named tools; do not invent `plugin_install`, `shell`, or `python_exec`.
+- Use FastMCP background tasks for long simulation/optimization/campaign tools.
+- Paginate events, history, catalog, and campaign cases with `page` / cursors. Do not dump entire campaigns.
+- Pin datasets/plugins; record mission SHA, solver, seed, and artifact SHA in provenance.
+- STDIO is trusted-local. HTTP requires configured tokens (`UNIFLIGHT_MCP_TOKENS`).
+- Campaign SQLite writes stay on the coordinator. Workers must not open the store.
+
 ## 14. Verification rules
 
 Before changing core numerics, establish the expected independent answer:
@@ -376,6 +394,7 @@ For any framework modification:
 - Do not hide failed Monte Carlo cases in aggregate statistics.
 - Do not parallelize tiny cases blindly; process overhead can dominate.
 - Do not run untrusted plugins: plugins are trusted in-process Python code.
+- Do not add MCP tools that install plugins, execute shell, or read arbitrary filesystem paths.
 
 ## 17. Reference map
 

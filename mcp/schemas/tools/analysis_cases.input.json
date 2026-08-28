@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "campaign": {
+      "$ref": "../common/common.schema.json#/$defs/CampaignRef"
+    },
+    "status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "page": {
+      "$ref": "../common/common.schema.json#/$defs/PageRequest"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "campaign"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_cases.input.json"
+}

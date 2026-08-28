@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "server_version": {
+          "type": "string"
+        },
+        "uniflight_version": {
+          "type": "string"
+        },
+        "fastmcp_version": {
+          "type": "string"
+        },
+        "python_version": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "plugin_api_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "server_version",
+        "uniflight_version",
+        "fastmcp_version",
+        "python_version",
+        "platform",
+        "plugin_api_version"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/system_version.output.json"
+}

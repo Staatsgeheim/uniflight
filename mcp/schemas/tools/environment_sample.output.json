@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "gravity_i_mps2": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "atmosphere": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "wind_i_mps": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "terrain": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "validity": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "gravity_i_mps2",
+        "atmosphere",
+        "wind_i_mps",
+        "terrain",
+        "validity"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/environment_sample.output.json"
+}

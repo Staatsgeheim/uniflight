@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "plugin": {
+          "type": "object",
+          "properties": {
+            "plugin_id": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "api_version": {
+              "type": "string"
+            },
+            "distribution": {
+              "type": "string"
+            },
+            "capability_count": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "plugin_id",
+            "version",
+            "api_version",
+            "distribution",
+            "capability_count"
+          ]
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "capability_id": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "category",
+              "capability_id",
+              "owner"
+            ]
+          }
+        },
+        "compatible": {
+          "type": "boolean"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "plugin",
+        "capabilities",
+        "compatible",
+        "warnings"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/plugin_inspect.output.json"
+}

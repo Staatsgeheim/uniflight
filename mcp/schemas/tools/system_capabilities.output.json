@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "capability_id": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "version": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "category",
+              "capability_id",
+              "owner",
+              "version",
+              "description"
+            ]
+          }
+        },
+        "page": {
+          "$ref": "../common/common.schema.json#/$defs/PageInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "items",
+        "page"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/system_capabilities.output.json"
+}

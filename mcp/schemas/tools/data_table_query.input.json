@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "dataset_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "dataset_id",
+    "version",
+    "coordinates"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/data_table_query.input.json"
+}

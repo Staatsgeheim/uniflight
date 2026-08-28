@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "campaign_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "requested_cases": {
+          "type": "integer"
+        },
+        "executed_cases": {
+          "type": "integer"
+        },
+        "resumed_cases": {
+          "type": "integer"
+        },
+        "failed_cases": {
+          "type": "integer"
+        },
+        "summary_uri": {
+          "type": "string"
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "campaign_id",
+        "status",
+        "requested_cases",
+        "executed_cases",
+        "resumed_cases",
+        "failed_cases",
+        "summary_uri",
+        "provenance"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_sweep.output.json"
+}

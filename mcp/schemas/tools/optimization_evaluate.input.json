@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "design": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "declaration": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "design"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/optimization_evaluate.input.json"
+}

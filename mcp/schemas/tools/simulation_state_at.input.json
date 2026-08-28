@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "run": {
+      "$ref": "../common/common.schema.json#/$defs/RunRef"
+    },
+    "vehicle_id": {
+      "type": "string"
+    },
+    "time_s": {
+      "type": "number"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "interpolation": {
+      "type": "string",
+      "enum": [
+        "dense",
+        "linear",
+        "nearest"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "run",
+    "vehicle_id",
+    "time_s"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_state_at.input.json"
+}

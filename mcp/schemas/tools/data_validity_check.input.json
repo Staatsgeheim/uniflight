@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "dataset_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "dataset_id",
+    "version",
+    "coordinates"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/data_validity_check.input.json"
+}

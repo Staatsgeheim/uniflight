@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "environment_id": {
+      "type": "string"
+    },
+    "time_s": {
+      "type": "number"
+    },
+    "position_i_m": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "environment_id",
+    "time_s",
+    "position_i_m"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/environment_sample.input.json"
+}

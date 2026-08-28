@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "declaration": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "settings": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "declaration"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/optimization_run.input.json"
+}

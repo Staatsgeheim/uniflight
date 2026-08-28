@@ -1,0 +1,33 @@
+{
+  "mission_validate": {
+    "document": {
+      "mission": {"id": "demo", "format_version": "1.0"}
+    },
+    "format": "json",
+    "base_uri": null
+  },
+  "simulation_events_first_page": {
+    "run": {"run_id": "run_01EXAMPLE"},
+    "vehicle_id": null,
+    "event_id": null,
+    "start_time_s": 0.0,
+    "end_time_s": 120.0,
+    "page": {"limit": 100, "cursor": null}
+  },
+  "analysis_cases_next_page": {
+    "campaign": {"campaign_id": "landing-mc-2026"},
+    "status": "failed",
+    "page": {"limit": 100, "cursor": "OPAQUE_CURSOR_FROM_PREVIOUS_RESPONSE"}
+  },
+  "verification_compare_csv": {
+    "reference_artifact_id": "art_reference",
+    "actual_artifact_id": "art_candidate",
+    "time_column": "time",
+    "channels": ["altitude", "speed"],
+    "tolerances": {
+      "altitude": {"absolute": 0.001, "relative": 1e-8, "scale_floor": 1.0},
+      "speed": {"absolute": 0.0001, "relative": 1e-8, "scale_floor": 1.0}
+    },
+    "time_alignment": "interpolate_actual_to_reference"
+  }
+}

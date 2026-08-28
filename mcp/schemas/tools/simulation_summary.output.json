@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "mission_sha256": {
+          "type": "string"
+        },
+        "final_time_s": {
+          "type": "number"
+        },
+        "vehicles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requested_outputs": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "event_count": {
+          "type": "integer"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "run_id",
+        "status",
+        "mission_sha256",
+        "final_time_s",
+        "vehicles",
+        "requested_outputs",
+        "event_count",
+        "warnings",
+        "provenance"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_summary.output.json"
+}

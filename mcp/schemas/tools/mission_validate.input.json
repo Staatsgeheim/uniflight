@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "document": {},
+    "format": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "yaml",
+        "toml",
+        "json",
+        null
+      ]
+    },
+    "base_uri": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "document"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/mission_validate.input.json"
+}

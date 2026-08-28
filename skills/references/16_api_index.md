@@ -1,6 +1,6 @@
 # Public API index
 
-This index is generated from UniFlight 1.0.2 source-level classes and public top-level functions. Inspect live source/signatures before coding against a different version.
+This index is generated from UniFlight 1.0.3 source-level classes and public top-level functions. Inspect live source/signatures before coding against a different version.
 
 ## `aborts.py`
 Classes: `LimitAbortRule`, `AbortManager`

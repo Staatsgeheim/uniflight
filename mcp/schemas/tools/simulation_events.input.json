@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "run": {
+      "$ref": "../common/common.schema.json#/$defs/RunRef"
+    },
+    "vehicle_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "start_time_s": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "end_time_s": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "page": {
+      "$ref": "../common/common.schema.json#/$defs/PageRequest"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "run"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_events.input.json"
+}

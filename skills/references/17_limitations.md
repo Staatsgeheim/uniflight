@@ -1,6 +1,6 @@
 # Known limitations and agent disclosure rules
 
-For UniFlight 1.0.2, agents should disclose relevant limitations rather than implying unsupported fidelity.
+For UniFlight 1.0.3, agents should disclose relevant limitations rather than implying unsupported fidelity.
 
 ## Built-in model limitations
 - Built-in gravity is primarily point-mass; advanced harmonics/third-body require extension.
@@ -22,7 +22,7 @@ Internal verification and NESC-style benchmark agreement do not establish:
 - independent IV&V.
 
 ## Version drift
-This skill targets 1.0.2. If a live checkout is newer:
+This skill targets 1.0.3. If a live checkout is newer:
 1. read its changelog/version;
 2. inspect changed public APIs;
 3. run its tests;

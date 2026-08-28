@@ -1,0 +1,7 @@
+{
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/system_version.input.json"
+}

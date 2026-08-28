@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "dataset_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "values": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "units": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "inside_validity": {
+          "type": "boolean"
+        },
+        "validity_violations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "dataset_id",
+        "version",
+        "sha256",
+        "values",
+        "units",
+        "inside_validity",
+        "validity_violations"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/data_table_query.output.json"
+}

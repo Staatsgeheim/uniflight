@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "verification_id": {
+          "type": "string"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "field_results": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "report_artifact": {
+          "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "verification_id",
+        "passed",
+        "field_results",
+        "report_artifact",
+        "provenance"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_compare_runs.output.json"
+}

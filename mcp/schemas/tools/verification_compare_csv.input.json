@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "properties": {
+    "reference_artifact_id": {
+      "type": "string"
+    },
+    "actual_artifact_id": {
+      "type": "string"
+    },
+    "time_column": {
+      "type": "string"
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tolerances": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "time_alignment": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "interpolate_actual_to_reference",
+        "snap_nominal_grid_then_interpolate"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "reference_artifact_id",
+    "actual_artifact_id",
+    "time_column",
+    "channels",
+    "tolerances"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_compare_csv.input.json"
+}

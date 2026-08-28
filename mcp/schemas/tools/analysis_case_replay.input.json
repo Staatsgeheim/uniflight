@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "campaign": {
+      "$ref": "../common/common.schema.json#/$defs/CampaignRef"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "solver_override": {
+      "$ref": "../common/common.schema.json#/$defs/SolverOverride"
+    },
+    "save_history": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "campaign",
+    "case_id"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_case_replay.input.json"
+}

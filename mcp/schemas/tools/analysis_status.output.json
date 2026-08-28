@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "campaign_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "mission_sha256": {
+          "type": "string"
+        },
+        "requested_cases": {
+          "type": "integer"
+        },
+        "completed_cases": {
+          "type": "integer"
+        },
+        "failed_cases": {
+          "type": "integer"
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "summary_uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "campaign_id",
+        "status",
+        "mission_sha256",
+        "requested_cases",
+        "completed_cases",
+        "failed_cases",
+        "started_at",
+        "updated_at",
+        "summary_uri"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_status.output.json"
+}

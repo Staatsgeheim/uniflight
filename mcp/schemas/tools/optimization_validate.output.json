@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true
+          }
+        },
+        "estimated_evaluations": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "valid",
+        "errors",
+        "estimated_evaluations"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/optimization_validate.output.json"
+}

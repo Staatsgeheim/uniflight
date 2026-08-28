@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "include_external_manifests": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_builtin.input.json"
+}

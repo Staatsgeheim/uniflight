@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "solver_family": {
+      "type": "string",
+      "enum": [
+        "rk4",
+        "scipy"
+      ]
+    },
+    "refinements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reference_mode": {
+      "type": "string",
+      "enum": [
+        "finest",
+        "analytic",
+        "external"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "solver_family",
+    "refinements",
+    "metrics"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_convergence.input.json"
+}

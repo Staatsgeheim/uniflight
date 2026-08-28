@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    "backend": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "serial",
+            "process",
+            "external"
+          ]
+        },
+        "workers": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "external_executor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ]
+    },
+    "store_uri": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission",
+    "campaign_id",
+    "variables"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_sweep.input.json"
+}

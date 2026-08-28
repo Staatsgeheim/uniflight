@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "run_a": {
+      "$ref": "../common/common.schema.json#/$defs/RunRef"
+    },
+    "run_b": {
+      "$ref": "../common/common.schema.json#/$defs/RunRef"
+    },
+    "vehicle_id": {
+      "type": "string"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sample_interval_s": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "tolerances": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "run_a",
+    "run_b",
+    "vehicle_id",
+    "fields",
+    "sample_interval_s",
+    "tolerances"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_compare_runs.input.json"
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "verification_id": {
+          "type": "string"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "observed_orders": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "errors": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "report_artifact": {
+          "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "verification_id",
+        "passed",
+        "observed_orders",
+        "errors",
+        "runs",
+        "report_artifact"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/verification_convergence.output.json"
+}

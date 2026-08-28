@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "mission": {
+      "$ref": "../common/common.schema.json#/$defs/MissionRef"
+    },
+    "solver_override": {
+      "$ref": "../common/common.schema.json#/$defs/SolverOverride"
+    },
+    "save_history": {
+      "type": "boolean",
+      "default": true
+    },
+    "output_interval_s": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "exclusiveMinimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mission"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_run.input.json"
+}

@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "document": {},
+    "format": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "yaml",
+        "toml",
+        "json",
+        null
+      ]
+    },
+    "persist": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "document"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniflight.dev/mcp/schemas/tools/mission_compile.input.json"
+}

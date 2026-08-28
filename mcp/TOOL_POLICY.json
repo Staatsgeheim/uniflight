@@ -1,0 +1,639 @@
+{
+  "spec_version": "0.1.0-draft",
+  "tools": {
+    "system_version": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 10,
+      "tags": [
+        "system"
+      ]
+    },
+    "system_capabilities": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 15,
+      "tags": [
+        "system"
+      ]
+    },
+    "mission_validate": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "mission"
+      ]
+    },
+    "mission_inspect": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "mission"
+      ]
+    },
+    "mission_compile": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 45,
+      "tags": [
+        "mission"
+      ]
+    },
+    "mission_apply_overrides": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "mission"
+      ]
+    },
+    "simulation_run": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 3600,
+      "tags": [
+        "simulation"
+      ]
+    },
+    "simulation_summary": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "simulation"
+      ]
+    },
+    "simulation_events": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "simulation",
+        "events"
+      ]
+    },
+    "simulation_state_at": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "simulation"
+      ]
+    },
+    "simulation_vehicle_history": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "simulation"
+      ]
+    },
+    "simulation_export_csv": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 120,
+      "tags": [
+        "simulation",
+        "export"
+      ]
+    },
+    "simulation_compare_solvers": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 3600,
+      "tags": [
+        "simulation",
+        "verification"
+      ]
+    },
+    "environment_sample": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "physics"
+      ]
+    },
+    "vehicle_flow_state": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "physics"
+      ]
+    },
+    "vehicle_forces": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "physics",
+        "diagnostics"
+      ]
+    },
+    "optimization_validate": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "optimization"
+      ]
+    },
+    "optimization_evaluate": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 1800,
+      "tags": [
+        "optimization"
+      ]
+    },
+    "optimization_run": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 7200,
+      "tags": [
+        "optimization"
+      ]
+    },
+    "analysis_sweep": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:analysis",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 86400,
+      "tags": [
+        "analysis"
+      ]
+    },
+    "analysis_monte_carlo": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:analysis",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 86400,
+      "tags": [
+        "analysis",
+        "monte-carlo"
+      ]
+    },
+    "analysis_sobol": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:analysis",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 86400,
+      "tags": [
+        "analysis",
+        "sobol"
+      ]
+    },
+    "analysis_optimization_batch": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:analysis",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 86400,
+      "tags": [
+        "analysis",
+        "optimization"
+      ]
+    },
+    "analysis_status": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "analysis"
+      ]
+    },
+    "analysis_cases": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "analysis"
+      ]
+    },
+    "analysis_failures": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "analysis"
+      ]
+    },
+    "analysis_case_replay": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 3600,
+      "tags": [
+        "analysis",
+        "debug"
+      ]
+    },
+    "data_catalog_list": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "data"
+      ]
+    },
+    "data_table_query": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 30,
+      "tags": [
+        "data"
+      ]
+    },
+    "data_validity_check": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "data"
+      ]
+    },
+    "verification_builtin": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 3600,
+      "tags": [
+        "verification"
+      ]
+    },
+    "verification_compare_csv": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 600,
+      "tags": [
+        "verification",
+        "external-benchmark"
+      ]
+    },
+    "verification_compare_runs": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 3600,
+      "tags": [
+        "verification"
+      ]
+    },
+    "verification_convergence": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:compute",
+        "uniflight:write-artifacts"
+      ],
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "task_mode": "optional",
+      "timeout_s": 7200,
+      "tags": [
+        "verification"
+      ]
+    },
+    "plugin_list": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "plugin"
+      ]
+    },
+    "plugin_inspect": {
+      "component_version": "1",
+      "required_scopes": [
+        "uniflight:read"
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "task_mode": "forbidden",
+      "timeout_s": 20,
+      "tags": [
+        "plugin"
+      ]
+    }
+  }
+}

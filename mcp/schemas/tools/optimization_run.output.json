@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "best_design": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "objective": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "metrics": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "constraint_violation": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "evaluations": {
+          "type": "integer"
+        },
+        "best_run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "optimized_mission_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "report_artifact": {
+          "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "success",
+        "message",
+        "best_design",
+        "objective",
+        "metrics",
+        "constraint_violation",
+        "evaluations",
+        "best_run_id",
+        "optimized_mission_id",
+        "report_artifact",
+        "provenance"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/optimization_run.output.json"
+}

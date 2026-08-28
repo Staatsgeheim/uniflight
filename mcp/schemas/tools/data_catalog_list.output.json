@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dataset_id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "axes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "outputs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "dataset_id",
+              "version",
+              "sha256",
+              "kind",
+              "axes",
+              "outputs",
+              "source"
+            ]
+          }
+        },
+        "page": {
+          "$ref": "../common/common.schema.json#/$defs/PageInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "items",
+        "page"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/data_catalog_list.output.json"
+}

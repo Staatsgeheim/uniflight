@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "original_metrics": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "differences": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "case_id",
+        "run_id",
+        "metrics",
+        "original_metrics",
+        "differences",
+        "provenance"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/analysis_case_replay.output.json"
+}

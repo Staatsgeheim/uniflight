@@ -32,6 +32,7 @@ It is a research / engineering simulator. It does **not** claim flight heritage,
 | **Analysis** | Cartesian / zipped sweeps, Monte Carlo, Saltelli–Sobol, SQLite checkpoint / restart |
 | **Plugins** | Entry-point discovery, exact version pins, namespaced capability registration |
 | **Verification** | Analytical limits, manufactured solutions, conservation checks, CSV time-history compare |
+| **MCP** | Optional FastMCP 3.x server: 36 tools for missions, simulation, data, optimization, campaigns, and verification |
 
 ---
 
@@ -54,13 +55,20 @@ From a clone, for development:
 python -m pip install --no-build-isolation -e ".[dev]"
 ```
 
-This installs the library and three console scripts:
+The MCP server is an optional extra:
+
+```bash
+python -m pip install "uniflight[mcp]"
+```
+
+This installs the library and four console scripts:
 
 | Command | Role |
 | --- | --- |
 | `uniflight-mission` | Validate, inspect, run, and optimize declarative missions |
 | `uniflight-analysis` | Sweeps, Monte Carlo, Sobol, multistart optimization, SQLite stores |
 | `uniflight-verify` | Built-in verification suite and external CSV comparison |
+| `uniflight-mcp` | FastMCP 3.x agent server (requires the `mcp` extra) |
 
 ---
 
@@ -323,6 +331,25 @@ assert report.skipped == 2
 
 ---
 
+## MCP server
+
+`uniflight-mcp` is a FastMCP 3.x server that calls UniFlight public APIs. Contracts live in `mcp/`; the implementation is `src/uniflight_mcp/`.
+
+```bash
+# STDIO (trusted local)
+uniflight-mcp --transport stdio --workspace ./workspace
+
+# Streamable HTTP (configure tokens via UNIFLIGHT_MCP_TOKENS)
+uniflight-mcp --transport http --host 127.0.0.1 --port 8000 --workspace ./workspace
+
+# Discover the 36-tool contract
+fastmcp list mcp/server.py --json --input-schema --output-schema
+```
+
+There is no plugin-install or shell tool. Long runs use FastMCP background tasks. Redis/Valkey Docket is optional via `UNIFLIGHT_MCP_DOCKET_URL`.
+
+---
+
 ## Python API map
 
 Import from the top-level package. A few composition patterns:
@@ -360,7 +387,7 @@ from uniflight import (
 python -m pytest
 ```
 
-The suite covers kernel frames, atmospheres, 6-DOF aero/TVC, entry/EDL, GNC robustness, optimization, multi-vehicle events, subsystems, engineering tables, the mission language, plugins, analysis/HPC, and verification.
+The suite covers kernel frames, atmospheres, 6-DOF aero/TVC, entry/EDL, GNC robustness, optimization, multi-vehicle events, subsystems, engineering tables, the mission language, plugins, analysis/HPC, verification, and the MCP server.
 
 ---
 
@@ -368,12 +395,14 @@ The suite covers kernel frames, atmospheres, 6-DOF aero/TVC, entry/EDL, GNC robu
 
 ```text
 src/uniflight/     library
+src/uniflight_mcp/ FastMCP 3.x server (optional extra)
 tests/             pytest suite
 examples/          runnable Python demonstrations
 missions/          YAML / TOML missions + JSON Schema
 reports/           reference JSON / SQLite / synthetic tables
 demo_plugin/       separate third-party plugin distribution
 skills/            agent skill for UniFlight
+mcp/               FastMCP tool/resource contracts and design spec
 ```
 
 ---

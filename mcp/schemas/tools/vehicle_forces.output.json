@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "contributions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "frame": {
+                "type": "string"
+              },
+              "force_n": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "moment_nm": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "source",
+              "frame",
+              "force_n",
+              "moment_nm"
+            ]
+          }
+        },
+        "net_force_i_n": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "net_moment_b_nm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "mass_kg": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "contributions",
+        "net_force_i_n",
+        "net_moment_b_nm",
+        "mass_kg"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/vehicle_forces.output.json"
+}

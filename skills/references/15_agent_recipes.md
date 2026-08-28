@@ -91,3 +91,13 @@
 - per-channel residuals;
 - convergence run;
 - reproducibility bundle.
+
+## Recipe K — MCP server
+- install `uniflight[mcp]`;
+- run `uniflight-mcp --transport stdio --workspace ./workspace`;
+- `system_version` / `system_capabilities` first;
+- `mission_validate` → `mission_compile` → `simulation_run`;
+- inspect with `simulation_summary` / `simulation_events` / history pages;
+- campaigns via `analysis_*` with checkpointed `campaign_id`;
+- verify with `verification_builtin` or CSV compare;
+- never call plugin-install or shell tools.

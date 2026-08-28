@@ -22,13 +22,25 @@ jobs:
           cache: pip
 
       - name: Install project and development tools
-        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev,mcp]"
 
       - name: Ruff correctness lint
         run: ruff check src tests
 
+      - name: Mypy MCP package
+        run: python -m mypy src/uniflight_mcp
+
       - name: Tests with branch coverage
         run: pytest --cov=uniflight --cov-branch --cov-report=term-missing --cov-fail-under=80
+
+      - name: FastMCP contract discovery
+        run: fastmcp list mcp/server.py --json --input-schema --output-schema > /tmp/fastmcp-tools.json
+
+      - name: MCP STDIO smoke
+        run: python -c "from uniflight_mcp.server import create_server; create_server(); print('ok')"
+
+      - name: MCP Streamable HTTP smoke
+        run: python -c "from uniflight_mcp.server import create_server; assert create_server().http_app() is not None"
 
       - name: Build sdist and wheel
         run: python -m build
@@ -40,11 +52,15 @@ jobs:
           . .wheel-smoke/bin/activate
           python -m pip install --upgrade pip
           python -m pip install dist/*.whl
+          python -m pip install "fastmcp[tasks]>=3.4.7,<4"
           uniflight-mission validate missions/nereid_l_minimal.toml
           uniflight-verify run --output /tmp/uniflight-verification.json
+          uniflight-mcp --help
           python - <<'PY'
           import json
           from pathlib import Path
           report = json.loads(Path("/tmp/uniflight-verification.json").read_text())
           assert report["summary"]["failed"] == 0
+          from uniflight_mcp.server import create_server
+          create_server()
           PY

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "vehicle_id": {
+          "type": "string"
+        },
+        "time_s": {
+          "type": "number"
+        },
+        "schema": {
+          "type": "string"
+        },
+        "state": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "units": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "interpolation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "vehicle_id",
+        "time_s",
+        "schema",
+        "state",
+        "units",
+        "interpolation"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_state_at.output.json"
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "const": true
+        },
+        "run_a": {
+          "type": "string"
+        },
+        "run_b": {
+          "type": "string"
+        },
+        "metric_errors": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        },
+        "comparison_artifact": {
+          "$ref": "../common/common.schema.json#/$defs/ArtifactRef"
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "run_a",
+        "run_b",
+        "metric_errors",
+        "comparison_artifact",
+        "provenance"
+      ]
+    },
+    {
+      "$ref": "../common/common.schema.json#/$defs/ToolFailure"
+    }
+  ],
+  "$id": "https://uniflight.dev/mcp/schemas/tools/simulation_compare_solvers.output.json"
+}
