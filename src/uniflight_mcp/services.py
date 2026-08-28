@@ -1187,7 +1187,7 @@ class VerificationService:
         }
 
     def compare_csv(self, ref_id: str, act_id: str, time_column: str, channels: list[str],
-                    tolerances: Mapping[str, Any], alignment: Mapping[str, Any] | None,
+                    tolerances: Mapping[str, Any], alignment: Mapping[str, Any] | str | None,
                     auth: AuthorizationContext) -> dict[str, Any]:
         ref_meta, ref_bytes = self.app.artifacts.read_bytes(ref_id, tenant=auth.tenant_id)
         act_meta, act_bytes = self.app.artifacts.read_bytes(act_id, tenant=auth.tenant_id)
